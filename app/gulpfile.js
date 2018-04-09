@@ -38,11 +38,11 @@ gulp.task('css', () => {
   return gulp.src([
     'public-source/css/vendor/reset.scss',
 
-    'public-source/css/helix/fonts.scss',
-    'public-source/css/helix/variables.scss',
-    'public-source/css/helix/mixins.scss',
-    'public-source/css/helix/helpers.scss',
-    'public-source/css/helix/base.scss',
+    'public-source/css/helix-logo/fonts.scss',
+    'public-source/css/helix-logo/variables.scss',
+    'public-source/css/helix-logo/mixins.scss',
+    'public-source/css/helix-logo/helpers.scss',
+    'public-source/css/helix-logo/base.scss',
 
     'public-source/css/**/*.scss'
   ])
