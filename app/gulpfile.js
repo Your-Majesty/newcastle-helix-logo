@@ -11,11 +11,17 @@ function err (error) {
 }
 
 gulp.task('js', () => {
-  const vendor = gulp.src('source/js/vendor/**/*.js')
+  const vendor = gulp.src([
+    'public-source/js/vendor/three.min.js',
+    'public-source/js/vendor/**/*.js'
+  ])
     .pipe(concat('vendor.js'))
 
   const app = gulp.src([
-    'public-source/js/helix-logo/**/*.js'
+
+    'public-source/js/helix-logo/shaders/**/*.js',
+    'public-source/js/helix-logo/services/**/*.js',
+    'public-source/js/helix-logo/components/**/*.js'
   ])
     .pipe(concat('app.js'))
     .pipe(babel({
@@ -36,14 +42,6 @@ gulp.task('js', () => {
 
 gulp.task('css', () => {
   return gulp.src([
-    'public-source/css/vendor/reset.scss',
-
-    'public-source/css/helix-logo/fonts.scss',
-    'public-source/css/helix-logo/variables.scss',
-    'public-source/css/helix-logo/mixins.scss',
-    'public-source/css/helix-logo/helpers.scss',
-    'public-source/css/helix-logo/base.scss',
-
     'public-source/css/**/*.scss'
   ])
     .pipe(concat('helix-logo.css'))
