@@ -20,7 +20,7 @@ gulp.task('js', () => {
   const app = gulp.src([
     'public-source/js/helix-logo/shaders/**/*.js',
     'public-source/js/helix-logo/services/**/*.js',
-    'public-source/js/helix-logo/components/HelixLogoTexture.js'
+    'public-source/js/helix-logo/components/**/*.js',
     'public-source/js/helix-logo/HelixLogoApp.js'
   ])
     .pipe(concat('app.js'))

@@ -1,2 +1,7 @@
-console.log('test')
+
+HellixLogoApp = function(){
+  const helixRibbon = new HelixLogoTexture()
+}()
+
+
 
