@@ -13,7 +13,9 @@ float wrap(float x) {
 void main() {
   float q = position.x + offset,
         t = position.y,
-        p = sin(time), r = cos(p+cos(time*.71)+time*.141), s = cos(time + p*1.23 - r);
+        p = sin(time), 
+        r = cos(p+cos(time*.71)+time*.141), 
+        s = cos(time + p*1.23 - r);
   
   float f = ((t-q*1.71+p)*(t-q*2.91-r)*(1.0+t+q*q*r*2.1+p*r)*.6+(t-q*1.35-s)*(t-p*q*1.14-2.0+s)*.6);
   

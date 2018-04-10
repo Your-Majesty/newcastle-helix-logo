@@ -1,9 +1,8 @@
-class HelixLogoRibbon {
-  
+class HelixLogoTexture {
   constructor() {
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
-    this.totalRibbons = 5
+    this.totalRibbons =20
     this.uniforms = []
     this.colors = [
       new THREE.Color(0x7292b6),
@@ -14,7 +13,7 @@ class HelixLogoRibbon {
       new THREE.Color(0xffffff),
       new THREE.Color(0x503c81)
     ]
-
+    
     this.resize()
     this.createScene()
     this.createRibbons()
@@ -29,28 +28,32 @@ class HelixLogoRibbon {
   createScene() {
 
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 45, this.width / this.height, 1, 1700 )
+    this.camera = new THREE.PerspectiveCamera( 45, this.width / this.height, 1, 1000 )
 
     // Create Renderer
     this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true} )
     this.renderer.setSize( this.width, this.height )
+    this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
 
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
-    this.controls.addEventListener( 'change', this.render )
-    this.controls.enableZoom = false
+    this.controls.update()
+
+    this.controls.enableDamping = true // an animation loop is required when either damping or auto-rotation are enabled
+    this.controls.dampingFactor = 0.25
+    this.controls.panningMode = THREE.HorizontalPanning // default is THREE.ScreenSpacePanning
+    this.controls.minDistance = 1
+    this.controls.maxDistance = 500
+    this.controls.maxPolarAngle = Math.PI / 2;
   }
 
   createRibbons() {
-    this.colors = this.colors.reverse()
-
-     let width = 0.2 / this.totalRibbons
-     let height = 16
-     let segments = 3000
+    let width = 0.2 / this.totalRibbons
+    let height = 16
+    let segments = 3000
       
     for (var i = 0; i < this.totalRibbons; i++) {
       let geometry = new THREE.PlaneGeometry(width, height, 3, segments)
-    
       this.uniforms.push({
           time: {
             type: 'f', // a float
@@ -89,16 +92,15 @@ class HelixLogoRibbon {
   animate() {
     requestAnimationFrame(() => { this.animate() })
     this.time += .01
-    this.controls.update()
     
     for (var i = 0; i < this.totalRibbons; ++i) {
       this.uniforms[i].time.value = this.time
     }
     
+    this.controls.update()
     this.renderer.render( this.scene, this.camera )
   }
 }
 
-
-const helixRibbon = new HelixLogoRibbon()
+const helixRibbon = new HelixLogoTexture()
 
