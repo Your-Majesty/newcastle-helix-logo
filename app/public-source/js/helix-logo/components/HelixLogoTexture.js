@@ -68,7 +68,7 @@ class HelixLogoTexture {
   animate() {
     requestAnimationFrame(() => { this.animate() })
     this.stats.begin()
-    this.time += .009
+    this.time += .0009
 
     // Update Ribbons
     this.ribbons.forEach((ribbon) => {
