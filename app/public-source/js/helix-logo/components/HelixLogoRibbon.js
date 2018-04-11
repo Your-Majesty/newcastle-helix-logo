@@ -1,5 +1,5 @@
 class HelixLogoRibbon {
-  constructor(width, height, index) {
+  constructor(width, height, index, colorA, colorB) {
     this.segments = 3000
     this.index = index
     this.width = width
@@ -17,6 +17,14 @@ class HelixLogoRibbon {
       index: {
         type: 'f',
         value: parseFloat(index),
+      },
+      colorA: {
+        type: 'vec3',
+        value: colorA
+      },
+      colorB: {
+        type: 'vec3',
+        value: colorB
       },
     }
 

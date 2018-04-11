@@ -7,6 +7,8 @@ varying vec3 vColor;
 uniform float time;
 uniform float offset;
 uniform float index;
+uniform vec3 colorA;
+uniform vec3 colorB;
 
 float wrap(float x) {
   if (abs(x) < 1.0) return x*1.5708;

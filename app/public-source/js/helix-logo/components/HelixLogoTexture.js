@@ -34,7 +34,7 @@ class HelixLogoTexture {
     this.createRibbons()
     this.animate()
 
-    this.calculateColors(0.43)
+    this.calculateColors(0.5)
   }
 
   resize() {
@@ -74,20 +74,20 @@ class HelixLogoTexture {
     let height = 10
     
     for (var i = 0; i < this.totalRibbons; i++) {
-      this.ribbons.push(new HelixLogoRibbon(width, height, i))
+      this.ribbons.push(new HelixLogoRibbon(width, height, i, this.gradientColors[3], this.gradientColors[4]))
       this.ribbons[i].createFaces(this.colors)
       this.scene.add(this.ribbons[i].ribbonMesh)
     }
   }
 
   calculateColors(temperatureAverage) {
-    console.log(temperatureAverage)
-    console.log(this.gradientColors)
-
     let colorSegments = 1 / (this.gradientColors.length - 1) 
-    console.log(colorSegments)
+    let gradientGuide = Math.floor(temperatureAverage / colorSegments)
 
-    // Math.ceil(parseInt(color1.substring(0,2), 16) * ratio + parseInt(color2.substring(0,2), 16) * (1-ratio));
+    this.ribbons.forEach((ribbon) => {
+      ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
+      ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
+    })
   }
 
   animate() {
