@@ -8,9 +8,11 @@ class HelixLogoTexture {
     this.uniforms = []
     this.colors = [
       new THREE.Color(0x7292b6),
+      new THREE.Color(0xffffff),
       new THREE.Color(0x4a4c90),
+      new THREE.Color(0xffffff),
       new THREE.Color(0x513a80),
-      new THREE.Color(0x503c81)
+      new THREE.Color(0xffffff)
     ]
     
     this.createStats()
@@ -53,8 +55,8 @@ class HelixLogoTexture {
   }
 
   createRibbons() {
-    let width = 0.2 / this.totalRibbons
-    let height = 60
+    let width = 0.5 / this.totalRibbons
+    let height = 10
     
     for (var i = 0; i < this.totalRibbons; i++) {
       this.ribbons.push(new HelixLogoRibbon(width, height, i))
