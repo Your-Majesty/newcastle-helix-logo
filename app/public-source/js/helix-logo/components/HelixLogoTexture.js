@@ -15,11 +15,26 @@ class HelixLogoTexture {
       new THREE.Color(0xffffff)
     ]
     
+    this.gradientColors = [
+      // Teal
+      new THREE.Color("rgb(51, 255, 204)"),
+      // Blue
+      new THREE.Color("rgb(0, 51, 255)"),
+      // Indigo
+      new THREE.Color("rgb(51, 0, 102)"),
+      // Magenta
+      new THREE.Color("rgb(166, 10, 122)"),
+      // Orange
+      new THREE.Color("rgb(255, 107, 0)")
+    ]
+    
     this.createStats()
     this.resize()
     this.createScene()
     this.createRibbons()
     this.animate()
+
+    this.calculateColors(0.43)
   }
 
   resize() {
@@ -65,10 +80,20 @@ class HelixLogoTexture {
     }
   }
 
+  calculateColors(temperatureAverage) {
+    console.log(temperatureAverage)
+    console.log(this.gradientColors)
+
+    let colorSegments = 1 / (this.gradientColors.length - 1) 
+    console.log(colorSegments)
+
+    // Math.ceil(parseInt(color1.substring(0,2), 16) * ratio + parseInt(color2.substring(0,2), 16) * (1-ratio));
+  }
+
   animate() {
     requestAnimationFrame(() => { this.animate() })
     this.stats.begin()
-    this.time += .0009
+    this.time += .007
 
     // Update Ribbons
     this.ribbons.forEach((ribbon) => {
