@@ -14,6 +14,10 @@ class HelixLogoRibbon {
         type: 'f',
         value: ((index + 2.) * width),
       },
+      index: {
+        type: 'f',
+        value: parseFloat(index),
+      },
     }
 
     this.createGeometry()

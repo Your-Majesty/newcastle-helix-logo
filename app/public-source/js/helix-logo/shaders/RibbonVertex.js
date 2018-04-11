@@ -6,6 +6,7 @@ varying vec3 vColor;
 
 uniform float time;
 uniform float offset;
+uniform float index;
 
 float wrap(float x) {
   if (abs(x) < 1.0) return x*1.5708;
@@ -26,13 +27,13 @@ void main() {
   vec3 ribbon = vec3(-cos(wrap(f)+time)*q*2.0, t, sin(wrap(f)+time)*q*2.0);
   
   
-  gl_Position = projectionMatrix *
-                modelViewMatrix *
-                vec4(ribbon, 1.0);
-
-
   // gl_Position = projectionMatrix *
   //               modelViewMatrix *
-  //               vec4(q, t, 0., 1.0);
+  //               vec4(ribbon, 1.0);
+
+
+  gl_Position = projectionMatrix *
+                modelViewMatrix *
+                vec4(q, t, 0., 1.0);
 }
 `
