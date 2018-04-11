@@ -8,18 +8,15 @@ varying vec3 vColor;
 uniform float time;
 uniform float offset;
 
-vec3 checker(vec2 uv, vec2 size) {
-  vec2 m = sign(fract(uv.y*size) - .5);
-  return vec3(m.x * m.y);
-}
+vec3 colorA = vec3(0.149,0.141,0.912);
 
 void main(){
-  vec2 uv = vUv * (50.0 * offset);        
-  vec2 size = .5 + vec2(15.0, 0.5 + (time * 0.2));
-  vec3 color = checker(1.0 - uv, size);
+    vec2 st = vUv;
+    vec3 color = vec3(0.0);
 
-  color = vColor * color;
+    vec3 pct = vec3(st.y);
 
-  gl_FragColor = vec4(color, 1.0);
+    color = mix(vColor, colorA, pct.y);
+    gl_FragColor = vec4(color,1.0);
 }
 `

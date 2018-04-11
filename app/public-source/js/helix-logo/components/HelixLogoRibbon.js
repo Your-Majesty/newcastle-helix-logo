@@ -48,7 +48,7 @@ class HelixLogoRibbon {
          this.geometry,
          this.shaderMaterial)
 
-    this.ribbonMesh.doubleSided = true
+    this.shaderMaterial.side = THREE.DoubleSide
     this.ribbonMesh.rotation.x += Math.PI / 2
     this.ribbonMesh.position.x += .5
   }

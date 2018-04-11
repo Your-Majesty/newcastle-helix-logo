@@ -8,11 +8,8 @@ class HelixLogoTexture {
     this.uniforms = []
     this.colors = [
       new THREE.Color(0x7292b6),
-      new THREE.Color(0xffffff),
       new THREE.Color(0x4a4c90),
-      new THREE.Color(0xffffff),
       new THREE.Color(0x513a80),
-      new THREE.Color(0xffffff),
       new THREE.Color(0x503c81)
     ]
     
