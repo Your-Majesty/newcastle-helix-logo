@@ -1,14 +1,17 @@
 const RibbonVertex = `
 precision highp float;
 
+varying vec3 vNormal;
 varying vec2 vUv;
-varying vec3 vColor;
 
 uniform float time;
 uniform float offset;
 uniform float index;
 uniform vec3 colorA;
 uniform vec3 colorB;
+uniform float lineSpeed;
+uniform float lineBreakSeparation;
+uniform float lineBreakSize;
 
 float wrap(float x) {
   if (abs(x) < 1.0) return x*1.5708;
@@ -18,7 +21,7 @@ float wrap(float x) {
 
 void main() {
   vUv = uv;
-  vColor = color;
+  vNormal = normal;
   float q = position.x + (offset * 1.0);
   float t = position.y;
   float p = sin(time); 

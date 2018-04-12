@@ -26,6 +26,18 @@ class HelixLogoRibbon {
         type: 'vec3',
         value: colorB
       },
+      lineSpeed: {
+        type: 'f',
+        value: 0.1
+      },
+      lineBreakSeparation: {
+        type: 'f',
+        value: 0.95
+      },
+      lineBreakSize: {
+        type: 'f',
+        value: 10.
+      }
     }
 
     this.createGeometry()
@@ -43,16 +55,7 @@ class HelixLogoRibbon {
       vertexShader:   RibbonVertex,
       fragmentShader: RibbonColors,
       uniforms:       this.uniform,
-      vertexColors:   true,
     })
-  }
-
-  createFaces(colors) {
-    for (var k = 0; k < this.geometry.faces.length; ++k) {
-      f  = this.geometry.faces[k]
-      f.color = colors[this.index % colors.length]
-
-    }
   }
 
   createMeshRibbon() {

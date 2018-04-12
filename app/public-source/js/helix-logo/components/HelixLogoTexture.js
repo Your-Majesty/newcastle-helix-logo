@@ -3,6 +3,12 @@ class HelixLogoTexture {
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
     this.totalRibbons = 15
+
+    this.colorScale = 0.2
+    this.lineSpeed = 0.1
+    this.lineSeparation = 0.95
+    this.lineBreakSize = 10.
+
     this.ribbons = []
 
     this.uniforms = []
@@ -34,7 +40,7 @@ class HelixLogoTexture {
     this.createRibbons()
     this.animate()
 
-    this.calculateColors(0.5)
+
   }
 
   resize() {
@@ -71,11 +77,10 @@ class HelixLogoTexture {
 
   createRibbons() {
     let width = 0.5 / this.totalRibbons
-    let height = 10
+    let height = 12
     
     for (var i = 0; i < this.totalRibbons; i++) {
       this.ribbons.push(new HelixLogoRibbon(width, height, i, this.gradientColors[3], this.gradientColors[4]))
-      this.ribbons[i].createFaces(this.colors)
       this.scene.add(this.ribbons[i].ribbonMesh)
     }
   }
@@ -101,6 +106,14 @@ class HelixLogoTexture {
     })
 
     this.controls.update()
+
+    this.calculateColors(this.colorScale)
+    this.ribbons.forEach((ribbon) => {
+      ribbon.uniform.lineSpeed.value = this.lineSpeed
+      ribbon.uniform.lineSpeed.value = this.lineSpeed
+      ribbon.uniform.lineBreakSeparation.value = this.lineSeparation
+      ribbon.uniform.lineBreakSize.value = this.lineBreakSize
+    })
 
     this.stats.end()
     this.renderer.render( this.scene, this.camera )
