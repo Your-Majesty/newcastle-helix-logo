@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+
+const spawn = require('child_process').spawn
+const argv = process.argv
+
+console.log(`
+ __   _ _______ _  _  _ _______ _______ _______ _______        _______
+ | \\  | |______ |  |  | |       |_____| |______    |    |      |______
+ |  \\_| |______ |__|__| |_____  |     | ______|    |    |_____ |______
+ _     _ _______        _____ _     _
+ |_____| |______ |        |    \\___/
+ |     | |______ |_____ __|__ _/   \\_
+
+          _____   ______  _____
+  |      |     | |  ____ |     |
+  |_____ |_____| |_____| |_____|
+`)
+
+if (argv[2] == 'help') {
+  console.log(`
+
+Available commands:
+
+  deploy:<environment>
+      Deploy to an environment
+
+`.trim())
+
+  return
+}
+
+if (argv[2].indexOf('deploy') > -1) {
+  var target = argv[2].split(':')
+
+  if (target[1] == 'staging') {
+    spawn(`
+      ssh gatekeeper@192.168.1.95 "
+        cd /var/www/newcastle-helix-logo;
+        git fetch --all;
+        git reset --hard origin/develop;
+
+        docker-compose exec web bash -c '
+          npm install &&
+          gulp &&
+          pm2 reload all;
+        '
+      "
+    `, {
+      shell: true,
+      stdio: 'inherit'
+    })
+  } else {
+    console.log('No target supplied, or deploy target not found.')
+  }
+
+}
