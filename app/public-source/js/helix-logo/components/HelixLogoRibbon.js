@@ -4,6 +4,8 @@ class HelixLogoRibbon {
     this.index = index
     this.width = width
     this.height = height
+
+    this.offset = ((index + 2.) * width)
     
     this.uniform = {
       time: {
@@ -46,7 +48,27 @@ class HelixLogoRibbon {
   }
   
   createGeometry() {
-    this.geometry = new THREE.PlaneGeometry(this.width, this.height, 3, this.segments)
+    this.geometry = new THREE.PlaneGeometry(this.width, this.height, 1, this.segments)
+    // Angle in radians
+    let angle = (360 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
+    
+    let radius = 0.5 + this.offset
+    let R = (40 + this.offset)
+    let n = 5
+ 
+
+    for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
+      
+      this.geometry.vertices[2*i].x = (R + (radius * Math.cos(n * (i * angle)))) * Math.cos(i * angle)
+      this.geometry.vertices[2*i].y = (R + (radius * Math.cos(n * (i * angle)))) * Math.sin(i * angle)
+      this.geometry.vertices[2*i].z = radius * Math.sin(n * (i * angle))
+
+
+      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.cos(i * angle)
+      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.sin(i * angle)
+      this.geometry.vertices[2*i+1].z = (radius + this.width) * Math.sin(n * (i * angle))
+    }
+    this.geometry.verticesNeedUpdate = true;
   }
 
   createShaderMaterial() {
@@ -54,7 +76,7 @@ class HelixLogoRibbon {
       depthTest: true,
       vertexShader:   RibbonVertex,
       fragmentShader: RibbonColors,
-      uniforms:       this.uniform,
+      uniforms:       this.uniform
     })
   }
 
@@ -65,6 +87,6 @@ class HelixLogoRibbon {
 
     this.shaderMaterial.side = THREE.DoubleSide
     this.ribbonMesh.rotation.x += Math.PI / 2
-    this.ribbonMesh.position.x += .5
+    // this.ribbonMesh.position.x += .5
   }
 }

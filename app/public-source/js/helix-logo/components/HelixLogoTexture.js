@@ -76,8 +76,8 @@ class HelixLogoTexture {
   }
 
   createRibbons() {
-    let width = 0.5 / this.totalRibbons
-    let height = 12
+    let width = 1.0
+    let height = 16
     
     for (var i = 0; i < this.totalRibbons; i++) {
       this.ribbons.push(new HelixLogoRibbon(width, height, i, this.gradientColors[3], this.gradientColors[4]))
