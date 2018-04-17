@@ -76,7 +76,7 @@ class HelixLogoTexture {
   }
 
   createRibbons() {
-    let width = 1.0
+    let width = 15.5 / this.totalRibbons
     let height = 16
     
     for (var i = 0; i < this.totalRibbons; i++) {

@@ -14,7 +14,7 @@ class HelixLogoRibbon {
       },
       offset: {
         type: 'f',
-        value: ((index + 2.) * width),
+        value: this.offset,
       },
       index: {
         type: 'f',
@@ -39,6 +39,26 @@ class HelixLogoRibbon {
       lineBreakSize: {
         type: 'f',
         value: 10.
+      },
+      totalVertices: {
+        type: 'f',
+        value: 0.
+      }, 
+      parentRadius: {
+        type: 'f',
+        value: 20.
+      },
+      childRadius: {
+        type: 'f',
+        value: 0.5
+      },
+      totalLoops: {
+        type: 'f',
+        'value': 5.0
+      },
+      width: {
+        type: 'f',
+        'value': parseFloat(this.width)
       }
     }
 
@@ -49,12 +69,13 @@ class HelixLogoRibbon {
   
   createGeometry() {
     this.geometry = new THREE.PlaneGeometry(this.width, this.height, 1, this.segments)
+    this.uniform.totalVertices.value = parseFloat(this.geometry.vertices.length)
+
     // Angle in radians
     let angle = (360 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
-    
     let radius = 0.5 + this.offset
     let R = (40 + this.offset)
-    let n = 5
+    let n = 8
  
 
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
@@ -64,8 +85,8 @@ class HelixLogoRibbon {
       this.geometry.vertices[2*i].z = radius * Math.sin(n * (i * angle))
 
 
-      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.cos(i * angle)
-      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.sin(i * angle)
+      this.geometry.vertices[2*i+1].x = ((R) + ((radius) * Math.cos(n * (i * angle)))) * Math.cos(i * angle)
+      this.geometry.vertices[2*i+1].y = ((R) + ((radius) * Math.cos(n * (i * angle)))) * Math.sin(i * angle)
       this.geometry.vertices[2*i+1].z = (radius + this.width) * Math.sin(n * (i * angle))
     }
     this.geometry.verticesNeedUpdate = true;
@@ -86,7 +107,7 @@ class HelixLogoRibbon {
          this.shaderMaterial)
 
     this.shaderMaterial.side = THREE.DoubleSide
-    this.ribbonMesh.rotation.x += Math.PI / 2
+    // this.ribbonMesh.rotation.x += Math.PI / 2
     // this.ribbonMesh.position.x += .5
   }
 }
