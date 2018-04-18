@@ -105,7 +105,7 @@ class HelixLogoTexture {
     this.ribbons.forEach((ribbon) => {
       ribbon.uniform.time.value = this.time
       ribbon.drawGeometry()
-      ribbon.variator +=  .004;
+      ribbon.variator +=  .009;
     })
 
     this.controls.update()

@@ -6,7 +6,7 @@ class HelixLogoRibbon {
     this.height = height
 
     this.variation = 0.002
-    this.amplitude = 10
+    this.amplitude = 4.5
 
     this.offset = ((index + 2.) * width)
     this.variator = .00002 * (this.index)
@@ -90,12 +90,14 @@ class HelixLogoRibbon {
     // let n = 25
     let radius = 0.6 + this.offset
     let R = (40 + this.offset)
-    let n = 2
+    let n = 8
+
+    this.variation = 0.002 * Math.sin(0.5) 
 
 
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
       let angleDeg = i * (360 / ((this.geometry.vertices.length) / 2))
-      let noise = this.perlin.noise(i * this.variation * Math.cos(50.5), i * this.variation, i * this.variation + this.variator * Math.cos(0.3))
+      let noise = this.perlin.noise(i * this.variation * Math.cos(80.5) * Math.sin(0.3), i * this.variation, i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 1.6)
       // let noise2 = this.perlin.noise(i * this.variation + this.variator * Math.cos(0.5), i * this.variation, i * this.variation + this.variator * Math.cos(0.3))
       // this.geometry.vertices[2*i].x = (radius + (this.width * this.index)) * Math.cos((i * angle)) 
       // this.geometry.vertices[2*i].y = (radius + (this.width * this.index)) * Math.sin((i * angle))
@@ -105,12 +107,12 @@ class HelixLogoRibbon {
       // this.geometry.vertices[2*i+1].y = (radius + (this.width * this.index) + this.width) * Math.sin((i * angle))
       // this.geometry.vertices[2*i+1].z = (this.amplitude * noise) 
 
-      this.geometry.vertices[2*i].x = (R + (radius * Math.cos(n * (i * angle)))) * Math.cos(i * angle) + noise
+      this.geometry.vertices[2*i].x = (R + (radius * Math.cos(n * (i * angle)))) * Math.cos(i * angle)  
       this.geometry.vertices[2*i].y = (R + (radius * Math.sin(n * (i * angle)))) * Math.sin(i * angle) 
       this.geometry.vertices[2*i].z = radius * Math.sin(n * (i * angle)) * (this.amplitude * noise)
 
 
-      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.cos(i * angle) + noise
+      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.cos(i * angle)  
       this.geometry.vertices[2*i+1].y = ((R + this.width) + ((radius + this.width) * Math.sin(n * (i * angle)))) * Math.sin(i * angle)
       this.geometry.vertices[2*i+1].z = (radius + this.width) * Math.sin(n * (i * angle)) * (this.amplitude * noise) 
 
