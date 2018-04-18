@@ -77,7 +77,7 @@ class HelixLogoTexture {
   }
 
   createRibbons() {
-    let width = 0.5
+    let width = 0.8
     let height = 16
     
     for (var i = 0; i < this.totalRibbons; i++) {
@@ -99,7 +99,7 @@ class HelixLogoTexture {
   animate() {
     requestAnimationFrame(() => { this.animate() })
     this.stats.begin()
-    this.time += .005
+    this.time += .006
 
     // Update Ribbons
     this.ribbons.forEach((ribbon) => {

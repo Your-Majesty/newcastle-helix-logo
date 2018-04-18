@@ -115,7 +115,7 @@ class HelixLogoRibbon {
       this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.cos(i * angle)  
       this.geometry.vertices[2*i+1].y = ((R + this.width) + ((radius + this.width) * Math.sin(n * (i * angle)))) * Math.sin(i * angle)
       this.geometry.vertices[2*i+1].z = (radius + this.width) * Math.sin(n * (i * angle)) * (this.amplitude * noise) 
-      R = (40 + this.offset) * Math.sin(20) + (noise * (Math.sin(0.6) * 20.0) )
+      R = (40 + this.offset) * Math.sin(20) + (noise * (Math.sin(0.6) * 15.0) )
     }
 
     this.geometry.verticesNeedUpdate = true;
