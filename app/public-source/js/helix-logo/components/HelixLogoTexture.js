@@ -8,6 +8,7 @@ class HelixLogoTexture {
     this.lineSpeed = 0.1
     this.lineSeparation = 0.95
     this.lineBreakSize = 10.
+    this.perlin = new ClassicalNoise()
 
     this.ribbons = []
 
@@ -39,6 +40,11 @@ class HelixLogoTexture {
     this.createScene()
     this.createRibbons()
     this.animate()
+
+
+  }
+
+  addNoise() {
 
 
   }
@@ -76,11 +82,11 @@ class HelixLogoTexture {
   }
 
   createRibbons() {
-    let width = 15.5 / this.totalRibbons
+    let width = 2
     let height = 16
     
     for (var i = 0; i < this.totalRibbons; i++) {
-      this.ribbons.push(new HelixLogoRibbon(width, height, i, this.gradientColors[3], this.gradientColors[4]))
+      this.ribbons.push(new HelixLogoRibbon(width, height, i, this.gradientColors[3], this.gradientColors[4], this.perlin))
       this.scene.add(this.ribbons[i].ribbonMesh)
     }
   }
@@ -98,11 +104,13 @@ class HelixLogoTexture {
   animate() {
     requestAnimationFrame(() => { this.animate() })
     this.stats.begin()
-    this.time += .007
+    this.time += .004
 
     // Update Ribbons
     this.ribbons.forEach((ribbon) => {
       ribbon.uniform.time.value = this.time
+      ribbon.drawGeometry()
+      ribbon.variator +=  .004;
     })
 
     this.controls.update()
