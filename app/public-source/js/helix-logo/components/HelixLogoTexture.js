@@ -44,11 +44,6 @@ class HelixLogoTexture {
 
   }
 
-  addNoise() {
-
-
-  }
-
   resize() {
     this.width = window.innerWidth,
     this.height = window.innerHeight
@@ -82,7 +77,7 @@ class HelixLogoTexture {
   }
 
   createRibbons() {
-    let width = 2
+    let width = 0.5
     let height = 16
     
     for (var i = 0; i < this.totalRibbons; i++) {
@@ -104,7 +99,7 @@ class HelixLogoTexture {
   animate() {
     requestAnimationFrame(() => { this.animate() })
     this.stats.begin()
-    this.time += .004
+    this.time += .005
 
     // Update Ribbons
     this.ribbons.forEach((ribbon) => {

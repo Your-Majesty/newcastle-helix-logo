@@ -19,10 +19,13 @@ vec2 tile(vec2 _st, float _zoom){
   return fract(_st);
 }
 
-float random (vec2 st) {
-  return fract(sin(dot(st.xy, vec2(15.9898,78.233)))* 43758.5453123);
-}
+float rand(float n){return fract(sin(n) * 43758.5453123);}
 
+float noise(float p){
+  float fl = floor(p);
+  float fc = fract(p);
+  return mix(rand(fl), rand(fl + 1.0), fc);
+}
 
 void main(void){
   vec2 st = vUv;
@@ -33,7 +36,7 @@ void main(void){
     vec3 coloMixed = mix(colorA, colorB, st.y);
     float totalDivisions = lineBreakSize;
     float divisionPercentage = lineBreakSeparation;
-    st = tile(st + ((time + fract(offset*20.0)) * lineSpeed),totalDivisions);
+    st = tile(st + ((time + fract(noise(offset*20.0))) * lineSpeed),totalDivisions);
     vec2 separation = smoothstep(divisionPercentage,divisionPercentage,st);
     color = vec3(separation.y);
     color += coloMixed;

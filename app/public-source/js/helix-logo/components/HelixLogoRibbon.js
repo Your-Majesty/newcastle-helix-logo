@@ -6,10 +6,10 @@ class HelixLogoRibbon {
     this.height = height
 
     this.variation = 0.002
-    this.amplitude = 50
+    this.amplitude = 10
 
     this.offset = ((index + 2.) * width)
-    this.variator = .0002 * (this.index)
+    this.variator = .00002 * (this.index)
     this.perlin = noise
 
 
@@ -86,20 +86,34 @@ class HelixLogoRibbon {
 
   drawGeometry() {
     let angle = (360 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
-    let radius = 30 
-    let n = 25
+    // let radius = 30 
+    // let n = 25
+    let radius = 0.6 + this.offset
+    let R = (40 + this.offset)
+    let n = 2
+
 
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
       let angleDeg = i * (360 / ((this.geometry.vertices.length) / 2))
-      let noise = this.perlin.noise(0, i * this.variation, i * this.variation + this.variator * Math.cos(0.3))
+      let noise = this.perlin.noise(i * this.variation * Math.cos(50.5), i * this.variation, i * this.variation + this.variator * Math.cos(0.3))
+      // let noise2 = this.perlin.noise(i * this.variation + this.variator * Math.cos(0.5), i * this.variation, i * this.variation + this.variator * Math.cos(0.3))
+      // this.geometry.vertices[2*i].x = (radius + (this.width * this.index)) * Math.cos((i * angle)) 
+      // this.geometry.vertices[2*i].y = (radius + (this.width * this.index)) * Math.sin((i * angle))
+      // this.geometry.vertices[2*i].z = (this.amplitude * noise)
 
-      this.geometry.vertices[2*i].x = (radius + (this.width * this.index)) * Math.cos((i * angle)) 
-      this.geometry.vertices[2*i].y = (radius + (this.width * this.index)) * Math.sin((i * angle))
-      this.geometry.vertices[2*i].z = (this.amplitude * noise)
+      // this.geometry.vertices[2*i+1].x = (radius + (this.width * this.index) + this.width) * Math.cos((i * angle))
+      // this.geometry.vertices[2*i+1].y = (radius + (this.width * this.index) + this.width) * Math.sin((i * angle))
+      // this.geometry.vertices[2*i+1].z = (this.amplitude * noise) 
 
-      this.geometry.vertices[2*i+1].x = (radius + (this.width * this.index) + this.width) * Math.cos((i * angle))
-      this.geometry.vertices[2*i+1].y = (radius + (this.width * this.index) + this.width) * Math.sin((i * angle))
-      this.geometry.vertices[2*i+1].z = (this.amplitude * noise) 
+      this.geometry.vertices[2*i].x = (R + (radius * Math.cos(n * (i * angle)))) * Math.cos(i * angle) + noise
+      this.geometry.vertices[2*i].y = (R + (radius * Math.sin(n * (i * angle)))) * Math.sin(i * angle) 
+      this.geometry.vertices[2*i].z = radius * Math.sin(n * (i * angle)) * (this.amplitude * noise)
+
+
+      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.cos(i * angle) + noise
+      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((radius + this.width) * Math.sin(n * (i * angle)))) * Math.sin(i * angle)
+      this.geometry.vertices[2*i+1].z = (radius + this.width) * Math.sin(n * (i * angle)) * (this.amplitude * noise) 
+
     }
 
     this.geometry.verticesNeedUpdate = true;
