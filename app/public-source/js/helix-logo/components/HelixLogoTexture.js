@@ -2,13 +2,25 @@ class HelixLogoTexture {
   constructor() {
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
-    this.totalRibbons = 15
+    this.totalRibbons = 13
+
+    this.widthCountAnimation = 0
+
+    this.lineWidth = 1
+    this.spaceWidth = 1
 
     this.colorScale = 0.2
     this.lineSpeed = 0.1
     this.lineSeparation = 0.95
     this.lineBreakSize = 10.
     this.perlin = new ClassicalNoise()
+    this.widthCount = 0
+
+    this.innerRadius = 4.7
+    this.outerRadius = 40.7
+    this.totalCurls = 8
+    this.variationRatio = 0.004
+    this.noiseSize = 80.5
 
     this.ribbons = []
 
@@ -77,12 +89,25 @@ class HelixLogoTexture {
   }
 
   createRibbons() {
-    let width = 0.8
-    let height = 16
-    
+    let width = 1
+    let height = 46
+
     for (var i = 0; i < this.totalRibbons; i++) {
-      this.ribbons.push(new HelixLogoRibbon(width, height, i, this.gradientColors[3], this.gradientColors[4], this.perlin))
+      let widthPerLine = i % 2 === 0  ? 0.5: 1
+      this.ribbons.push(new HelixLogoRibbon(widthPerLine, height, i, this.gradientColors[3], this.gradientColors[4], this.perlin, this.widthCount))
       this.scene.add(this.ribbons[i].ribbonMesh)
+      this.widthCount += widthPerLine
+    }
+  }
+
+
+  updateLineSize(value) {
+    for (var i = 0; i < this.totalRibbons; i++) {
+      let widthPerLine = i % 2 === 0  ? value : this.spaceWidth
+      
+      this.ribbons[i].width = widthPerLine
+      this.ribbons[i].widthCount += widthPerLine
+      
     }
   }
 
@@ -102,17 +127,22 @@ class HelixLogoTexture {
     this.time += .006
 
     // Update Ribbons
-    this.ribbons.forEach((ribbon) => {
+    this.ribbons.forEach((ribbon, index) => {
       ribbon.uniform.time.value = this.time
+      ribbon.innerRadius = this.innerRadius
+      ribbon.outerRadius = this.outerRadius
+      ribbon.totalCurls = Math.floor(this.totalCurls)
+      ribbon.variationRatio = this.variationRatio
+      ribbon.noiseSize = this.noiseSize
+ 
       ribbon.drawGeometry()
-      ribbon.variator +=  .004;
+      ribbon.variator +=  this.variationRatio;
     })
 
     this.controls.update()
 
     this.calculateColors(this.colorScale)
     this.ribbons.forEach((ribbon) => {
-      ribbon.uniform.lineSpeed.value = this.lineSpeed
       ribbon.uniform.lineSpeed.value = this.lineSpeed
       ribbon.uniform.lineBreakSeparation.value = this.lineSeparation
       ribbon.uniform.lineBreakSize.value = this.lineBreakSize
