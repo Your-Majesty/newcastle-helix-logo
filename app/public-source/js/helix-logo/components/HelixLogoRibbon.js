@@ -87,7 +87,7 @@ class HelixLogoRibbon {
   }
 
   drawGeometry() {
-    let angle = (360 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
+    let angle = (365 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
     // let radius = 30 
     // let n = 25this.innerRadius
     let radius = this.innerRadius + (this.widthCount)
@@ -99,18 +99,17 @@ class HelixLogoRibbon {
 
 
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
-      let angleDeg = i * (360 / ((this.geometry.vertices.length) / 2))
       let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation, i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 4.6)
+      let angleVertex = i * angle
 
-      this.geometry.vertices[2*i].x = (R + (radius * Math.cos(n * (i * angle)))) * Math.cos(i * angle)  
-      this.geometry.vertices[2*i].y = (R + (radius * Math.sin(n * (i * angle)))) * Math.sin(i * angle) 
-      this.geometry.vertices[2*i].z = radius * Math.sin(n * (i * angle)) * (this.amplitude * noise)
 
-      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * (i * angle)))) * Math.cos(i * angle)  
-      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((radius + this.width) * Math.sin(n * (i * angle)))) * Math.sin(i * angle)
-      this.geometry.vertices[2*i+1].z = (radius + this.width) * Math.sin(n * (i * angle)) * (this.amplitude * noise) 
+      this.geometry.vertices[2*i].x = ((R + this.width) + (radius * Math.cos(n * angleVertex))) * Math.cos(angleVertex) + noise
+      this.geometry.vertices[2*i].y = ((R + this.width) + (radius * Math.cos(n * angleVertex))) * Math.sin(angleVertex) 
+      this.geometry.vertices[2*i].z = radius * Math.sin(n * angleVertex) * (this.amplitude * noise)
+      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * angleVertex))) * Math.cos(angleVertex) + noise 
+      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((radius + this.width) * Math.cos(n * angleVertex))) * Math.sin(angleVertex)
+      this.geometry.vertices[2*i+1].z = (radius + this.width) * Math.sin(n * angleVertex) * (this.amplitude * noise) 
       
-      R = (this.outerRadius + this.widthCount) * Math.sin(20.5) 
 
     }
     this.geometry.verticesNeedUpdate = true;
@@ -131,7 +130,9 @@ class HelixLogoRibbon {
          this.shaderMaterial)
 
     this.shaderMaterial.side = THREE.DoubleSide
-    // this.ribbonMesh.rotation.x += Math.PI / 2
+    this.ribbonMesh.rotation.x += Math.PI / 2
+    this.ribbonMesh.position.x += 50
+    this.ribbonMesh.position.y -= 20
     // this.ribbonMesh.position.x += .5
   }
 }

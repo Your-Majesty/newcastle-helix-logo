@@ -29,14 +29,23 @@ float noise(float p){
 
 void main(void){
   vec2 st = vUv;
-  vec3 color = vec3(.0);
+
   
+  vec3 color = vec3(.0);
+
+  vec2 colorSt = st;
+  colorSt *= 8.0;      // Scale up the space by 3
+  colorSt = fract(colorSt);
+  float d = distance(colorSt.y, 0.5);
+  float b = distance(colorSt.x, 0.5);
   // Check if this line should have color
   if (mod(index, 2.0) == 0.0) {
-    vec3 coloMixed = mix(colorA, colorB, st.y);
+    vec3 coloMixed = mix(colorA, colorB, fract(d*1.0*b));
+
     float totalDivisions = lineBreakSize;
     float divisionPercentage = lineBreakSeparation;
-    st = tile(st + ((time + fract(noise(offset*20.0))) * lineSpeed),totalDivisions);
+
+    st = tile(st + ((time + fract(noise(offset*20.0))) * lineSpeed), totalDivisions);
     vec2 separation = smoothstep(divisionPercentage,divisionPercentage,st);
     color = vec3(separation.y);
     color += coloMixed;

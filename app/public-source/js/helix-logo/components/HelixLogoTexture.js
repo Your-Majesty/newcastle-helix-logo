@@ -2,7 +2,7 @@ class HelixLogoTexture {
   constructor() {
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
-    this.totalRibbons = 13
+    this.totalRibbons = 1
 
     this.widthCountAnimation = 0
 
@@ -50,6 +50,7 @@ class HelixLogoTexture {
     this.createStats()
     this.resize()
     this.createScene()
+    this.createLights()
     this.createRibbons()
     this.animate()
 
@@ -88,13 +89,27 @@ class HelixLogoTexture {
     this.controls.maxPolarAngle = Math.PI / 2;
   }
 
+  createLights() {
+
+    this.light = new THREE.PointLight( 0xff0000, 1, 1000 );
+    this.light.position.set( 0, 50, 0 );
+    this.light.castShadow = true;            // default false
+    this.scene.add( this.light );
+
+    //Set up shadow properties for the light
+    this.light.shadow.mapSize.width = 512;  // default
+    this.light.shadow.mapSize.height = 512; // default
+    this.light.shadow.camera.near = 0.5;       // default
+    this.light.shadow.camera.far = 1000      
+  }
+
   createRibbons() {
-    let width = 1
+    let width = 20
     let height = 46
 
     for (var i = 0; i < this.totalRibbons; i++) {
-      let widthPerLine = i % 2 === 0  ? 0.5: 1
-      this.ribbons.push(new HelixLogoRibbon(widthPerLine, height, i, this.gradientColors[3], this.gradientColors[4], this.perlin, this.widthCount))
+      let widthPerLine = 2
+      this.ribbons.push(new HelixLogoRibbon(20, height, i, this.gradientColors[3], this.gradientColors[4], this.perlin, this.widthCount))
       this.scene.add(this.ribbons[i].ribbonMesh)
       this.widthCount += widthPerLine
     }
