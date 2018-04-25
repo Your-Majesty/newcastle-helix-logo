@@ -5,19 +5,31 @@ class HelixLogoTexture {
 
     this.colorScale = 0.2
     this.lineSpeed = 0.1
-    this.lineSeparation = 0.95
-    this.lineBreakSize = 10.
+    this.lineSeparation = 0.5
+    this.lineCount = 10.
  
-    this.innerRadius = 4.7
-    this.outerRadius = 40.7
+    this.innerRadius = 20.7
+    this.outerRadius = 100
     this.totalCurls = 8
     this.variationRatio = 0.004
     this.noiseSize = 80.5
 
     this.ribbon = null
-
     this.uniforms = []
+
+    this.ribbonWidth = 60
+    this.ribbonHeight = 40
+    
     this.colors = [
+      new THREE.Color(0x7292b6),
+      new THREE.Color(0xffffff),
+      new THREE.Color(0x4a4c90),
+      new THREE.Color(0xffffff),
+      new THREE.Color(0x513a80),
+      new THREE.Color(0xffffff)
+    ]
+
+    this.backgroundColors = [
       new THREE.Color(0x7292b6),
       new THREE.Color(0xffffff),
       new THREE.Color(0x4a4c90),
@@ -44,7 +56,6 @@ class HelixLogoTexture {
     this.createScene()
     
     this.createRibbons()
-    this.createLights()
     this.animate()
 
 
@@ -62,14 +73,19 @@ class HelixLogoTexture {
   }
 
   createScene() {
-    this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
-
     // Create Renderer
     this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true} )
     this.renderer.setSize( this.width, this.height )
+    this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
+    
+    this.scene = new THREE.Scene()
+    this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
+    this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
+
+    this.composer = new THREE.EffectComposer( this.renderer )
+    this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
 
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
     this.controls.update()
@@ -82,18 +98,8 @@ class HelixLogoTexture {
     this.controls.maxPolarAngle = Math.PI / 2;
   }
 
-  createLights() {
-
-    this.light = new THREE.AmbientLight( 0xff0000 );
-    this.light.intensity = 1000
-    this.light.castShadow = true;            // default false
-    this.scene.add( this.light );
-    }
-
   createRibbons() {
-    let width = 60
-    let height = 46
-    this.ribbon = new HelixLogoRibbon(width, height, this.gradientColors[3], this.gradientColors[4])
+    this.ribbon = new HelixLogoRibbon(this.ribbonWidth, this.ribbonHeight, this.gradientColors[3], this.gradientColors[4])
     this.scene.add(this.ribbon.ribbonMesh)
   }
 
@@ -124,7 +130,7 @@ class HelixLogoTexture {
     
     this.ribbon.uniform.lineSpeed.value = this.lineSpeed
     this.ribbon.uniform.lineBreakSeparation.value = this.lineSeparation
-    this.ribbon.uniform.lineBreakSize.value = this.lineBreakSize
+    this.ribbon.uniform.lineCount.value = this.lineCount
 
     this.controls.update()
     this.stats.end()
