@@ -7,7 +7,6 @@ varying vec2 vUv;
 
 uniform float time;
 uniform float offset;
-uniform float index;
 uniform vec3 colorA;
 uniform vec3 colorB;
 uniform float lineSpeed;
@@ -29,30 +28,24 @@ float noise(float p){
 
 void main(void){
   vec2 st = vUv;
-
-  
   vec3 color = vec3(.0);
-
   vec2 colorSt = st;
-  colorSt *= 8.0;      // Scale up the space by 3
+  colorSt *= 8.0; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
-  float b = distance(colorSt.x, 0.5);
+  // float b = distance(colorSt.x, 0.5);
   // Check if this line should have color
-  if (mod(index, 2.0) == 0.0) {
-    vec3 coloMixed = mix(colorA, colorB, fract(d*1.0*b));
 
-    float totalDivisions = lineBreakSize;
-    float divisionPercentage = lineBreakSeparation;
+  vec3 coloMixed = mix(colorA, colorB, fract(d*1.0));
 
-    st = tile(st + ((time + fract(noise(offset*20.0))) * lineSpeed), totalDivisions);
-    vec2 separation = smoothstep(divisionPercentage,divisionPercentage,st);
-    color = vec3(separation.y);
-    color += coloMixed;
+  float totalDivisions = lineBreakSize;
+  float divisionPercentage = lineBreakSeparation;
 
-  } else {
-    color = vec3(1.);
-  }
+  st = tile(st + ((time + fract(noise(offset*20.0))) * lineSpeed), totalDivisions);
+  vec2 separation = smoothstep(divisionPercentage,divisionPercentage,st);
+  color = vec3(separation.y);
+  color += coloMixed;
+
   gl_FragColor = vec4(color,1.0);
 }
 `

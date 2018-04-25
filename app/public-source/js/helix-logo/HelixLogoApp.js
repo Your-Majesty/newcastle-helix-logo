@@ -14,14 +14,6 @@ HellixLogoApp = function(){
   gui.add(helixRibbon, 'variationRatio', 0.001, 0.009);
   gui.add(helixRibbon, 'noiseSize', 10., 100.);
 
-  gui.add(helixRibbon, 'spaceWidth', 1., 4.);
-
-var controller = gui.add(helixRibbon, 'lineWidth', 1, 10);
-
-controller.onFinishChange(function(value) {
-  helixRibbon.updateLineSize(value)
-});
-
 }()
 
 

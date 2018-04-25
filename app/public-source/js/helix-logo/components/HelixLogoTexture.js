@@ -2,27 +2,19 @@ class HelixLogoTexture {
   constructor() {
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
-    this.totalRibbons = 1
-
-    this.widthCountAnimation = 0
-
-    this.lineWidth = 1
-    this.spaceWidth = 1
 
     this.colorScale = 0.2
     this.lineSpeed = 0.1
     this.lineSeparation = 0.95
     this.lineBreakSize = 10.
-    this.perlin = new ClassicalNoise()
-    this.widthCount = 0
-
+ 
     this.innerRadius = 4.7
     this.outerRadius = 40.7
     this.totalCurls = 8
     this.variationRatio = 0.004
     this.noiseSize = 80.5
 
-    this.ribbons = []
+    this.ribbon = null
 
     this.uniforms = []
     this.colors = [
@@ -50,8 +42,9 @@ class HelixLogoTexture {
     this.createStats()
     this.resize()
     this.createScene()
-    this.createLights()
+    
     this.createRibbons()
+    this.createLights()
     this.animate()
 
 
@@ -91,49 +84,24 @@ class HelixLogoTexture {
 
   createLights() {
 
-    this.light = new THREE.PointLight( 0xff0000, 1, 1000 );
-    this.light.position.set( 0, 50, 0 );
+    this.light = new THREE.AmbientLight( 0xff0000 );
+    this.light.intensity = 1000
     this.light.castShadow = true;            // default false
     this.scene.add( this.light );
-
-    //Set up shadow properties for the light
-    this.light.shadow.mapSize.width = 512;  // default
-    this.light.shadow.mapSize.height = 512; // default
-    this.light.shadow.camera.near = 0.5;       // default
-    this.light.shadow.camera.far = 1000      
-  }
+    }
 
   createRibbons() {
-    let width = 20
+    let width = 60
     let height = 46
-
-    for (var i = 0; i < this.totalRibbons; i++) {
-      let widthPerLine = 2
-      this.ribbons.push(new HelixLogoRibbon(20, height, i, this.gradientColors[3], this.gradientColors[4], this.perlin, this.widthCount))
-      this.scene.add(this.ribbons[i].ribbonMesh)
-      this.widthCount += widthPerLine
-    }
-  }
-
-
-  updateLineSize(value) {
-    for (var i = 0; i < this.totalRibbons; i++) {
-      let widthPerLine = i % 2 === 0  ? value : this.spaceWidth
-      
-      this.ribbons[i].width = widthPerLine
-      this.ribbons[i].widthCount += widthPerLine
-      
-    }
+    this.ribbon = new HelixLogoRibbon(width, height, this.gradientColors[3], this.gradientColors[4])
+    this.scene.add(this.ribbon.ribbonMesh)
   }
 
   calculateColors(temperatureAverage) {
     let colorSegments = 1 / (this.gradientColors.length - 1) 
     let gradientGuide = Math.floor(temperatureAverage / colorSegments)
-
-    this.ribbons.forEach((ribbon) => {
-      ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
-      ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
-    })
+    this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
+    this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
   }
 
   animate() {
@@ -142,27 +110,23 @@ class HelixLogoTexture {
     this.time += .006
 
     // Update Ribbons
-    this.ribbons.forEach((ribbon, index) => {
-      ribbon.uniform.time.value = this.time
-      ribbon.innerRadius = this.innerRadius
-      ribbon.outerRadius = this.outerRadius
-      ribbon.totalCurls = Math.floor(this.totalCurls)
-      ribbon.variationRatio = this.variationRatio
-      ribbon.noiseSize = this.noiseSize
+    this.ribbon.uniform.time.value = this.time
+    this.ribbon.innerRadius = this.innerRadius
+    this.ribbon.outerRadius = this.outerRadius
+    this.ribbon.totalCurls = Math.floor(this.totalCurls)
+    this.ribbon.variationRatio = this.variationRatio
+    this.ribbon.noiseSize = this.noiseSize
  
-      ribbon.drawGeometry()
-      ribbon.variator +=  this.variationRatio;
-    })
+    this.ribbon.drawGeometry()
+    this.ribbon.variator +=  this.variationRatio;
+    
+    this.calculateColors(this.colorScale)
+    
+    this.ribbon.uniform.lineSpeed.value = this.lineSpeed
+    this.ribbon.uniform.lineBreakSeparation.value = this.lineSeparation
+    this.ribbon.uniform.lineBreakSize.value = this.lineBreakSize
 
     this.controls.update()
-
-    this.calculateColors(this.colorScale)
-    this.ribbons.forEach((ribbon) => {
-      ribbon.uniform.lineSpeed.value = this.lineSpeed
-      ribbon.uniform.lineBreakSeparation.value = this.lineSeparation
-      ribbon.uniform.lineBreakSize.value = this.lineBreakSize
-    })
-
     this.stats.end()
     this.renderer.render( this.scene, this.camera )
   }
