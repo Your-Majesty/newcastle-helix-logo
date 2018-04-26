@@ -121,7 +121,8 @@ class HelixLogoRibbon {
     this.ribbonMesh.castShadow = true
     this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
-    this.ribbonMesh.rotation.x += Math.PI / 2
+    this.ribbonMesh.rotation.x += Math.PI / 10.9
+    // this.ribbonMesh.rotation.y += Math.PI / 2
     this.ribbonMesh.position.x += 60
     this.ribbonMesh.position.y -= 20
   }

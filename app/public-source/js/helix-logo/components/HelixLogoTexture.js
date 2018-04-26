@@ -11,7 +11,7 @@ class HelixLogoTexture {
     this.innerRadius = 20.7
     this.outerRadius = 90
     this.totalCurls = 8
-    this.variationRatio = 0.004
+    this.variationRatio = 0.0058
     this.noiseSize = 80.5
     this.colorBackground = true
 
@@ -91,7 +91,7 @@ class HelixLogoTexture {
     this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
     this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
 
-    this.camera.rotation.X += Math.PI * 18
+    this.camera.rotation.y += Math.PI / 2
 
     this.composer = new THREE.EffectComposer( this.renderer )
     this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
@@ -104,7 +104,7 @@ class HelixLogoTexture {
     this.controls.panningMode = THREE.ScreenSpacePanning // default is THREE.ScreenSpacePanning
     this.controls.minDistance = 1
     this.controls.maxDistance = 100
-    this.controls.maxPolarAngle = Math.PI / 2;
+    // this.controls.maxPolarAngle = Math.PI / 2;
   }
 
   createRibbons() {
