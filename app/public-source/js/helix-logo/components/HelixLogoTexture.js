@@ -9,16 +9,18 @@ class HelixLogoTexture {
     this.lineCount = 10.
  
     this.innerRadius = 20.7
-    this.outerRadius = 100
+    this.outerRadius = 90
     this.totalCurls = 8
     this.variationRatio = 0.004
     this.noiseSize = 80.5
+    this.colorBackground = true
 
     this.ribbon = null
     this.uniforms = []
 
-    this.ribbonWidth = 60
+    this.ribbonWidth = 80
     this.ribbonHeight = 40
+    this.coloredDivisions = true
     
     this.colors = [
       new THREE.Color(0x7292b6),
@@ -30,12 +32,17 @@ class HelixLogoTexture {
     ]
 
     this.backgroundColors = [
-      new THREE.Color(0x7292b6),
-      new THREE.Color(0xffffff),
-      new THREE.Color(0x4a4c90),
-      new THREE.Color(0xffffff),
-      new THREE.Color(0x513a80),
-      new THREE.Color(0xffffff)
+      '#58f9ea',
+      '#2e0862',
+      '#2d015b',
+      '#9a0d6f'
+    ]
+
+    this.colorsWeight = [
+      false,
+      true,
+      true,
+      false
     ]
     
     this.gradientColors = [
@@ -84,6 +91,8 @@ class HelixLogoTexture {
     this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
     this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
 
+    this.camera.rotation.X += Math.PI * 18
+
     this.composer = new THREE.EffectComposer( this.renderer )
     this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
 
@@ -106,6 +115,18 @@ class HelixLogoTexture {
   calculateColors(temperatureAverage) {
     let colorSegments = 1 / (this.gradientColors.length - 1) 
     let gradientGuide = Math.floor(temperatureAverage / colorSegments)
+    
+    // And also change the background here
+
+    if (this.colorBackground) {
+      this.element.style.backgroundColor = this.backgroundColors[gradientGuide]
+    } else {
+      this.element.style.backgroundColor = '#ffffff'
+    }
+
+    this.ribbon.uniform.colorIsDark.value = this.colorsWeight[gradientGuide]
+    
+    // Here I will calculate the color animation
     this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
     this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
   }
@@ -128,6 +149,7 @@ class HelixLogoTexture {
     
     this.calculateColors(this.colorScale)
     
+    this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
     this.ribbon.uniform.lineSpeed.value = this.lineSpeed
     this.ribbon.uniform.lineBreakSeparation.value = this.lineSeparation
     this.ribbon.uniform.lineCount.value = this.lineCount

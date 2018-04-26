@@ -15,6 +15,8 @@ uniform vec3 colorB;
 uniform float lineSpeed;
 uniform float lineBreakSeparation;
 uniform float lineCount;
+uniform bool coloredDivisions;
+uniform bool colorIsDark;
 
 vec2 tile(vec2 _st, float _zoom){
   _st *= _zoom;
@@ -32,32 +34,42 @@ float noise(float p){
 void main(void){
 
   vec2 st = vUv;
-
   vec3 color = vec3(.0);
   vec2 colorSt = st;
 
-  // vec3 lightDirection = normalize(lightPosition - vWorldPosition);
-  colorSt *= 10.0; 
+  vec3 lightDirection = normalize(lightPosition - vWorldPosition);
+  colorSt *= 18.0; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 
-  // float c = 0.3 + max(0.0, dot(vNormal, lightDirection)) * 0.3;
-  vec3 coloMixed = mix(colorA, colorB, fract(d*1.5));
-  // vec3 coloMixed2 = mix(colorB, colorA, fract(d*.5));
+  float c = 0.3 + max(0.0, dot(vNormal, lightDirection)) * 0.3;
+  vec3 coloMixed = mix(colorB, colorA, fract(d*1.5));
 
   float totalDivisions = lineCount;
   float divisionPercentage = lineBreakSeparation;
 
-  st = tile(st, totalDivisions);
 
+  st = tile(st, totalDivisions);
   vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
-  float divisionX = (1. - lineSpeed);
-  vec2 separationX = smoothstep(divisionX,divisionX, (fract(st * 5. + (time * 1.))));
-  
-  color += vec3(separationX.y);
-  color += vec3(separation.x);
-  
+
+  if (separation.x > .9 && coloredDivisions) {
+    color += mix(colorA, colorB, fract(d*.5)) * mix(colorB, colorB, fract(d*.5));
+    
+    if (colorIsDark) {
+      color *= mix(colorB, colorA, fract(d*.5));
+    }
+    // color += mix(colorB, colorB, fract(d*.5));
+  } else {
+    color += vec3(separation.x);
+  }
+
+  // color += vec3(separation.x);
+
+  float divisionX = (1. - (fract(sin(vUv.y) * 5.) * lineSpeed));
+  vec2 separationX = smoothstep(divisionX, divisionX, (fract(st * 2. + (time * .2))));
+  // color += (vec3(separationX.y) - vec3(0.8));
   color += coloMixed;
+  
   // color += coloMixed;
 
   gl_FragColor = vec4(color,.9);

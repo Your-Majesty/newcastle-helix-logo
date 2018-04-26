@@ -17,6 +17,8 @@ class HelixLogoRibbon {
     this.variator = .0002 
     this.perlin = new ClassicalNoise()
 
+    this.coloredDivisions = true
+
     this.uniform = {
       time: {
         type: 'f',
@@ -26,6 +28,10 @@ class HelixLogoRibbon {
         type: 'f',
         value: this.offset,
       },
+      coloredDivisions: {
+        type: 'bool',
+        value: this.coloredDivisions,
+      },
       colorA: {
         type: 'vec3',
         value: colorA
@@ -34,6 +40,11 @@ class HelixLogoRibbon {
         type: 'vec3',
         value: colorB
       },
+      colorIsDark: {
+        type: 'bool',
+        value: false,
+      },
+
       lineSpeed: {
         type: 'f',
         value: 0.1
