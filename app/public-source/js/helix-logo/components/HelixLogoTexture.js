@@ -15,6 +15,10 @@ class HelixLogoTexture {
     this.noiseSize = 180.5
     this.colorBackground = true
 
+    this.breakSize = 0.3
+    this.breakFrequency = 10.0
+
+
     this.ribbon = null
     this.uniforms = []
 
@@ -88,18 +92,19 @@ class HelixLogoTexture {
     this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
     this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
 
-    this.camera.rotation.y += Math.PI / 2
     this.composer = new THREE.EffectComposer( this.renderer )
     this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
 
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
-    this.controls.update()
-
     this.controls.enableDamping = false // an animation loop is required when either damping or auto-rotation are enabled
-    this.controls.dampingFactor = 0.25
-    this.controls.panningMode = THREE.ScreenSpacePanning // default is THREE.ScreenSpacePanning
+    this.controls.dampingFactor = 0.8
+    // this.controls.panningMode = THREE.ScreenSpacePanning // default is THREE.ScreenSpacePanning
     this.controls.minDistance = 1
     this.controls.maxDistance = 100
+
+    this.camera.rotation.x += Math.PI / 4.
+     this.controls.update()
+    this.controls.enableRotate = false
   }
 
   createRibbons() {
@@ -138,6 +143,7 @@ class HelixLogoTexture {
     this.ribbon.totalCurls = Math.floor(this.totalCurls)
     this.ribbon.variationRatio = this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
+
  
     
     this.ribbon.variator +=  this.variationRatio;
@@ -148,8 +154,8 @@ class HelixLogoTexture {
     this.ribbon.uniform.lineSpeed.value = this.lineSpeed
     this.ribbon.uniform.lineBreakSeparation.value = this.lineSeparation
     this.ribbon.uniform.lineCount.value = this.lineCount
-
-    this.controls.update()
+    this.ribbon.uniform.breakSize.value = this.breakSize
+    this.ribbon.uniform.breakFrequency.value = this.breakFrequency
     this.stats.end()
     this.renderer.render( this.scene, this.camera )
   }

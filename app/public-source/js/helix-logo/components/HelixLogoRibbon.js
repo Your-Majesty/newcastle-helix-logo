@@ -71,6 +71,14 @@ class HelixLogoRibbon {
       lightPosition: {
         type: 'v3', value: new THREE.Vector3(-100, 60, 0)
       },
+      breakSize: {
+        type: 'f',
+        'value': 0.3
+      },
+      breakFrequency: {
+        type: 'f',
+        'value': 10.
+      },
     }
 
     this.createGeometry()
@@ -100,7 +108,7 @@ class HelixLogoRibbon {
     this.ribbonMesh.castShadow = true
     this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
-    this.ribbonMesh.rotation.x += Math.PI / 3
+    this.ribbonMesh.rotation.x += Math.PI / 60.6
     this.ribbonMesh.position.x += 60
     this.ribbonMesh.position.y -= 20
   }
@@ -109,7 +117,7 @@ class HelixLogoRibbon {
     let R = (this.outerRadius) * Math.sin(20.5)
     this.variation = this.variationRatio * Math.sin(0.5) 
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
-      let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 4.6)
+      let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
       let angleVertex = i * this.angle
       this.geometry.vertices[2*i].x = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.sin(4.5))
       this.geometry.vertices[2*i].y = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(5.5))
