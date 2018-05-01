@@ -1,4 +1,3 @@
-
 const RibbonColors = `
 precision highp float;
 
@@ -23,20 +22,28 @@ vec2 tile(vec2 _st, float _zoom){
   return fract(_st);
 }
 
-float rand(float n){return fract(sin(n) * 43758.5453123);}
+float random (in float x) {
+  return fract(sin(x)*1e4);
+}
+
+float rect(in vec2 _st, in vec2 _size){
+  _size = 0.1-_size*0.5;
+  vec2 uv = smoothstep(_size,_size,_st);
+  uv *= smoothstep(_size,_size,vec2(1.0,0.25)-_st);
+  // vec2 uv = step(size,st*(1.0-st));
+  return uv.x*uv.y;
+}
 
 float noise(float p){
   float fl = floor(p);
   float fc = fract(p);
-  return mix(rand(fl), rand(fl + 1.0), fc);
+  return mix(random(fl), random(fl + 1.0), fc);
 }
 
 void main(void){
-
   vec2 st = vUv;
   vec3 color = vec3(.0);
   vec2 colorSt = st;
-
   vec3 lightDirection = normalize(lightPosition - vWorldPosition);
   colorSt *= 18.0; 
   colorSt = fract(colorSt);
@@ -47,30 +54,25 @@ void main(void){
 
   float totalDivisions = lineCount;
   float divisionPercentage = lineBreakSeparation;
-
-
+  
   st = tile(st, totalDivisions);
   vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
 
   if (separation.x > .9 && coloredDivisions) {
     color += mix(colorA, colorB, fract(d*.5)) * mix(colorB, colorB, fract(d*.5));
-    
     if (colorIsDark) {
       color *= mix(colorB, colorA, fract(d*.5));
     }
-    // color += mix(colorB, colorB, fract(d*.5));
   } else {
     color += vec3(separation.x);
   }
-
-  // color += vec3(separation.x);
-
-  float divisionX = (1. - (fract(sin(vUv.y) * 5.) * lineSpeed));
-  vec2 separationX = smoothstep(divisionX, divisionX, (fract(st * 2. + (time * .2))));
-  // color += (vec3(separationX.y) - vec3(0.8));
   color += coloMixed;
-  
-  // color += coloMixed;
+
+  color = mix(color,
+               vec3(1.0),
+               rect(fract(st * 1.)- vec2(-separation.x), vec2(separation.x + lineBreakSeparation, 0.001)));
+
+
 
   gl_FragColor = vec4(color,.9);
 }

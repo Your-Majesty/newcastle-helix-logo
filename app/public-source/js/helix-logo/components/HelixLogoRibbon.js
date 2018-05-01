@@ -11,12 +11,11 @@ class HelixLogoRibbon {
     this.outerRadius = 40.7
     this.totalCurls = 8
     this.variationRatio = 0.004
-    this.noiseSize = 80.5
+    this.noiseSize = 280.5
 
     this.offset = Math.random()
     this.variator = .0002 
     this.perlin = new ClassicalNoise()
-
     this.coloredDivisions = true
 
     this.uniform = {
@@ -84,25 +83,6 @@ class HelixLogoRibbon {
     this.angle = (360 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
   }
 
-  drawGeometry() {
-    let radius = this.innerRadius 
-    let R = (this.outerRadius) * Math.sin(20.5)
-    let n = this.totalCurls
-    this.variation = this.variationRatio * Math.sin(0.5) 
-    for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
-      let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 4.6)
-      let angleVertex = i * this.angle
-      this.geometry.vertices[2*i].x = ((R + this.width) + (radius * Math.cos(n * angleVertex))) * Math.cos(angleVertex) + (noise * Math.sin(4.5))
-      this.geometry.vertices[2*i].y = ((R + this.width) + (radius * Math.cos(n * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(5.5))
-      this.geometry.vertices[2*i].z = radius * Math.sin(n * angleVertex) * (this.amplitude * noise) + noise 
-      
-      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((radius + this.width) * Math.cos(n * angleVertex))) * Math.cos(angleVertex) + (noise * Math.sin(4.5)) 
-      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((radius + this.width) * Math.cos(n * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(5.5))
-      this.geometry.vertices[2*i+1].z = (radius + this.width) * Math.sin(n * angleVertex) * (this.amplitude * noise) + noise 
-    }
-    this.geometry.verticesNeedUpdate = true;
-  }
-
   createShaderMaterial() {
     this.shaderMaterial = new THREE.ShaderMaterial({
       depthTest: true,
@@ -117,13 +97,28 @@ class HelixLogoRibbon {
       this.geometry,
       this.shaderMaterial
     )
-
     this.ribbonMesh.castShadow = true
     this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
-    this.ribbonMesh.rotation.x += Math.PI / 10.9
-    // this.ribbonMesh.rotation.y += Math.PI / 2
+    this.ribbonMesh.rotation.x += Math.PI / 3
     this.ribbonMesh.position.x += 60
     this.ribbonMesh.position.y -= 20
+  }
+
+  drawGeometry() {
+    let R = (this.outerRadius) * Math.sin(20.5)
+    this.variation = this.variationRatio * Math.sin(0.5) 
+    for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
+      let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 4.6)
+      let angleVertex = i * this.angle
+      this.geometry.vertices[2*i].x = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.sin(4.5))
+      this.geometry.vertices[2*i].y = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(5.5))
+      this.geometry.vertices[2*i].z = this.innerRadius * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise)) + Math.sin(-noise)
+      
+      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.sin(4.5)) 
+      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(5.5))
+      this.geometry.vertices[2*i+1].z = (this.innerRadius + this.width) * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise)) + Math.sin(noise) 
+    }
+    this.geometry.verticesNeedUpdate = true;
   }
 }
