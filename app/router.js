@@ -6,8 +6,8 @@ module.exports = (() => {
 
   // Controllers
   const APIController = require('./controllers/APIController')
-
   router.get('/api/data', APIController.getData)
+
 
   return router
 

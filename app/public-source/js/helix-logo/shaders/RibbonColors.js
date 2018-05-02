@@ -11,6 +11,10 @@ uniform float offset;
 
 uniform vec3 colorA;
 uniform vec3 colorB;
+uniform vec3 colorC;
+uniform vec3 colorD;
+
+
 uniform float lineSpeed;
 uniform float lineBreakSeparation;
 uniform float lineCount;
@@ -50,13 +54,18 @@ void main(void){
   vec3 color = vec3(.0);
   vec2 colorSt = st;
   vec3 colorSeparation = vec3(1.0);
+
   vec3 lightDirection = normalize(lightPosition - vWorldPosition);
   colorSt *= 18.0; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 
-  float c = 0.3 + max(0.0, dot(vNormal, lightDirection)) * 0.3;
-  vec3 coloMixed = mix(colorB, colorA, fract(d*1.5));
+  vec3 colorAnimateA = colorA;
+  // colorAnimateA = mix(colorA, colorAnimateA, smoothstep(.0,2.,time));
+  // colorAnimateA = colorA;
+
+  // float c = 0.3 + max(0.0, dot(vNormal, lightDirection)) * 0.3;
+  vec3 coloMixed = mix(colorB, colorAnimateA, fract(d*1.5));
   float totalDivisions = lineCount;
   float divisionPercentage = lineBreakSeparation;
   
@@ -64,9 +73,9 @@ void main(void){
   vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
 
   if (separation.x > .9 && coloredDivisions) {
-    color += mix(colorA, colorB, fract(d*.5)) * mix(colorB, colorB, fract(d*.5));
+    color += mix(colorAnimateA, colorB, fract(d*.5)) * mix(colorB, colorB, fract(d*.5));
     if (colorIsDark) {
-      color *= mix(colorB, colorA, fract(d*.5));
+      color *= mix(colorB, colorAnimateA, fract(d*.5));
     }
   } else {
     color += vec3(separation.x);
@@ -75,11 +84,10 @@ void main(void){
   color += coloMixed;
   vec2 stY = vUv;
 
-
   // Esta es la distancia entre las divisiones
   stY = tile(st, totalDivisions, breakFrequency);
   if (coloredDivisions) {
-    colorSeparation = vec3(colorA);
+    colorSeparation = vec3(colorAnimateA);
   }
   
   color = mix(color, colorSeparation,

@@ -1,5 +1,7 @@
 
 HellixLogoApp = function(){
+
+  
   const helixRibbon = new HelixLogoTexture()
   const gui = new dat.GUI()
 
@@ -20,7 +22,6 @@ HellixLogoApp = function(){
   gui.add(helixRibbon, 'totalCurls', 2., 10.);
   gui.add(helixRibbon, 'variationRatio', 0.001, 0.009);
   gui.add(helixRibbon, 'noiseSize', 10., 100.);
-
 }()
 
 

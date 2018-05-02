@@ -1,7 +1,6 @@
 module.exports = (() => {
 
   const BaseController = require('./BaseController')
-
   const dataHarvester = require('../lib/data-harvester')
 
   class APIController extends BaseController {
@@ -18,5 +17,4 @@ module.exports = (() => {
   }
 
   return new APIController()
-
 })()

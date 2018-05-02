@@ -125,10 +125,12 @@ class HelixLogoTexture {
 
     this.ribbon.uniform.colorIsDark.value = this.colorsWeight[gradientGuide]
     
-    // console.log(this.gradientColors[0])
-    // Here I will calculate the color animation
+
+    // console.log(this.gradientColors[gradientGuide])
     this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
     this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
+    this.ribbon.uniform.colorC.value = this.gradientColors[gradientGuide + 2]
+    this.ribbon.uniform.colorD.value = this.gradientColors[4]
   }
 
   animate() {

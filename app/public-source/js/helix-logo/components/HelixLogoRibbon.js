@@ -39,6 +39,14 @@ class HelixLogoRibbon {
         type: 'vec3',
         value: colorB
       },
+      colorC: {
+        type: 'vec3',
+        value: new THREE.Color("rgb(255, 255, 255)")
+      },
+      colorD: {
+        type: 'vec3',
+        value: new THREE.Color("rgb(255, 255, 255)")
+      },
       colorIsDark: {
         type: 'bool',
         value: false,
