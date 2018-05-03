@@ -1,5 +1,11 @@
 class HelixLogoTexture {
   constructor() {
+
+    // Need to make a function that stores last Value and interpolate any new value
+
+
+
+
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
 
@@ -17,8 +23,7 @@ class HelixLogoTexture {
 
     this.breakSize = 0.3
     this.breakFrequency = 10.0
-
-
+    
     this.ribbon = null
     this.uniforms = []
 
@@ -103,7 +108,7 @@ class HelixLogoTexture {
     this.controls.maxDistance = 100
 
     this.camera.rotation.x += Math.PI / 4.
-     this.controls.update()
+    this.controls.update()
     this.controls.enableRotate = false
   }
 

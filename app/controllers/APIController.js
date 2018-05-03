@@ -1,7 +1,8 @@
 module.exports = (() => {
 
   const BaseController = require('./BaseController')
-  const dataHarvester = require('../lib/data-harvester')
+  
+  const dataCache = require('../lib/data-cache')
 
   class APIController extends BaseController {
     get autoBind () { return [
@@ -9,10 +10,9 @@ module.exports = (() => {
     ]}
 
     async getData (ctx) {
-      // Return data here
-      // dataHarvester.harvest() or something
+      var data = dataCache.cache
 
-      return this.notFound(ctx)
+      return this.success(ctx, data)
     }
   }
 

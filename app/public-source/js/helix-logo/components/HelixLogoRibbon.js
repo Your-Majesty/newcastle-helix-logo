@@ -87,6 +87,22 @@ class HelixLogoRibbon {
         type: 'f',
         'value': 10.
       },
+      line1: {
+        type: 'f',
+        'value': .4
+      },
+      line2: {
+        type: 'f',
+        'value': 3.
+      },
+      line3: {
+        type: 'f',
+        'value': 6.
+      },
+      line4: {
+        type: 'f',
+        'value': 8.
+      },
     }
 
     this.createGeometry()

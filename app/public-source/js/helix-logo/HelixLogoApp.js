@@ -1,7 +1,12 @@
 
 HellixLogoApp = function(){
 
+  HelixLogoDataFilter.getData()
+  // const dataAnalizer = new HelixDataAnalizer()
   
+
+  console.log(HelixLogoDataFilter.helixLogoData)
+
   const helixRibbon = new HelixLogoTexture()
   const gui = new dat.GUI()
 

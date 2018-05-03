@@ -14,6 +14,11 @@ uniform vec3 colorB;
 uniform vec3 colorC;
 uniform vec3 colorD;
 
+uniform float line1;
+uniform float line2;
+uniform float line3;
+uniform float line4;
+
 
 uniform float lineSpeed;
 uniform float lineBreakSeparation;
@@ -83,6 +88,17 @@ void main(void){
 
   color += coloMixed;
   vec2 stY = vUv;
+
+  if (stY.x < 1./lineCount) {
+      stY.y = fract(stY.y - line1);
+    }
+    else if (stY.x < 2./lineCount) {
+      stY.y = fract(stY.y - line2);
+    }
+    else if (stY.x < 3./lineCount) {
+      stY.y = fract(stY.y - line3);
+    }
+
 
   // Esta es la distancia entre las divisiones
   stY = tile(st, totalDivisions, breakFrequency);
