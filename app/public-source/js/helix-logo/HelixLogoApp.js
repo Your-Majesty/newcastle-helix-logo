@@ -1,13 +1,16 @@
-
 HellixLogoApp = function(){
 
-  HelixLogoDataFilter.getData()
 
+  DataCollector.getData().then(() => {
+    console.log(DataCollector.limits)
+    console.log(DataCollector.collection)
+    
 
+    // Update Last Limit
+    // Update Limits
 
-
-  console.log(HelixLogoDataFilter.limits)
-
+  })
+  
   const helixRibbon = new HelixLogoTexture()
   const gui = new dat.GUI()
 

@@ -3,12 +3,11 @@ module.exports = (() => {
   const SensorState = require('../models/sensor-state')
   const controller = {}
 
-  const sensorsNames = ['Humidity', 'Temperature', 'Energy consumption at Newcastle Helix', 'Average wind speed', 'Average vehicle speed']
-  const sensorsIds = ['humidity', 'temperature', 'energy', 'wind', 'vehicle-speed']
+  const sensorIds = ['humidity', 'temperature', 'energy', 'wind', 'vehicleSpeed']
   let sensors = []
-
-  let sensorLimits = sensorsNames.map(function (a, i) {
-    return { name: sensorsIds[i], data: [], min: 0, max: 0 }
+  
+  let sensorLimits = sensorIds.map(function (a, i) {
+    return { name: sensorIds[i], data: [], min: 0, max: 0 }
   })
 
   controller.cache = {}
@@ -17,14 +16,23 @@ module.exports = (() => {
   controller.update = async () => {
 
     var data = await SensorState.find().sort({
-    timestamp: 'asc'}).limit(10)
-
-    data.forEach(function (dataPoint) {
-      sensors.push(dataPoint.sensors)
+    timestamp: 'desc'}).limit(10)
+    
+    // Here I change the names 
+    data.forEach(function (dataPoint, index) {
+      sensors.push({
+        timestamp: dataPoint.timestamp,
+        humidity: dataPoint.sensors['Humidity'],
+        temperature: dataPoint.sensors['Temperature'],
+        energy: dataPoint.sensors['Energy consumption at Newcastle Helix'],
+        wind: dataPoint.sensors['Average wind speed'],
+        vehicleSpeed: dataPoint.sensors['Average vehicle speed']
+      })      
     })
     
+    // Here I feel the limits
     sensors.forEach(function (a) {
-      sensorsNames.forEach(function (k, i) {
+      sensorIds.forEach(function (k, i) {
         sensorLimits[i].data.push(a[k])
       });
     });
@@ -34,8 +42,8 @@ module.exports = (() => {
       m.max = Math.max(...m.data)
       delete m['data']
     })
- 
-    controller.cache = data
+    
+    controller.cache = sensors
     controller.limits = sensorLimits
   }
 
