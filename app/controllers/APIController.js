@@ -11,8 +11,8 @@ module.exports = (() => {
 
     async getData (ctx) {
       var data = dataCache.cache
-
-      return this.success(ctx, data)
+      var limits = dataCache.limits
+      return this.success(ctx, data, limits)
     }
   }
 

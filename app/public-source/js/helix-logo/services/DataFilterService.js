@@ -1,49 +1,17 @@
 const HelixLogoDataFilter = (() => {
+
   const controller = {}
-  const helixLogoData = {
-    properties: {
-      humidity: {
-        min: '',
-        max: ''
-      },
-      temperature: {
-        min: '',
-        max: ''
-      },
-      energy: {
-        min: '',
-        max: ''
-      },
-      wind: {
-        min: '',
-        max: ''
-      },
-      carSpeed: {
-        min: '',
-        max: ''
-      }
-    },
-    dataPoints: []
-  } 
+  
+  controller.limits = {}
+  controller.data = {}
 
   controller.getData = () => {
     const localePath = '/api/data'
     const xhr = new XMLHttpRequest()
       xhr.open('GET', localePath)
       xhr.onload = (data) => {
-
       if (xhr.status === 200) {
-
-        console.log(xhr.response + 'data')
-
-        // if (helixLogoData.dataPoints.length > 0) {
-            
-        //   console.log('new data perros')
-
-        // } else {
-
-        //   HelixLogoDataFilter.sortDataPoints(JSON.parse(xhr.response))
-        // }
+        HelixLogoDataFilter.sortDataPoints(JSON.parse(xhr.response))
       }
     }
     xhr.send()
@@ -51,7 +19,12 @@ const HelixLogoDataFilter = (() => {
 
   controller.sortDataPoints = (data) => {
 
-    console.log(data + 'prili')
+    console.log(data.data[3].sensors)
+    console.log(data.limits)
+    // console.log(data[0]['limits'])
+    // console.log(data['limits'])
+
+
     // data.timeseries.forEach((timePoint, index) => {
     //   helixLogoData.dataPoints.push({
     //     timestamp: timePoint.timestamp,
@@ -63,28 +36,7 @@ const HelixLogoDataFilter = (() => {
     //   })
     // })
 
-    console.log(helixLogoData)
-  }
-
-  controller.pushDataPoint = () => {
-
-
-  }
-
-  controller.popDataPoint = () => {
-
-
-  
-  }
-
-  controller.calculateNewMin = () => {
-
-
-  }
-
-  controller.calculateNewMax = () => {
-
-    
+    // console.log(helixLogoData)
   }
 
   return controller

@@ -3,9 +3,6 @@ class HelixLogoTexture {
 
     // Need to make a function that stores last Value and interpolate any new value
 
-
-
-
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
 

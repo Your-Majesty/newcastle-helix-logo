@@ -22,4 +22,5 @@ dataHarvester.harvest().then(() => {
 // Set here an interval with the env file setup
 
 app.listen(3000)
+
 console.log('Newcastle Helix Logo is up.')

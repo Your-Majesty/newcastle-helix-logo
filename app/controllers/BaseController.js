@@ -20,9 +20,10 @@ class BaseController {
     }
   }
 
-  async success (ctx, data) {
+  async success (ctx, data, limits) {
     ctx.body = {
       success: true,
+      limits,
       data
     }
   }
