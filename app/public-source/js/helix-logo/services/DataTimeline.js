@@ -15,7 +15,7 @@ const DataTimeline = (() => {
     temperature: {
       colorScale: {
         min: 0,
-        max: 10
+        max: 1
       }
     },
     energy: {
@@ -64,7 +64,8 @@ const DataTimeline = (() => {
 
   controller.calculatePoint = (dataPoint, totalPoints) => {
 
-    console.log(DataCollector)
+    console.log(dataPoint)
+    console.log(DataCollector.limits)
 
     for (let property of DataCollector.limits) {
       let propertyLimits = controller.limits[property.name]
@@ -78,8 +79,6 @@ const DataTimeline = (() => {
         )
       }
     }
-
-    console.log(controller.calculatedPoint)
   }
 
   controller.linearInterpolation = (minLimit, maxLimit, currentValue, logoValueMin, logoValueMax) => {

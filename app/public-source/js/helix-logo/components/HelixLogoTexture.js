@@ -136,17 +136,13 @@ class HelixLogoTexture {
 
   updateValues(values) {
     this.lineCount = values['lineCount']
-
-
-    console.log(values)
     this.lineSeparation = values['lineSeparation']
-    // this.colorScale = values['colorScale']
+    this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
     this.totalCurls = values['totalCurls']
     this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
-
   }
 
 
@@ -168,6 +164,7 @@ class HelixLogoTexture {
     this.ribbon.variator +=  this.variationRatio;
     
     this.calculateColors(this.colorScale)
+
     this.ribbon.drawGeometry()
     this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
     this.ribbon.uniform.lineSpeed.value = this.lineSpeed

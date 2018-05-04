@@ -8,7 +8,6 @@ HelixLogoApp = function(){
   
   const helixRibbon = new HelixLogoTexture()
   const gui = new dat.GUI()
-
   var f1 = gui.addFolder('Humidity');
     f1.add(helixRibbon, 'lineSeparation', 0.2, 0.8);
     f1.add(helixRibbon, 'lineCount', 3., 10.);
