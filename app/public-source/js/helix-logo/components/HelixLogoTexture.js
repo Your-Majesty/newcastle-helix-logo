@@ -108,7 +108,7 @@ class HelixLogoTexture {
     this.controls.maxDistance = 100
 
     this.camera.rotation.x += Math.PI / 4.
-    this.camera.rotation.y += Math.PI / 4.
+    this.camera.rotation.y += Math.PI / 2.
     this.controls.update()
     this.controls.enableRotate = false
   }
