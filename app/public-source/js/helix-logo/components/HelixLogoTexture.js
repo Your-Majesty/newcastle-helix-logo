@@ -134,6 +134,22 @@ class HelixLogoTexture {
     this.ribbon.uniform.colorD.value = this.gradientColors[4]
   }
 
+  updateValues(values) {
+    this.lineCount = values['lineCount']
+
+
+    console.log(values)
+    this.lineSeparation = values['lineSeparation']
+    // this.colorScale = values['colorScale']
+    this.innerRadius = values['innerRadius']
+    this.totalCurls = values['totalCurls']
+    this.variationRatio = values['variationRatio']
+    this.breakSize = values['breakSize']
+    this.breakFrequency = values['breakFrequency']
+
+  }
+
+
   animate() {
     requestAnimationFrame(() => { this.animate() })
     this.stats.begin()

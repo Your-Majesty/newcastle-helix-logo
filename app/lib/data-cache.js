@@ -16,7 +16,7 @@ module.exports = (() => {
   controller.update = async () => {
 
     var data = await SensorState.find().sort({
-    timestamp: 'desc'}).limit(10)
+    timestamp: 'desc'}).limit(380)
     
     // Here I change the names 
     data.forEach(function (dataPoint, index) {
@@ -30,7 +30,7 @@ module.exports = (() => {
       })      
     })
     
-    // Here I feel the limits
+    // Here I fill the limits
     sensors.forEach(function (a) {
       sensorIds.forEach(function (k, i) {
         sensorLimits[i].data.push(a[k])

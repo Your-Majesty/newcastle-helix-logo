@@ -61,7 +61,7 @@ void main(void){
   vec3 colorSeparation = vec3(1.0);
 
   vec3 lightDirection = normalize(lightPosition - vWorldPosition);
-  colorSt *= 18.0; 
+  colorSt *= 19.0; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 
