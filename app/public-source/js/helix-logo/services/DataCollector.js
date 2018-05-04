@@ -6,7 +6,7 @@ const DataCollector = (() => {
   controller.collection = {}
 
   controller.getData = () => {
-    
+
     return new Promise(resolve => {
       const localePath = '/api/data'
       const xhr = new XMLHttpRequest()
@@ -14,6 +14,7 @@ const DataCollector = (() => {
         xhr.onload = (data) => {
         if (xhr.status === 200) {
           let collection = JSON.parse(xhr.response)
+          console.log('got data')
           controller.limits = collection.limits
           controller.collection = collection.data
           resolve({

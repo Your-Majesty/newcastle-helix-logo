@@ -5,13 +5,14 @@ class HelixLogoTexture {
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
 
+    this.createdElement = false
     this.colorScale = 0.2
     this.lineSpeed = 0.1
     this.lineSeparation = 0.5
     this.lineCount = 10.
  
-    this.innerRadius = 20.7
-    this.outerRadius = 90
+    this.innerRadius = 20.
+    this.outerRadius = 60
     this.totalCurls = 8
     this.variationRatio = 0.0058
     this.noiseSize = 180.5
@@ -62,7 +63,10 @@ class HelixLogoTexture {
       // Orange
       new THREE.Color("rgb(255, 107, 0)")
     ]
-    
+  }
+
+  init() {
+    this.createdElement = true
     this.createStats()
     this.resize()
     this.createScene()
@@ -104,6 +108,7 @@ class HelixLogoTexture {
     this.controls.maxDistance = 100
 
     this.camera.rotation.x += Math.PI / 4.
+    this.camera.rotation.y += Math.PI / 4.
     this.controls.update()
     this.controls.enableRotate = false
   }

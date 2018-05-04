@@ -15,9 +15,15 @@ app.use(koaStatic('./public', {
 
 app.use(router.routes())
 
-dataHarvester.harvest().then(() => {
-  dataCache.update()
-})
+ dataHarvester.harvest().then(() => {
+    dataCache.update()
+  }) 
+
+setInterval(() => {
+  dataHarvester.harvest().then(() => {
+    dataCache.update()
+  }) 
+}, process.env.HARVEST_INTERVAL)
 
 // Set here an interval with the env file setup
 

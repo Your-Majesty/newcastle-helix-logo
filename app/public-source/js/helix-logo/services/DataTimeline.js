@@ -21,11 +21,11 @@ const DataTimeline = (() => {
     energy: {
       innerRadius: {
         min: -40,
-        max: 20
+        max: 6
       },
       totalCurls: {
         min: 3.5,
-        max: 10
+        max: 6.9
       }
     },
     wind: {
@@ -37,7 +37,7 @@ const DataTimeline = (() => {
     vehicleSpeed: {
       lineSpeed: {
         min: 0.05,
-        max: 0.2
+        max: 0.1
       },
       breakSize: {
         min: 0.2,

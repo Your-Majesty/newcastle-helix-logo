@@ -8,7 +8,7 @@ class HelixLogoRibbon {
     this.amplitude = 2.5
 
     this.innerRadius = 4.7
-    this.outerRadius = 40.7
+    this.outerRadius = 10.7
     this.totalCurls = 8
     this.variationRatio = 0.004
     this.noiseSize = 280.5
@@ -158,13 +158,15 @@ class HelixLogoRibbon {
     this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
     this.ribbonMesh.rotation.x += Math.PI / 60.6
+    this.ribbonMesh.rotation.y += Math.PI / -3
+    this.ribbonMesh.rotation.z += Math.PI / 1.5
     this.ribbonMesh.position.x += 60
     this.ribbonMesh.position.y -= 20
   }
 
   drawGeometry() {
     let R = (this.outerRadius) * Math.sin(20.5)
-    this.variation = this.variationRatio * Math.sin(0.5) 
+    this.variation = this.variationRatio * Math.cos(0.5) + Math.sin(0.001)  
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
       let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
       let angleVertex = i * this.angle

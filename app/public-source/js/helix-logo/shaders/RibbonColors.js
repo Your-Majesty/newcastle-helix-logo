@@ -68,7 +68,7 @@ void main(void){
   vec2 colorSt = st;
   vec3 colorSeparation = vec3(1.0);
 
-  colorSt *= 18.0; 
+  colorSt *= 16.0; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 

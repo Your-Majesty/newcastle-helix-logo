@@ -14,10 +14,9 @@ module.exports = (() => {
   controller.limits = {}
 
   controller.update = async () => {
-
+    let sensors = []
     var data = await SensorState.find().sort({
     timestamp: 'desc'}).limit(384)
- 
     data.forEach(function (dataPoint, index) {
       sensors.push({
         timestamp: dataPoint.timestamp,
