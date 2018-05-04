@@ -15,7 +15,7 @@ const DataTimeline = (() => {
     temperature: {
       colorScale: {
         min: 0,
-        max: 1
+        max: 0.9
       }
     },
     energy: {
@@ -30,22 +30,24 @@ const DataTimeline = (() => {
     },
     wind: {
       variationRatio: {
-        min: 0.002,
+        min: 0.001,
         max: 0.009
       }
     },
     vehicleSpeed: {
       lineSpeed: {
-        min: 0,
-        max: 10
+        min: 0.05,
+        max: 0.2
       },
       breakSize: {
-        min: 0.27,
-        max: 0
-      },
+        min: 0.2,
+        max: 0.3
+      }
+    },
+    parkedCars: {
       breakFrequency: {
-        min: 4,
-        max: 20
+        min: 5,
+        max: 19
       }
     }
   }

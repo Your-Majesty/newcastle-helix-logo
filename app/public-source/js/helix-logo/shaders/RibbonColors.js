@@ -68,7 +68,7 @@ void main(void){
   vec2 colorSt = st;
   vec3 colorSeparation = vec3(1.0);
 
-  colorSt *= 19.0; 
+  colorSt *= 18.0; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 
@@ -96,10 +96,10 @@ void main(void){
     stY.y = fract(stY.y - line1);
   }
   else if (stY.x < 2./lineCount) {
-    stY.y = fract(stY.y + line2);
+    stY.y = fract(stY.y - line2);
   }
   else if (stY.x < 3./lineCount) {
-      stY.y = fract(stY.y + line3);
+      stY.y = fract(stY.y - line3);
   } 
   else if (stY.x < 4./lineCount) {
       stY.y = fract(stY.y - line4);
@@ -123,15 +123,13 @@ void main(void){
       stY.y = fract(stY.y - line10);
   }
 
-
-  // stY = tile(stY, totalDivisions, breakFrequency);
-  stY = tile(stY + (time * 0.09), totalDivisions, breakFrequency);
+  stY = tile(stY + (time * lineSpeed), totalDivisions, breakFrequency);
   if (coloredDivisions) {
     colorSeparation = vec3(colorA);
   }
   
   color = mix(color, colorSeparation,
-    rect(fract(vec2(stY)) - vec2(-separation.x), vec2(separation.x + lineBreakSeparation, 0.1)));
+    rect(fract(vec2(stY)) - vec2(-separation.x), vec2(separation.x + lineBreakSeparation, 0.00001)));
   
   gl_FragColor = vec4(color,.9);
 }

@@ -125,8 +125,6 @@ class HelixLogoTexture {
     }
 
     this.ribbon.uniform.colorIsDark.value = this.colorsWeight[gradientGuide]
-    
-
     // console.log(this.gradientColors[gradientGuide])
     this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
     this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
@@ -136,6 +134,7 @@ class HelixLogoTexture {
 
   updateValues(values) {
     this.lineCount = values['lineCount']
+    this.lineSpeed = values['lineSpeed']
     this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
@@ -143,6 +142,8 @@ class HelixLogoTexture {
     this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
+
+    console.log(values)
   }
 
 

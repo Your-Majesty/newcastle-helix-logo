@@ -3,7 +3,7 @@ module.exports = (() => {
   const SensorState = require('../models/sensor-state')
   const controller = {}
 
-  const sensorIds = ['humidity', 'temperature', 'energy', 'wind', 'vehicleSpeed']
+  const sensorIds = ['humidity', 'temperature', 'energy', 'wind', 'vehicleSpeed', 'parkedCars']
   let sensors = []
   
   let sensorLimits = sensorIds.map(function (a, i) {
@@ -16,9 +16,8 @@ module.exports = (() => {
   controller.update = async () => {
 
     var data = await SensorState.find().sort({
-    timestamp: 'desc'}).limit(380)
-    
-    // Here I change the names 
+    timestamp: 'desc'}).limit(384)
+ 
     data.forEach(function (dataPoint, index) {
       sensors.push({
         timestamp: dataPoint.timestamp,
@@ -26,11 +25,12 @@ module.exports = (() => {
         temperature: dataPoint.sensors['Temperature'],
         energy: dataPoint.sensors['Energy consumption at Newcastle Helix'],
         wind: dataPoint.sensors['Average wind speed'],
-        vehicleSpeed: dataPoint.sensors['Average vehicle speed']
+        vehicleSpeed: dataPoint.sensors['Average vehicle speed'],
+        parkedCars: dataPoint.sensors['Car park occupancy']
       })      
     })
     
-    // Here I fill the limits
+  
     sensors.forEach(function (a) {
       sensorIds.forEach(function (k, i) {
         sensorLimits[i].data.push(a[k])
