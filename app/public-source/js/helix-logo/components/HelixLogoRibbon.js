@@ -157,25 +157,24 @@ class HelixLogoRibbon {
     this.ribbonMesh.castShadow = true
     this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
-    this.ribbonMesh.rotation.x += Math.PI / 60.6
-    this.ribbonMesh.rotation.y += Math.PI / 1.
-    this.ribbonMesh.rotation.z += Math.PI / 2.
     this.ribbonMesh.position.x += 60
     this.ribbonMesh.position.y -= 20
   }
 
   drawGeometry() {
-    let R = (this.outerRadius) * Math.sin(20.5)
+   
     this.variation = this.variationRatio * Math.cos(0.5) + Math.sin(0.001)  
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
+
+      let R = (this.outerRadius) + (Math.cos(noise) * this.amplitude ) * Math.sin(noise)
       let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
       let angleVertex = i * this.angle
       this.geometry.vertices[2*i].x = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.cos(140.5))
-      this.geometry.vertices[2*i].y = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(150.5))
+      this.geometry.vertices[2*i].y = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(150.5)) * (this.amplitude * Math.sin(noise))
       this.geometry.vertices[2*i].z = this.innerRadius * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise)) + Math.cos(-noise)
       
       this.geometry.vertices[2*i+1].x = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.cos(140.5)) 
-      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.cos(150.5))
+      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.cos(150.5)) * (this.amplitude * Math.sin(noise))
       this.geometry.vertices[2*i+1].z = (this.innerRadius + this.width) * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise)) + Math.cos(noise) 
     }
     this.geometry.verticesNeedUpdate = true;

@@ -4,7 +4,6 @@ class HelixLogoTexture {
     // Need to make a function that stores last Value and interpolate any new value
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
-
     this.createdElement = false
     this.colorScale = 0.2
     this.lineSpeed = 0.1
@@ -12,7 +11,7 @@ class HelixLogoTexture {
     this.lineCount = 10.
  
     this.innerRadius = 20.
-    this.outerRadius = 60
+    this.outerRadius = 70
     this.totalCurls = 8
     this.variationRatio = 0.0058
     this.noiseSize = 180.5
@@ -27,6 +26,7 @@ class HelixLogoTexture {
     this.ribbonWidth = 80
     this.ribbonHeight = 40
     this.coloredDivisions = true
+
     
     this.colors = [
       new THREE.Color(0x7292b6),
@@ -86,8 +86,7 @@ class HelixLogoTexture {
   }
 
   createScene() {
-    // Create Renderer
-    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true} )
+    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true, devicePixelRatio:1} )
     this.renderer.setSize( this.width, this.height )
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     this.renderer.setPixelRatio( window.devicePixelRatio )
@@ -103,12 +102,8 @@ class HelixLogoTexture {
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
     this.controls.enableDamping = false // an animation loop is required when either damping or auto-rotation are enabled
     this.controls.dampingFactor = 0.8
-    // this.controls.panningMode = THREE.ScreenSpacePanning // default is THREE.ScreenSpacePanning
     this.controls.minDistance = 1
     this.controls.maxDistance = 100
-
-    this.camera.rotation.x += Math.PI / 4.
-    this.camera.rotation.y += Math.PI / 2.
     this.controls.update()
     this.controls.enableRotate = false
   }
@@ -119,7 +114,6 @@ class HelixLogoTexture {
   }
 
   calculateColors(temperatureAverage) {
-
     let colorSegments = 1 / (this.gradientColors.length - 1) 
     let gradientGuide = Math.floor(temperatureAverage / colorSegments)
     
@@ -130,11 +124,10 @@ class HelixLogoTexture {
     }
 
     this.ribbon.uniform.colorIsDark.value = this.colorsWeight[gradientGuide]
-    // console.log(this.gradientColors[gradientGuide])
     this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
     this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
-    this.ribbon.uniform.colorC.value = this.gradientColors[gradientGuide + 2]
-    this.ribbon.uniform.colorD.value = this.gradientColors[4]
+    // this.ribbon.uniform.colorC.value = this.gradientColors[gradientGuide + 2]
+    // this.ribbon.uniform.colorD.value = this.gradientColors[4]
   }
 
   updateValues(values) {
@@ -147,8 +140,6 @@ class HelixLogoTexture {
     this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
-
-    console.log(values)
   }
 
 
@@ -156,7 +147,6 @@ class HelixLogoTexture {
     requestAnimationFrame(() => { this.animate() })
     this.stats.begin()
     this.time += .006
-
     // Update Ribbons
     this.ribbon.uniform.time.value = this.time
     this.ribbon.innerRadius = this.innerRadius
@@ -164,11 +154,8 @@ class HelixLogoTexture {
     this.ribbon.totalCurls = Math.floor(this.totalCurls)
     this.ribbon.variationRatio = this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
-
- 
     
     this.ribbon.variator +=  this.variationRatio;
-    
     this.calculateColors(this.colorScale)
 
     this.ribbon.drawGeometry()

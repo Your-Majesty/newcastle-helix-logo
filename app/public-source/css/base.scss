@@ -4,5 +4,9 @@
   top: 0;
   left: 0;
   transition: all 600ms cubic-bezier(0.000, 0.000, 0.580, 1.000);
+}
 
+.helix-logo-element canvas {
+  width: 100% !important;
+  height: 100% !important;
 }

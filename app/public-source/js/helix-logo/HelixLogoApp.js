@@ -3,17 +3,23 @@ HelixLogoApp = function(){
     if (!helixRibbon.createdElement) {
       helixRibbon.init()
     }
-    DataTimeline.calculatePoint(DataCollector.collection[1], DataCollector.collection.length)
+    
+    helixTimeline.calculateTimeline()
+    DataTimeline.calculatePoint(DataCollector.collection[0])
     helixRibbon.updateValues(DataTimeline.calculatedPoint)
-  }, function () {
+
+  }, () => {
     if (!helixRibbon.createdElement) {
       helixRibbon.init()
     }
   })
-  
 
   const helixRibbon = new HelixLogoTexture()
+  const helixTimeline = new HelixLogoTimeline()
   const gui = new dat.GUI()
+
+  // DAT GUI
+
   var f1 = gui.addFolder('Humidity - (lineSeparation, lineCount)');
     f1.add(helixRibbon, 'lineSeparation', 0.2, 0.8);
     f1.add(helixRibbon, 'lineCount', 4., 10.);
@@ -35,9 +41,16 @@ HelixLogoApp = function(){
   var f5 = gui.addFolder('Temperature - (Temperature)');
     f5.add(helixRibbon, 'colorScale', 0, 0.9999);
 
+  
   gui.add(helixRibbon, 'colorBackground');
   gui.add(helixRibbon, 'coloredDivisions');
 
+
+  let timelineControl = gui.add(helixTimeline, 'currentTimelineValue', 0., 24.1);
+  timelineControl.onFinishChange(function(value) {
+    DataTimeline.calculatePoint(DataCollector.collection[helixTimeline.collectionIndex()])
+    helixRibbon.updateValues(DataTimeline.calculatedPoint)
+  })
 }()
 
 

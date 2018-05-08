@@ -10,7 +10,6 @@ module.exports = (() => {
     console.log('DataHarvester::harvest()', process.env.HELIX_DATA_ENDPOINT)
     var data = await fetch(process.env.HELIX_DATA_ENDPOINT)
     var dataJson = await data.json()
-
     for (timePoint of dataJson.timeseries) {
       await SensorState.update({
         timestamp: timePoint.timestamp

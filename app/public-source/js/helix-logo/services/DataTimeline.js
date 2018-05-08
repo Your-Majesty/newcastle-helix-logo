@@ -40,8 +40,8 @@ const DataTimeline = (() => {
         max: 0.1
       },
       breakSize: {
-        min: 0.2,
-        max: 0.3
+        min: 0.21,
+        max: 0.30
       }
     },
     parkedCars: {
@@ -64,11 +64,8 @@ const DataTimeline = (() => {
     breakFrequency: 0
   }
 
-  controller.calculatePoint = (dataPoint, totalPoints) => {
-
-    console.log(dataPoint)
-    console.log(DataCollector.limits)
-
+  controller.calculatePoint = (dataPoint) => {
+    
     for (let property of DataCollector.limits) {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {
