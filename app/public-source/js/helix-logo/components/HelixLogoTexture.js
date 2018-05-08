@@ -106,6 +106,7 @@ class HelixLogoTexture {
     this.controls.maxDistance = 100
     this.controls.update()
     this.controls.enableRotate = false
+
   }
 
   createRibbons() {
@@ -149,22 +150,24 @@ class HelixLogoTexture {
     this.time += .006
     // Update Ribbons
     this.ribbon.uniform.time.value = this.time
-    this.ribbon.innerRadius = this.innerRadius
+    this.ribbon.innerRadius = (1. - 0.1) * this.ribbon.innerRadius + 0.1 * this.innerRadius; 
     this.ribbon.outerRadius = this.outerRadius
-    this.ribbon.totalCurls = Math.floor(this.totalCurls)
-    this.ribbon.variationRatio = this.variationRatio
+    this.ribbon.totalCurls = (1. - 0.01) * this.ribbon.totalCurls + 0.01 * this.totalCurls; 
+    this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
     
     this.ribbon.variator +=  this.variationRatio;
     this.calculateColors(this.colorScale)
-
+    
     this.ribbon.drawGeometry()
+    // this.ribbon.updateGeometry()
+  
     this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
-    this.ribbon.uniform.lineSpeed.value = this.lineSpeed
-    this.ribbon.uniform.lineBreakSeparation.value = this.lineSeparation
-    this.ribbon.uniform.lineCount.value = this.lineCount
-    this.ribbon.uniform.breakSize.value = this.breakSize
-    this.ribbon.uniform.breakFrequency.value = this.breakFrequency
+    this.ribbon.uniform.lineSpeed.value = (1. - 0.1) * this.ribbon.uniform.lineSpeed.value + 0.1 * this.lineSpeed
+    this.ribbon.uniform.lineBreakSeparation.value =  (1. - 0.1) * this.ribbon.uniform.lineBreakSeparation.value + 0.1 * this.lineSeparation
+    this.ribbon.uniform.lineCount.value = (1. - 0.1) * this.ribbon.uniform.lineCount.value + 0.1 * this.lineCount
+    this.ribbon.uniform.breakSize.value = (1. - 0.1) * this.ribbon.uniform.breakSize.value + 0.1 * this.breakSize; 
+    this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
     this.stats.end()
     this.renderer.render( this.scene, this.camera )
   }

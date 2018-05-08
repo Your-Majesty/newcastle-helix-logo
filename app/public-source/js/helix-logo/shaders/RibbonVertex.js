@@ -11,17 +11,22 @@ uniform float parentRadius;
 uniform float childRadius;
 uniform float width;
 
-#define PI 3.14159265359
+attribute float newXPositions;
+attribute float newYPositions;
+attribute float newZPositions;
 
 void main() {
   vUv = uv;
   vNormal = normal;
-  vec3 pos = position + offset;
-  
-  vec4 worldPosition = modelMatrix * vec4(pos, 1.0);
+  vec3 pos = position;
+  // pos.x = (1. - 0.1) * pos.x + 0.1 * newXPositions;   
+  // pos.y = (1. - 0.1) * pos.y + 0.1 * newYPositions;   
+  // pos.z = (1. - 0.1) * pos.z + 0.1 * newZPositions;   
+
+  vec4 worldPosition = modelMatrix * vec4(position, 1.0);
   vWorldPosition = worldPosition.xyz;
   gl_Position = projectionMatrix *
                 modelViewMatrix *
-                vec4(position, 1.0);
+                vec4(pos, 1.0);
 }
 `

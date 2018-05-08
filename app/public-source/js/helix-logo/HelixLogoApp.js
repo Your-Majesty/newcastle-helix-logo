@@ -46,8 +46,8 @@ HelixLogoApp = function(){
   gui.add(helixRibbon, 'coloredDivisions');
 
 
-  let timelineControl = gui.add(helixTimeline, 'currentTimelineValue', 0., 24.1);
-  timelineControl.onFinishChange(function(value) {
+  let timelineControl = gui.add(helixTimeline, 'currentTimelineValue', 1., 24.);
+  timelineControl.onChange(function(value) {
     DataTimeline.calculatePoint(DataCollector.collection[helixTimeline.collectionIndex()])
     helixRibbon.updateValues(DataTimeline.calculatedPoint)
   })
