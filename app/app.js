@@ -6,6 +6,8 @@ const koaStatic = require('koa-static')
 const dataHarvester = require('./lib/data-harvester')
 const dataCache = require('./lib/data-cache')
 
+const logoStillGenerator = require('./lib/logo-still-generator')
+
 const app = new Koa()
 const router = require('./router')
 
@@ -19,14 +21,23 @@ dataHarvester.harvest().then(() => {
   dataCache.update()
 }) 
 
+
+
 setInterval(() => {
   dataHarvester.harvest().then(() => {
     dataCache.update()
+
+    // TODO: PUT IN DIFFERENT TIMER
+    // logoStillGenerator.captureCurrentState()
   }) 
 }, process.env.HARVEST_INTERVAL)
 
-// Set here an interval with the env file setup
-
-app.listen(3000)
+app.listen(3000, () => {
+  console.log('hello')
+  setTimeout (() => {
+    logoStillGenerator.captureCurrentState() 
+  }, 5000)
+  
+})
 
 console.log('Newcastle Helix Logo is up.')

@@ -5,7 +5,7 @@ services:
     working_dir: /app
     volumes:
       - ./app:/app
-    command: bash -c 'pm2 start app.js -i 2 --watch --no-daemon --ignore-watch="public-source public views node_modules" & gulp watch'
+    command: bash -c 'pm2 start app.js -i 1 --watch --no-daemon --ignore-watch="public-source tmp public views node_modules" & gulp watch'
     ports:
       - "3027:3000"
     depends_on:

@@ -160,7 +160,6 @@ class HelixLogoTexture {
     this.calculateColors(this.colorScale)
     
     this.ribbon.drawGeometry()
-    // this.ribbon.updateGeometry()
   
     this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
     this.ribbon.uniform.lineSpeed.value = (1. - 0.1) * this.ribbon.uniform.lineSpeed.value + 0.1 * this.lineSpeed

@@ -11,8 +11,6 @@ uniform float offset;
 
 uniform vec3 colorA;
 uniform vec3 colorB;
-uniform vec3 colorC;
-uniform vec3 colorD;
 
 uniform float line1;
 uniform float line2;
