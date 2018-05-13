@@ -1,7 +1,5 @@
 class HelixLogoTexture {
   constructor() {
-
-    // Need to make a function that stores last Value and interpolate any new value
     this.element = document.querySelector('.helix-logo-element')
     this.time = 0
     this.createdElement = false
@@ -86,8 +84,8 @@ class HelixLogoTexture {
   }
 
   createScene() {
-    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true, devicePixelRatio:1} )
-    this.renderer.setSize( this.width, this.height )
+    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true} )
+    this.renderer.setSize( this.width, this.height)
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
@@ -100,17 +98,16 @@ class HelixLogoTexture {
     this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
 
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
-    this.controls.enableDamping = false // an animation loop is required when either damping or auto-rotation are enabled
+    this.controls.enableDamping = false 
     this.controls.dampingFactor = 0.8
     this.controls.minDistance = 1
     this.controls.maxDistance = 100
     this.controls.update()
     this.controls.enableRotate = false
-
   }
 
   createRibbons() {
-    this.ribbon = new HelixLogoRibbon(this.ribbonWidth, this.ribbonHeight, this.gradientColors[3], this.gradientColors[4])
+    this.ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4])
     this.scene.add(this.ribbon.ribbonMesh)
   }
 
@@ -123,24 +120,22 @@ class HelixLogoTexture {
     } else {
       this.element.style.backgroundColor = '#ffffff'
     }
-
+    
     this.ribbon.uniform.colorIsDark.value = this.colorsWeight[gradientGuide]
     this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
     this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
-    // this.ribbon.uniform.colorC.value = this.gradientColors[gradientGuide + 2]
-    // this.ribbon.uniform.colorD.value = this.gradientColors[4]
   }
 
   updateValues(values) {
     this.lineCount = values['lineCount']
     this.lineSpeed = values['lineSpeed']
-    this.lineSeparation = values['lineSeparation']
+    // this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
     this.totalCurls = values['totalCurls']
     this.variationRatio = values['variationRatio']
-    this.breakSize = values['breakSize']
-    this.breakFrequency = values['breakFrequency']
+    // this.breakSize = values['breakSize']
+    // this.breakFrequency = values['breakFrequency']
   }
 
 
@@ -152,20 +147,21 @@ class HelixLogoTexture {
     this.ribbon.uniform.time.value = this.time
     this.ribbon.innerRadius = (1. - 0.1) * this.ribbon.innerRadius + 0.1 * this.innerRadius; 
     this.ribbon.outerRadius = this.outerRadius
-    this.ribbon.totalCurls = (1. - 0.01) * this.ribbon.totalCurls + 0.01 * this.totalCurls; 
+    this.ribbon.totalCurls = (1. - 0.3) * this.ribbon.totalCurls + 0.3 * this.totalCurls; 
     this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
     
     this.ribbon.variator +=  this.variationRatio;
+
     this.calculateColors(this.colorScale)
     
     this.ribbon.drawGeometry()
-  
+
     this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
-    this.ribbon.uniform.lineSpeed.value = (1. - 0.1) * this.ribbon.uniform.lineSpeed.value + 0.1 * this.lineSpeed
-    this.ribbon.uniform.lineBreakSeparation.value =  (1. - 0.1) * this.ribbon.uniform.lineBreakSeparation.value + 0.1 * this.lineSeparation
+    this.ribbon.uniform.lineSpeed.value = this.lineSpeed
+    this.ribbon.uniform.lineBreakSeparation.value =  this.lineSeparation
     this.ribbon.uniform.lineCount.value = (1. - 0.1) * this.ribbon.uniform.lineCount.value + 0.1 * this.lineCount
-    this.ribbon.uniform.breakSize.value = (1. - 0.1) * this.ribbon.uniform.breakSize.value + 0.1 * this.breakSize; 
+    this.ribbon.uniform.breakSize.value = this.breakSize; 
     this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
     this.stats.end()
     this.renderer.render( this.scene, this.camera )

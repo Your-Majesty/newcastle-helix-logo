@@ -62,6 +62,7 @@ void main(void){
 
   vec2 st = vUv;
   vec3 color = vec3(.0);
+  float alpha = 0.9;
 
   vec2 colorSt = st;
   vec3 colorSeparation = vec3(1.0);
@@ -79,11 +80,13 @@ void main(void){
 
   if (separation.x > .9 && coloredDivisions) {
     color += mix(colorA, colorB, fract(d*.5)) * mix(colorB, colorB, fract(d*.5));
+    alpha = 0.;
     if (colorIsDark) {
       color *= mix(colorB, colorA, fract(d*.5));
     }
   } else {
     color += vec3(separation.x);
+    
   }
   
   color += coloMixed;
@@ -129,6 +132,6 @@ void main(void){
   color = mix(color, colorSeparation,
     rect(fract(vec2(stY)) - vec2(-separation.x), vec2(separation.x + lineBreakSeparation, 0.00001)));
   
-  gl_FragColor = vec4(color,.9);
+  gl_FragColor = vec4(color,alpha);
 }
 `

@@ -1,8 +1,8 @@
 class HelixLogoRibbon {
   constructor(colorA, colorB) {
-    this.segments = 6000
+    this.segments = 3000
     this.angle = 0
-    this.width =  60
+    this.width =  190
     this.height = 50
     this.variation = 0.1
     this.amplitude = 2.5
@@ -165,7 +165,6 @@ class HelixLogoRibbon {
    
     this.variation = this.variationRatio * Math.cos(0.5) + Math.sin(0.001)  
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
-
       let R = (this.outerRadius) + (Math.cos(noise) * this.amplitude ) * Math.sin(noise)
       let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
       let angleVertex = i * this.angle
