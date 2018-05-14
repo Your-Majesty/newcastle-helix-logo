@@ -41,6 +41,20 @@ class HelixLogoTexture {
       true,
       false
     ]
+
+
+    this.lightColors = [
+      new THREE.Color("rgb(51, 255, 204)"),
+      new THREE.Color("rgb(0, 51, 255)"),
+      new THREE.Color("rgb(166, 10, 122)"),
+      new THREE.Color("rgb(255, 107, 0)")
+    ]
+
+    this.darkColors = [
+      new THREE.Color("rgb(0, 51, 255)"),
+      new THREE.Color("rgb(51, 0, 102)"),
+      new THREE.Color("rgb(166, 10, 122)")
+    ]
     
     this.gradientColors = [
       // Teal
@@ -68,8 +82,8 @@ class HelixLogoTexture {
   }
 
   resize() {
-    this.width = window.innerWidth,
-    this.height = window.innerHeight
+    this.width = window.innerWidth * 2,
+    this.height = window.innerHeight * 2
   }
 
   createStats() {
@@ -80,14 +94,9 @@ class HelixLogoTexture {
 
   createScene() {
 
-
     this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true})
-
-    
-
-     this.renderer.setSize( this.width, this.height )
+    this.renderer.setSize( this.width, this.height )
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
-    this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     
     this.scene = new THREE.Scene()
@@ -120,13 +129,34 @@ class HelixLogoTexture {
   calculateColors(temperatureAverage) {
     let colorSegments = 1 / (this.gradientColors.length - 1) 
     let gradientGuide = Math.floor(temperatureAverage / colorSegments)
-    
+
     if (this.colorBackground) {
       this.element.style.backgroundColor = this.backgroundColors[gradientGuide]
     } else {
       this.element.style.backgroundColor = '#ffffff'
     }
-    
+
+    let colorlightSegments = 1 / (this.lightColors.length - 1)
+    let colorLight01 = Math.ceil(temperatureAverage / colorlightSegments)
+    let colorLight02 = Math.floor(temperatureAverage / colorlightSegments)
+    let colorLightInterpolation = Math.abs(Math.ceil(temperatureAverage / colorlightSegments) - (temperatureAverage / colorlightSegments))
+
+    this.ribbon.uniform.colorLight1.value = this.lightColors[colorLight01]
+    this.ribbon.uniform.colorLight2.value = this.lightColors[colorLight02]
+    this.ribbon.uniform.colorLightInterpolation.value = colorLightInterpolation
+
+
+    let colorDarkSegments = 1 / (this.darkColors.length - 1)
+    let colorDark01 = Math.ceil(temperatureAverage / colorDarkSegments)
+    let colorDark02 = Math.floor(temperatureAverage / colorDarkSegments)
+    let colorDarkInterpolation = Math.abs(Math.ceil(temperatureAverage / colorDarkSegments) - (temperatureAverage / colorDarkSegments))
+
+    this.ribbon.uniform.colorDark1.value = this.darkColors[colorDark01]
+    this.ribbon.uniform.colorDark2.value = this.darkColors[colorDark02]
+    this.ribbon.uniform.colorDarkInterpolation.value = colorDarkInterpolation
+
+
+
     this.ribbon.uniform.colorIsDark.value = this.colorsWeight[gradientGuide]
     this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
     this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
@@ -144,10 +174,8 @@ class HelixLogoTexture {
     // this.breakFrequency = values['breakFrequency']
   }
 
-
   animate() {
     requestAnimationFrame(() => { this.animate() })
-
     this.stats.begin()
     this.time += .006
     // Update Ribbons
@@ -157,7 +185,7 @@ class HelixLogoTexture {
     this.ribbon.uniform.totalCurls.value = (1. - 0.3) * this.ribbon.uniform.totalCurls.value + 0.3 * this.totalCurls; 
     this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
-    this.ribbon.variator +=  this.variationRatio;
+    this.ribbon.variator +=  this.variationRatio
 
     this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
     this.ribbon.uniform.lineSpeed.value = this.lineSpeed

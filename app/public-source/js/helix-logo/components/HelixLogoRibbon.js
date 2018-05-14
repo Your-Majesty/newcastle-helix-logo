@@ -2,7 +2,7 @@ class HelixLogoRibbon {
   constructor(colorA, colorB) {
     this.segments = 3000
     this.angle = 0
-    this.width =  190
+    this.width =  260
     this.height = 50
     this.variation = 0.1
     this.amplitude = 2.5
@@ -33,6 +33,30 @@ class HelixLogoRibbon {
       colorA: {
         type: 'vec3',
         value: colorA
+      },
+      colorLight1: {
+        type: 'vec3',
+        value: colorA
+      },
+      colorLight2: {
+        type: 'vec3',
+        value: colorA
+      },
+      colorLightInterpolation: {
+        type: 'float',
+        value: 0.
+      },
+      colorDark1: {
+        type: 'vec3',
+        value: colorA
+      },
+      colorDark2: {
+        type: 'vec3',
+        value: colorA
+      },
+      colorDarkInterpolation: {
+        type: 'float',
+        value: 0.
       },
       colorB: {
         type: 'vec3',
