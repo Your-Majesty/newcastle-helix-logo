@@ -55,7 +55,7 @@ void main(void){
   vec3 colorSeparation = vec3(1.0);
 
   vec2 colorSt = st;
-  colorSt *= 16.5; 
+  colorSt *= 18.; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 
@@ -63,7 +63,8 @@ void main(void){
   float divisionPercentage = lineBreakSeparation;
   
   st = tile(st, totalDivisions, totalDivisions);
-  vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
+  // vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
+  vec2 separation = vec2(0., 0.5);
 
   if (separation.x > .7 && coloredDivisions) {
     color += mix(colorA, colorB, fract(d)) * mix(colorB, colorB, fract(d));

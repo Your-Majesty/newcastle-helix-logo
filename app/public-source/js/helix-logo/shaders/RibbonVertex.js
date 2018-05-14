@@ -7,21 +7,31 @@ varying vec3 vWorldPosition;
 uniform float time;
 uniform float offset;
 
-uniform float parentRadius;
-uniform float childRadius;
+uniform float innerRadius;
+uniform float outerRadius;
+uniform float totalCurls;
+uniform float amplitude;
 uniform float width;
 
-attribute float newXPositions;
-attribute float newYPositions;
-attribute float newZPositions;
+attribute float vertexIndex;
+attribute float vertexAngle;
+attribute float vertexNoise;
 
 void main() {
   vUv = uv;
   vNormal = normal;
   vec3 pos = position;
-  // pos.x = (1. - 0.1) * pos.x + 0.1 * newXPositions;   
-  // pos.y = (1. - 0.1) * pos.y + 0.1 * newYPositions;   
-  // pos.z = (1. - 0.1) * pos.z + 0.1 * newZPositions;   
+
+  float R = (outerRadius);
+  if (mod(vertexIndex, 2.0) == 0.0) {
+    pos.x = ((R + width) + ((innerRadius + width) * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
+    pos.y = ((R + width) + ((innerRadius + width) * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * cos(150.5)) * (amplitude * sin(vertexNoise));
+    pos.z = (innerRadius + width) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(vertexNoise); 
+  } else {
+   pos.x = ((R + width) + (innerRadius * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
+    pos.y = ((R + width) + (innerRadius * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * sin(150.5)) * (amplitude * sin(vertexNoise));
+    pos.z = innerRadius * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(-vertexNoise);
+  }
 
   vec4 worldPosition = modelMatrix * vec4(position, 1.0);
   vWorldPosition = worldPosition.xyz;

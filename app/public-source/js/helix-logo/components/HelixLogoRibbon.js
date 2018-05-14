@@ -2,20 +2,19 @@ class HelixLogoRibbon {
   constructor(colorA, colorB) {
     this.segments = 3000
     this.angle = 0
-    this.width =  300
-    this.height = 70
+    this.width =  120
+    this.height = 80
     this.variation = 0.1
     this.amplitude = 2.5
 
     this.innerRadius = 4.7
-    this.outerRadius = 10.7
-    this.totalCurls = 8
-    this.variationRatio = 0.004
+    this.outerRadius = 90.7
+    this.totalCurls = 4
+    this.variationRatio = 0.001
     this.noiseSize = 280.5
 
     this.offset = Math.random()
     this.variator = .0002
-
     this.perlin = new ClassicalNoise()
     
     this.uniform = {
@@ -111,7 +110,26 @@ class HelixLogoRibbon {
         type: 'f',
         'value': .3
       },
-
+      outerRadius: {
+        type: 'f',
+        'value': this.outerRadius
+      },
+      innerRadius: {
+        type: 'f',
+        'value': this.innerRadius
+      },
+      amplitude: {
+        type: 'f',
+        'value': this.amplitude
+      },
+      totalCurls: {
+        type: 'f',
+        'value': this.totalCurls
+      }, 
+      totalVertices: {
+        type: 'f',
+        'value': 0.
+      },
     }
 
     this.createGeometry()
@@ -120,10 +138,20 @@ class HelixLogoRibbon {
   }
   
   createGeometry() {
-    this.geometry = new THREE.PlaneGeometry(this.width, this.height, 1, this.segments)
-    this.angle = (360 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
+    this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
+    this.angle = (365 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180)
+    
+    this.vertexIndex = new Float32Array(this.bufferGeometry.attributes.position.count)
+    this.vertexAngle = new Float32Array(this.bufferGeometry.attributes.position.count)
+    this.vertexNoise = new Float32Array(this.bufferGeometry.attributes.position.count)
+    
+    for (let v = 0; v < this.bufferGeometry.attributes.position.count; v++) {
+      this.vertexIndex[v] = v
+    }
 
-    console.log(this.geometry)
+    this.bufferGeometry.addAttribute( 'vertexIndex', new THREE.BufferAttribute( this.vertexIndex, 1 ) )
+    this.bufferGeometry.addAttribute( 'vertexAngle', new THREE.BufferAttribute( this.vertexAngle, 1 ) )
+    this.bufferGeometry.addAttribute( 'vertexNoise', new THREE.BufferAttribute( this.vertexNoise, 1 ) )
   }
 
   createShaderMaterial() {
@@ -137,31 +165,26 @@ class HelixLogoRibbon {
 
   createMeshRibbon() {
     this.ribbonMesh = new THREE.Mesh(
-      this.geometry,
+      this.bufferGeometry,
       this.shaderMaterial
     )
-    this.ribbonMesh.castShadow = true
-    this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
     this.ribbonMesh.position.x += 60
     this.ribbonMesh.position.y -= 20
   }
 
   drawGeometry() {
-    // Put this on Vertex shader
     this.variation = this.variationRatio * Math.cos(0.5) + Math.sin(0.001)  
-    for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
-      let R = (this.outerRadius) + (Math.cos(noise) * this.amplitude ) * Math.sin(noise)
-      let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
-      let angleVertex = i * this.angle
-      this.geometry.vertices[2*i].x = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.cos(140.5))
-      this.geometry.vertices[2*i].y = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(150.5)) * (this.amplitude * Math.sin(noise))
-      this.geometry.vertices[2*i].z = this.innerRadius * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise)) + Math.cos(-noise)
-      
-      this.geometry.vertices[2*i+1].x = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.cos(140.5)) 
-      this.geometry.vertices[2*i+1].y = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.cos(150.5)) * (this.amplitude * Math.sin(noise))
-      this.geometry.vertices[2*i+1].z = (this.innerRadius + this.width) * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise)) + Math.cos(noise) 
+
+    for (let i = 0; i < this.bufferGeometry.attributes.position.count; i=i+2) {
+      this.vertexAngle[i] = i * this.angle
+      this.vertexAngle[i+1] = i * this.angle
+      this.vertexNoise[i] = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
+      this.vertexNoise[i+1] = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
     }
-    this.geometry.verticesNeedUpdate = true;
+    
+    this.bufferGeometry.attributes.position.needsUpdate = true
+    this.bufferGeometry.attributes.vertexAngle.needsUpdate = true
+    this.bufferGeometry.attributes.vertexNoise.needsUpdate = true
   }
 }

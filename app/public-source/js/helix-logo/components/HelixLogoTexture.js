@@ -10,7 +10,7 @@ class HelixLogoTexture {
  
     this.innerRadius = 20.
     this.outerRadius = 70
-    this.totalCurls = 8
+    this.totalCurls = 2.
     this.variationRatio = 0.0058
     this.noiseSize = 180.5
     this.colorBackground = true
@@ -80,24 +80,28 @@ class HelixLogoTexture {
 
   createScene() {
 
+    this.scene = new THREE.Scene()
+    this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
+
     this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true})
     this.renderer.setSize( this.width, this.height)
     this.renderer.setClearColor( 0xffffff, 0)
     
     this.element.appendChild( this.renderer.domElement)
-    this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
 
-    this.composer = new THREE.EffectComposer( this.renderer )
-    this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
+
+    
+
+
+    // this.composer = new THREE.EffectComposer( this.renderer )
+    // this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
   
-    this.shaderPass = new THREE.ShaderPass(threeShaderFXAA)
-    this.shaderPass.renderToScreen = true
-    this.composer.addPass(this.shaderPass)
+    // this.shaderPass = new THREE.ShaderPass(threeShaderFXAA)
+    // this.shaderPass.renderToScreen = true
+    // this.composer.addPass(this.shaderPass)
 
-    this.shaderPass.uniforms.resolution.value.set(this.width * 2, this.height * 2)
-
-
+    // this.shaderPass.uniforms.resolution.value.set(this.width, this.height)
+    
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
     this.controls.enableDamping = false 
     this.controls.dampingFactor = 0.8
@@ -144,17 +148,16 @@ class HelixLogoTexture {
     requestAnimationFrame(() => { this.animate() })
 
     this.stats.begin()
-
     this.time += .006
     // Update Ribbons
     this.ribbon.uniform.time.value = this.time
-    this.ribbon.innerRadius = (1. - 0.1) * this.ribbon.innerRadius + 0.1 * this.innerRadius; 
-    this.ribbon.outerRadius = this.outerRadius
-    this.ribbon.totalCurls = (1. - 0.3) * this.ribbon.totalCurls + 0.3 * this.totalCurls; 
-    // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
+    this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
+    this.ribbon.uniform.outerRadius.value = this.outerRadius
+    this.ribbon.uniform.totalCurls.value = (1. - 0.3) * this.ribbon.uniform.totalCurls.value + 0.3 * this.totalCurls; 
+    this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
-    
-    // this.ribbon.variator +=  this.variationRatio;
+    this.ribbon.variator +=  this.variationRatio;
+
     this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
     this.ribbon.uniform.lineSpeed.value = this.lineSpeed
     this.ribbon.uniform.lineBreakSeparation.value =  this.lineSeparation
@@ -165,6 +168,7 @@ class HelixLogoTexture {
     this.calculateColors(this.colorScale)
     this.ribbon.drawGeometry()
     this.stats.end()
-      this.composer.render()
+    // this.composer.render()
+    this.renderer.render()
   }
 }
