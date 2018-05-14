@@ -80,18 +80,19 @@ class HelixLogoTexture {
 
   createScene() {
 
-    this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
 
     this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true})
-    this.renderer.setSize( this.width, this.height)
-    this.renderer.setClearColor( 0xffffff, 0)
+
     
+
+     this.renderer.setSize( this.width, this.height )
+    this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
+    this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
-
-
     
-
+    this.scene = new THREE.Scene()
+    this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
+    this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
 
     // this.composer = new THREE.EffectComposer( this.renderer )
     // this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
@@ -169,6 +170,7 @@ class HelixLogoTexture {
     this.ribbon.drawGeometry()
     this.stats.end()
     // this.composer.render()
-    this.renderer.render()
+    this.renderer.render( this.scene, this.camera )
+
   }
 }
