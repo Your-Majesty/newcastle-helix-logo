@@ -5,9 +5,7 @@ varying vec3 vNormal;
 varying vec2 vUv;
 varying vec3 vWorldPosition;
 
-uniform vec3 lightPosition;
 uniform float time;
-uniform float offset;
 
 uniform vec3 colorA;
 uniform vec3 colorB;
@@ -22,7 +20,6 @@ uniform float line7;
 uniform float line8;
 uniform float line9;
 uniform float line10;
-
 
 uniform float lineSpeed;
 uniform float lineBreakSeparation;
@@ -47,49 +44,39 @@ vec2 tile(vec2 _st, float _zoomX, float _zoomY ){
 float rect(in vec2 _st, in vec2 _size){
   _size = 0.1-_size*0.5;
   vec2 uv = smoothstep(_size,_size,_st);
-
   uv *= smoothstep(_size,_size,vec2(1.0, breakSize)-_st);
   return uv.x*uv.y;
 }
 
-float noise(float p){
-  float fl = floor(p);
-  float fc = fract(p);
-  return mix(random(fl), random(fl + 1.0), fc);
-}
-
 void main(void){
-
   vec2 st = vUv;
   vec3 color = vec3(.0);
-  float alpha = 0.9;
-
-  vec2 colorSt = st;
+  float alpha = 1.0;
   vec3 colorSeparation = vec3(1.0);
 
-  colorSt *= 16.0; 
+  vec2 colorSt = st;
+  colorSt *= 16.5; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 
-  vec3 coloMixed = mix(colorB, colorA, fract(d*1.5));
   float totalDivisions = lineCount;
   float divisionPercentage = lineBreakSeparation;
   
   st = tile(st, totalDivisions, totalDivisions);
   vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
 
-  if (separation.x > .9 && coloredDivisions) {
-    color += mix(colorA, colorB, fract(d*.5)) * mix(colorB, colorB, fract(d*.5));
-    alpha = 0.;
+  if (separation.x > .7 && coloredDivisions) {
+    color += mix(colorA, colorB, fract(d)) * mix(colorB, colorB, fract(d));
+    // alpha = 0.;
+
     if (colorIsDark) {
-      color *= mix(colorB, colorA, fract(d*.5));
+      color *= mix(colorB, colorA, fract(d));
     }
   } else {
     color += vec3(separation.x);
-    
   }
-  
-  color += coloMixed;
+
+  color += mix(colorB, colorA, fract(d));
   
   vec2 stY = vUv;
 
@@ -125,6 +112,7 @@ void main(void){
   }
 
   stY = tile(stY + (time * lineSpeed), totalDivisions, breakFrequency);
+  
   if (coloredDivisions) {
     colorSeparation = vec3(colorA);
   }

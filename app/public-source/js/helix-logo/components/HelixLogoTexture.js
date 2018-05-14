@@ -14,18 +14,11 @@ class HelixLogoTexture {
     this.variationRatio = 0.0058
     this.noiseSize = 180.5
     this.colorBackground = true
-
+    this.coloredDivisions = true
+    this.colorTransparency = false
     this.breakSize = 0.3
     this.breakFrequency = 10.0
-    
-    this.ribbon = null
-    this.uniforms = []
 
-    this.ribbonWidth = 80
-    this.ribbonHeight = 40
-    this.coloredDivisions = true
-
-    
     this.colors = [
       new THREE.Color(0x7292b6),
       new THREE.Color(0xffffff),
@@ -65,8 +58,10 @@ class HelixLogoTexture {
 
   init() {
     this.createdElement = true
-    this.createStats()
+
     this.resize()
+    this.createStats()
+
     this.createScene()
     this.createRibbons()
     this.animate()
@@ -84,18 +79,24 @@ class HelixLogoTexture {
   }
 
   createScene() {
-    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true} )
+
+    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true})
     this.renderer.setSize( this.width, this.height)
-    this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
-    this.renderer.setPixelRatio( window.devicePixelRatio )
-    this.element.appendChild( this.renderer.domElement)
+    this.renderer.setClearColor( 0xffffff, 0)
     
+    this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
-    this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
 
     this.composer = new THREE.EffectComposer( this.renderer )
     this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
+  
+    this.shaderPass = new THREE.ShaderPass(threeShaderFXAA)
+    this.shaderPass.renderToScreen = true
+    this.composer.addPass(this.shaderPass)
+
+    this.shaderPass.uniforms.resolution.value.set(this.width * 2, this.height * 2)
+
 
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
     this.controls.enableDamping = false 
@@ -141,29 +142,29 @@ class HelixLogoTexture {
 
   animate() {
     requestAnimationFrame(() => { this.animate() })
+
     this.stats.begin()
+
     this.time += .006
     // Update Ribbons
     this.ribbon.uniform.time.value = this.time
     this.ribbon.innerRadius = (1. - 0.1) * this.ribbon.innerRadius + 0.1 * this.innerRadius; 
     this.ribbon.outerRadius = this.outerRadius
     this.ribbon.totalCurls = (1. - 0.3) * this.ribbon.totalCurls + 0.3 * this.totalCurls; 
-    this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
+    // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
     
-    this.ribbon.variator +=  this.variationRatio;
-
-    this.calculateColors(this.colorScale)
-    
-    this.ribbon.drawGeometry()
-
+    // this.ribbon.variator +=  this.variationRatio;
     this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
     this.ribbon.uniform.lineSpeed.value = this.lineSpeed
     this.ribbon.uniform.lineBreakSeparation.value =  this.lineSeparation
     this.ribbon.uniform.lineCount.value = (1. - 0.1) * this.ribbon.uniform.lineCount.value + 0.1 * this.lineCount
     this.ribbon.uniform.breakSize.value = this.breakSize; 
     this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
+    
+    this.calculateColors(this.colorScale)
+    this.ribbon.drawGeometry()
     this.stats.end()
-    this.renderer.render( this.scene, this.camera )
+      this.composer.render()
   }
 }

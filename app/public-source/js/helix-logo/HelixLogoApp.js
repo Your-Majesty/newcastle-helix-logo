@@ -1,4 +1,5 @@
 HelixLogoApp = function(){
+
   DataCollector.getData().then(() => {
     if (!helixRibbon.createdElement) {
       helixRibbon.init()

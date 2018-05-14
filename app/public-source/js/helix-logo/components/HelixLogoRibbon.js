@@ -2,8 +2,8 @@ class HelixLogoRibbon {
   constructor(colorA, colorB) {
     this.segments = 3000
     this.angle = 0
-    this.width =  190
-    this.height = 50
+    this.width =  300
+    this.height = 70
     this.variation = 0.1
     this.amplitude = 2.5
 
@@ -14,10 +14,10 @@ class HelixLogoRibbon {
     this.noiseSize = 280.5
 
     this.offset = Math.random()
-    this.variator = .0002 
-    this.perlin = new ClassicalNoise()
-    this.coloredDivisions = true
+    this.variator = .0002
 
+    this.perlin = new ClassicalNoise()
+    
     this.uniform = {
       time: {
         type: 'f',
@@ -29,7 +29,7 @@ class HelixLogoRibbon {
       },
       coloredDivisions: {
         type: 'bool',
-        value: this.coloredDivisions,
+        value: true,
       },
       colorA: {
         type: 'vec3',
@@ -39,19 +39,10 @@ class HelixLogoRibbon {
         type: 'vec3',
         value: colorB
       },
-      colorC: {
-        type: 'vec3',
-        value: new THREE.Color("rgb(255, 255, 255)")
-      },
-      colorD: {
-        type: 'vec3',
-        value: new THREE.Color("rgb(255, 255, 255)")
-      },
       colorIsDark: {
         type: 'bool',
         value: false,
       },
-
       lineSpeed: {
         type: 'f',
         value: 0.1
@@ -64,10 +55,6 @@ class HelixLogoRibbon {
         type: 'f',
         value: 10.
       },
-      parentRadius: {
-        type: 'f',
-        value: 20.
-      },
       childRadius: {
         type: 'f',
         value: 0.5
@@ -75,9 +62,6 @@ class HelixLogoRibbon {
       width: {
         type: 'f',
         'value': parseFloat(this.width)
-      },
-      lightPosition: {
-        type: 'v3', value: new THREE.Vector3(-100, 60, 0)
       },
       breakSize: {
         type: 'f',
@@ -138,6 +122,8 @@ class HelixLogoRibbon {
   createGeometry() {
     this.geometry = new THREE.PlaneGeometry(this.width, this.height, 1, this.segments)
     this.angle = (360 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
+
+    console.log(this.geometry)
   }
 
   createShaderMaterial() {
@@ -162,7 +148,7 @@ class HelixLogoRibbon {
   }
 
   drawGeometry() {
-   
+    // Put this on Vertex shader
     this.variation = this.variationRatio * Math.cos(0.5) + Math.sin(0.001)  
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
       let R = (this.outerRadius) + (Math.cos(noise) * this.amplitude ) * Math.sin(noise)
