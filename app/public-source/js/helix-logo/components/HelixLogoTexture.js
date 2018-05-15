@@ -199,9 +199,9 @@ class HelixLogoTexture {
     this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
     this.ribbon.uniform.outerRadius.value = this.outerRadius
     this.ribbon.uniform.totalCurls.value = (1. - 0.3) * this.ribbon.uniform.totalCurls.value + 0.3 * this.totalCurls; 
-    this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
+    // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
-    this.ribbon.variator +=  this.variationRatio
+    // this.ribbon.variator +=  this.variationRatio
 
     this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
     this.ribbon.uniform.lineSpeed.value = this.lineSpeed

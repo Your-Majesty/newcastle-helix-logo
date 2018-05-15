@@ -1,11 +1,11 @@
 class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor) {
-    this.segments = 4000
+    this.segments = 2200
     this.angle = 0
-    this.width =  190
-    this.height = 70
+    this.width =  250
+    this.height = 270
     this.variation = 0.1
-    this.amplitude = 2.5
+    this.amplitude = 3
 
     this.innerRadius = 4.7
     this.outerRadius = 90.7
@@ -177,7 +177,8 @@ class HelixLogoRibbon {
   }
   
   createGeometry() {
-    this.bufferGeometry = new THREE.PlaneBufferGeometry( 1000000, this.height, 1, this.segments);
+    this.geometry = new THREE.PlaneBufferGeometry( this.width, this.height, 10, this.segments);
+    this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
     this.angle = (365 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180)
     
     this.vertexIndex = new Float32Array(this.bufferGeometry.attributes.position.count)
@@ -187,6 +188,9 @@ class HelixLogoRibbon {
     for (let v = 0; v < this.bufferGeometry.attributes.position.count; v++) {
       this.vertexIndex[v] = v
     }
+
+
+    // console.log(this.geometry)
 
     this.bufferGeometry.addAttribute( 'vertexIndex', new THREE.BufferAttribute( this.vertexIndex, 1 ) )
     this.bufferGeometry.addAttribute( 'vertexAngle', new THREE.BufferAttribute( this.vertexAngle, 1 ) )

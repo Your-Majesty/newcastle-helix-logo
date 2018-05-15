@@ -5,28 +5,50 @@ module.exports = (() => {
   const controller = {}
   const urlOptions = ['white', 'black', 'color']
 
+  const screenShotGuide = [  
+    {
+      name: 'menu',
+      width: 1500,
+      height: 1200,
+    },
+    {
+      name: 'banner',
+      width: 2048,
+      height: 400,
+
+    },
+    {
+      name: 'logo',
+      width: 2048,
+      height: 400,
+      type: 'logo'
+    }
+  ]
+
   controller.captureCurrentState = async () => {
     for (option of urlOptions) {
-      var logoCapture = await imageCapture.capture(`http://localhost:3000/?${option}`, 3100, 2000 )
-
-      sharp(logoCapture)
-      .rotate()
-      .sharpen()
-      .resize(500)
-      .toFile(`${__dirname}/../tmp/${Date.now()}-sharpie_helix.png`, (err, info) => 
-        console.log(info)
-      );
-      
-
-      
-      //mojyugiyg g
-      // extract, resize, get new small image path
-
-      // load text image and overlayWith the new image made
-
-
-      // Extract Long image,
-      // Extract a Wide image
+      var logoCapture = await imageCapture.capture(`http://localhost:3000/?${option}`, 3360, 2100 )
+      for (capture of screenShotGuide) {
+        if (capture.type === 'logo') {
+          sharp(logoCapture)
+          .resize(capture.width, capture.height)
+          .crop(sharp.strategy.entropy)
+          .extract({left: capture.width / 2, top: 0, width: capture.width / 4, height: capture.height })
+          .sharpen(2.0)
+          .toFile(`${__dirname}/../tmp/${Date.now()}-${capture.name}_helix.png`, (err, info) => 
+            console.log(info)
+          )
+          
+        } else {
+          sharp(logoCapture)
+          .resize(capture.width, capture.height)
+          .crop(sharp.strategy.entropy)
+          .sharpen(2.0)
+          .toFile(`${__dirname}/../tmp/${Date.now()}-${capture.name}_helix.png`, (err, info) => 
+            console.log(info)
+          )
+        }
+      }
     }
   }
 
