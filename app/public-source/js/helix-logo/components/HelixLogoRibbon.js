@@ -1,9 +1,9 @@
 class HelixLogoRibbon {
-  constructor(colorA, colorB) {
-    this.segments = 3000
+  constructor(colorA, colorB, isMonochrome, monochromeColor) {
+    this.segments = 4000
     this.angle = 0
-    this.width =  160
-    this.height = 50
+    this.width =  190
+    this.height = 70
     this.variation = 0.1
     this.amplitude = 2.5
 
@@ -16,6 +16,8 @@ class HelixLogoRibbon {
     this.offset = Math.random()
     this.variator = .0002
     this.perlin = new ClassicalNoise()
+    this.isMonochrome = isMonochrome
+    this.monochromeColor = monochromeColor
     
     this.uniform = {
       time: {
@@ -66,6 +68,19 @@ class HelixLogoRibbon {
         type: 'bool',
         value: false,
       },
+      isMonochrome: {
+        type: 'bool',
+        value: this.isMonochrome,
+      },
+      monochromeColorA: {
+        type: 'float',
+        value: this.monochromeColor,
+      },
+      monochromeColorB: {
+        type: 'float',
+        value: this.monochromeColor > 0. ? .9 : .2,
+      },
+
       lineSpeed: {
         type: 'f',
         value: 0.1
@@ -162,7 +177,7 @@ class HelixLogoRibbon {
   }
   
   createGeometry() {
-    this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
+    this.bufferGeometry = new THREE.PlaneBufferGeometry( 1000000, this.height, 1, this.segments);
     this.angle = (365 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180)
     
     this.vertexIndex = new Float32Array(this.bufferGeometry.attributes.position.count)
@@ -193,6 +208,10 @@ class HelixLogoRibbon {
       this.shaderMaterial
     )
     this.shaderMaterial.side = THREE.DoubleSide
+    // this.shaderMaterial.anisotropy = 0;
+
+    // this.shaderMaterial.magFilter = THREE.LinearFilter
+    // this.shaderMaterial.minFilter = THREE.LinearFilter
     this.ribbonMesh.position.x += 60
     this.ribbonMesh.position.y -= 20
   }

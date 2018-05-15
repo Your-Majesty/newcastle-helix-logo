@@ -14,10 +14,11 @@ class HelixLogoTexture {
     this.variationRatio = 0.0058
     this.noiseSize = 180.5
     this.colorBackground = true
-    this.coloredDivisions = true
+    this.coloredDivisions = false
     this.colorTransparency = false
     this.breakSize = 0.3
     this.breakFrequency = 10.0
+    this.isMonochrome = false
 
     this.colors = [
       new THREE.Color(0x7292b6),
@@ -47,15 +48,16 @@ class HelixLogoTexture {
       new THREE.Color("rgb(51, 255, 204)"),
       new THREE.Color("rgb(0, 51, 255)"),
       new THREE.Color("rgb(166, 10, 122)"),
-      new THREE.Color("rgb(255, 107, 0)")
+      new THREE.Color("rgb(255, 107, 0)"),
+      new THREE.Color("rgb(166, 10, 122)")
 
     ]
 
     this.darkColors = [
       new THREE.Color("rgb(0, 51, 255)"),
       new THREE.Color("rgb(51, 0, 102)"),
-      new THREE.Color("rgb(166, 10, 122)")
-      // new THREE.Color("rgb(255, 107, 0)")
+      new THREE.Color("rgb(166, 10, 122)"),
+      new THREE.Color("rgb(255, 107, 0)")
     ]
     
     this.gradientColors = [
@@ -72,8 +74,23 @@ class HelixLogoTexture {
     ]
   }
 
+
+
   init() {
     this.createdElement = true
+    if (window.location.href.split('?')[1] == 'white') {
+      this.isMonochrome = true
+      this.monochromeColor = 1.    
+      this.coloredDivisions = false
+    } else if(window.location.href.split('?')[1] == 'black') {
+      this.isMonochrome = true
+      this.monochromeColor = 0.    
+      this.coloredDivisions = false
+    } else {
+      this.coloredDivisions = true
+      this.isMonochrome = false
+
+    }
 
     this.resize()
     this.createStats()
@@ -98,8 +115,8 @@ class HelixLogoTexture {
 
     this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true})
     this.renderer.setSize( this.width, this.height )
-    this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     this.element.appendChild( this.renderer.domElement)
+    // this.renderer.setPixelRatio( window.devicePixelRatio * 1.5 );
     
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
@@ -120,11 +137,11 @@ class HelixLogoTexture {
     this.controls.minDistance = 1
     this.controls.maxDistance = 100
     this.controls.update()
-    this.controls.enableRotate = false
+    this.controls.enableRotate = true
   }
 
   createRibbons() {
-    this.ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4])
+    this.ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4], this.isMonochrome, this.monochromeColor)
     this.scene.add(this.ribbon.ribbonMesh)
   }
 
@@ -132,12 +149,11 @@ class HelixLogoTexture {
     let colorSegments = 1 / (this.gradientColors.length - 1) 
     let gradientGuide = Math.floor(temperatureAverage / colorSegments)
 
-    if (this.colorBackground) {
+    if (this.colorBackground && !this.isMonochrome) {
       this.element.style.backgroundColor = this.backgroundColors[gradientGuide]
     } else {
-      this.element.style.backgroundColor = '#ffffff'
+      this.element.style.backgroundColor = 'transparent'
     }
-
     let colorlightSegments = 1 / (this.lightColors.length - 1)
     let colorLight01 = Math.ceil(temperatureAverage / colorlightSegments)
     let colorLight02 = Math.floor(temperatureAverage / colorlightSegments)
@@ -152,6 +168,7 @@ class HelixLogoTexture {
     let colorDark02 = Math.floor(temperatureAverage / colorDarkSegments)
     let colorDarkInterpolation = Math.abs(Math.ceil(temperatureAverage / colorDarkSegments) - (temperatureAverage / colorDarkSegments))
 
+
     this.ribbon.uniform.colorDark1.value = this.darkColors[colorDark01]
     this.ribbon.uniform.colorDark2.value = this.darkColors[colorDark02]
     this.ribbon.uniform.colorDarkInterpolation.value = colorDarkInterpolation
@@ -161,7 +178,8 @@ class HelixLogoTexture {
   }
 
   updateValues(values) {
-    this.lineCount = values['lineCount']
+    // this.lineCount = values['lineCount']
+    this.lineCount = 10
     this.lineSpeed = values['lineSpeed']
     this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']
@@ -175,7 +193,7 @@ class HelixLogoTexture {
   animate() {
     requestAnimationFrame(() => { this.animate() })
     this.stats.begin()
-    this.time += .006
+    // this.time += .006
     // Update Ribbons
     this.ribbon.uniform.time.value = this.time
     this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 

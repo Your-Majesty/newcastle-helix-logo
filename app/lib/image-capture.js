@@ -3,9 +3,7 @@ module.exports = (() => {
   const puppeteer = require('puppeteer');
 
   const controller = {}
-
-
-  controller.capture = async (url, width, height) => {
+    controller.capture = async (url, width, height) => {
     console.log("capturing...")
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
 
@@ -21,7 +19,11 @@ module.exports = (() => {
     })
     await page.goto(url);
   
-    await page.screenshot({path: path});
+    await page.screenshot({
+      omitBackground: true,
+      path: path
+
+    });
 
     await browser.close();
 

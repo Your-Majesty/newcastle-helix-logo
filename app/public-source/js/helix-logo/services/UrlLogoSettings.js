@@ -2,7 +2,7 @@ const UrlLogoSettings = (() => {
   const controller = {}
 
   controller.getUrl = () => {
-   
+    
 
   
   }

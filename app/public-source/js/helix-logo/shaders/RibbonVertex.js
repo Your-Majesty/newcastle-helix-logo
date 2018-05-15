@@ -22,18 +22,18 @@ void main() {
   vNormal = normal;
   vec3 pos = position;
 
-  float R = (outerRadius);
+  float R = (outerRadius) + (cos(vertexNoise) * amplitude) * sin(vertexNoise) * 10.;
   if (mod(vertexIndex, 2.0) == 0.0) {
     pos.x = ((R + width) + ((innerRadius + width) * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
     pos.y = ((R + width) + ((innerRadius + width) * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * cos(150.5)) * (amplitude * sin(vertexNoise));
     pos.z = (innerRadius + width) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(vertexNoise); 
   } else {
-   pos.x = ((R + width) + (innerRadius * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
+    pos.x = ((R + width) + (innerRadius * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
     pos.y = ((R + width) + (innerRadius * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * sin(150.5)) * (amplitude * sin(vertexNoise));
     pos.z = innerRadius * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(-vertexNoise);
   }
 
-  vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+  vec4 worldPosition = modelMatrix * vec4(pos, 1.0);
   vWorldPosition = worldPosition.xyz;
   gl_Position = projectionMatrix *
                 modelViewMatrix *

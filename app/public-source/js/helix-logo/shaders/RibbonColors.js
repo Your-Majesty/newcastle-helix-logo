@@ -38,6 +38,9 @@ uniform float breakFrequency;
 
 uniform bool coloredDivisions;
 uniform bool colorIsDark;
+uniform bool isMonochrome;
+uniform float monochromeColorA;
+uniform float monochromeColorB;
 
 float random (in float x) {
   return fract(sin(x)*1e4);
@@ -73,22 +76,31 @@ void main(void){
   st = tile(st, totalDivisions, totalDivisions);
   vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
 
-  vec3 colorMixedLigth = mix(colorLight1, colorLight2, colorLightInterpolation);
-  vec3 colorMixedDark = mix(colorDark1, colorDark2, colorDarkInterpolation);
+  // vec3 colorMixedLight = mix(colorLight1, colorLight2, colorLightInterpolation);
+  // vec3 colorMixedDark = mix(colorDark1, colorDark2, colorDarkInterpolation);
+  vec3 colorMixedLight = colorA;
+  vec3 colorMixedDark = colorB;
 
+  if (isMonochrome) {
+    colorMixedLight = vec3(monochromeColorB);
+    colorMixedDark = vec3(monochromeColorA);
+
+    if (separation.x > .9) {
+       alpha = 0.;
+    }
+  }
+  
 
   if (separation.x > .7 && coloredDivisions) {
-    color += mix(colorMixedLigth, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
-    // alpha = 0.;
-
+    color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
     if (colorIsDark) {
-      color *= mix(colorMixedDark, colorMixedLigth, fract(d));
+      color *= mix(colorMixedDark, colorMixedLight, fract(d));
     }
   } else {
     color += vec3(separation.x);
   }
 
-  color += mix(colorMixedDark, colorMixedLigth, fract(d));
+  color += mix(colorMixedDark, colorMixedLight, fract(d));
   
   vec2 stY = vUv;
 
@@ -126,7 +138,7 @@ void main(void){
   stY = tile(stY + (time * lineSpeed), totalDivisions, breakFrequency);
   
   if (coloredDivisions) {
-    colorSeparation = vec3(colorA);
+    colorSeparation = vec3(colorMixedLight);
   }
   
   color = mix(color, colorSeparation,

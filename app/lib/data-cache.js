@@ -19,11 +19,6 @@ module.exports = (() => {
 
     var data = await SensorState.find().sort({
     timestamp: 'desc'}).limit(96)
-
-    console.log(data)
-
-
-
     data.forEach(function (dataPoint, index) {
       sensors.push({
           timestamp: dataPoint.timestamp,
@@ -34,9 +29,7 @@ module.exports = (() => {
           vehicleSpeed: dataPoint.sensors['Air pressure'],
           parkedCars: dataPoint.sensors['Vehicle count']
       })  
-          
     })
-
     sensors.forEach(function (a) {
       sensorIds.forEach(function (k, i) {
         sensorLimits[i].data.push(a[k])
