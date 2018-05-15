@@ -101,8 +101,8 @@ class HelixLogoTexture {
   }
 
   resize() {
-    this.width = window.innerWidth * 2,
-    this.height = window.innerHeight * 2
+    this.width = window.innerWidth,
+    this.height = window.innerHeight
   }
 
   createStats() {
@@ -113,8 +113,11 @@ class HelixLogoTexture {
 
   createScene() {
 
-    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true})
-    this.renderer.setSize( this.width, this.height )
+    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true, devicePixelRatio:1} )
+
+    this.renderer.setSize( this.width, this.height)
+    this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
+    this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     // this.renderer.setPixelRatio( window.devicePixelRatio * 1.5 );
     
