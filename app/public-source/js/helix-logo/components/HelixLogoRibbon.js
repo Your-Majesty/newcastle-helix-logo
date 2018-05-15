@@ -2,7 +2,7 @@ class HelixLogoRibbon {
   constructor(colorA, colorB) {
     this.segments = 3000
     this.angle = 0
-    this.width =  260
+    this.width =  160
     this.height = 50
     this.variation = 0.1
     this.amplitude = 2.5

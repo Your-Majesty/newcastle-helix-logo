@@ -48,12 +48,14 @@ class HelixLogoTexture {
       new THREE.Color("rgb(0, 51, 255)"),
       new THREE.Color("rgb(166, 10, 122)"),
       new THREE.Color("rgb(255, 107, 0)")
+
     ]
 
     this.darkColors = [
       new THREE.Color("rgb(0, 51, 255)"),
       new THREE.Color("rgb(51, 0, 102)"),
       new THREE.Color("rgb(166, 10, 122)")
+      // new THREE.Color("rgb(255, 107, 0)")
     ]
     
     this.gradientColors = [
@@ -145,7 +147,6 @@ class HelixLogoTexture {
     this.ribbon.uniform.colorLight2.value = this.lightColors[colorLight02]
     this.ribbon.uniform.colorLightInterpolation.value = colorLightInterpolation
 
-
     let colorDarkSegments = 1 / (this.darkColors.length - 1)
     let colorDark01 = Math.ceil(temperatureAverage / colorDarkSegments)
     let colorDark02 = Math.floor(temperatureAverage / colorDarkSegments)
@@ -154,9 +155,6 @@ class HelixLogoTexture {
     this.ribbon.uniform.colorDark1.value = this.darkColors[colorDark01]
     this.ribbon.uniform.colorDark2.value = this.darkColors[colorDark02]
     this.ribbon.uniform.colorDarkInterpolation.value = colorDarkInterpolation
-
-
-
     this.ribbon.uniform.colorIsDark.value = this.colorsWeight[gradientGuide]
     this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
     this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
@@ -165,13 +163,13 @@ class HelixLogoTexture {
   updateValues(values) {
     this.lineCount = values['lineCount']
     this.lineSpeed = values['lineSpeed']
-    // this.lineSeparation = values['lineSeparation']
+    this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
     this.totalCurls = values['totalCurls']
     this.variationRatio = values['variationRatio']
-    // this.breakSize = values['breakSize']
-    // this.breakFrequency = values['breakFrequency']
+    this.breakSize = values['breakSize']
+    this.breakFrequency = values['breakFrequency']
   }
 
   animate() {

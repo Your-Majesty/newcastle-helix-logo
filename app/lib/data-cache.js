@@ -18,7 +18,11 @@ module.exports = (() => {
     sensors = []
 
     var data = await SensorState.find().sort({
-    timestamp: 'desc'}).limit(384)
+    timestamp: 'desc'}).limit(96)
+
+    console.log(data)
+
+
 
     data.forEach(function (dataPoint, index) {
       sensors.push({
@@ -27,8 +31,8 @@ module.exports = (() => {
           temperature: dataPoint.sensors['Temperature'],
           energy: dataPoint.sensors['Energy consumption at Newcastle Helix'],
           wind: dataPoint.sensors['Average wind speed'],
-          vehicleSpeed: dataPoint.sensors['Average vehicle speed'],
-          parkedCars: dataPoint.sensors['Car park occupancy']
+          vehicleSpeed: dataPoint.sensors['Air pressure'],
+          parkedCars: dataPoint.sensors['Vehicle count']
       })  
           
     })
