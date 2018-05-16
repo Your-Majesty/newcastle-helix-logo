@@ -1,0 +1,140 @@
+body {
+  background-color: black;
+}
+
+
+.helix-logo-controls {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 60px;
+}
+
+.helix-logo-anchor {
+  position: relative;
+}
+
+/*----------  ANCHOR STYLES  ----------*/
+
+.helix-logo-anchor {
+  width: 80%;
+  display: block;
+  margin: auto;
+  max-width: 500px;
+}
+
+
+.helix-logo-anchor__info {
+  display: inline-block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.helix-logo-anchor__info__wrapper {
+  display: inline-block;
+  position: relative;
+  float: right;
+  width: 50%;
+  left: 20px;
+   @include calc-value(top, -4px, -10px);
+}
+
+.helix-logo-reset {
+  margin: auto;
+  display: none;
+  margin-bottom: 10px;
+  background-color: rgba(255,255,255,0.5);
+  
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -52px;
+
+  
+  z-index: 2;
+
+  .helix-theme-dark & {
+    color: white;
+    background-color: transparent;
+  }
+}
+
+.helix-logo-anchor__lear-more {
+  display: none;
+}
+
+.helix-logo-anchor__play {
+
+  margin-top: 16px;
+  clear: both;
+  display: inline-block;
+
+  button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+    cursor: pointer;
+
+    .helix-theme-dark & {
+      background-color: rgba(255, 255, 255, 0.3);
+      border: 0;
+    }
+  }
+
+  p {
+    float: left;
+    margin-left: 8px;
+    margin-top: 7px;
+    position: relative;
+    letter-spacing: 1px;
+  }
+}
+
+.helix-logo-anchor__line {
+  display: block;
+  position: relative;
+  right: 0;
+  left: 0;
+  width: 1px;
+  @include calc-value(height, 132px, 240px);
+  background-color: white;
+  margin: auto;
+}
+
+/*----------  Timeline  ----------*/
+
+.helix-logo-timeline {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+ 
+  top: 0;
+  z-index: -1;
+  left: 0px;
+  top: 0px;
+}
+
+.helix-logo-timeline__lines {
+  position: absolute;
+  width: 50%;  
+  height: 30%;
+  bottom: 0;
+  transform: translateX(0%);
+}
+
+.helix-logo-timeline__line {
+  position: relative;
+  width: 1px;
+  height: 210px;
+  background-color: white;
+  margin-left: 20%;
+  float: left;
+}

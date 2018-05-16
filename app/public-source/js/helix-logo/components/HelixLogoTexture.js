@@ -9,7 +9,7 @@ class HelixLogoTexture {
     this.lineCount = 10.
  
     this.innerRadius = 20.
-    this.outerRadius = 70
+    this.outerRadius = 65
     this.totalCurls = 2.
     this.variationRatio = 0.0058
     this.noiseSize = 180.5
@@ -92,17 +92,22 @@ class HelixLogoTexture {
 
     }
 
-    this.resize()
+    
     this.createStats()
-
     this.createScene()
     this.createRibbons()
     this.animate()
+    this.resize()
+    this.resize = this.resize.bind(this)
+    window.addEventListener('resize', this.resize, false)
   }
 
   resize() {
     this.width = window.innerWidth,
     this.height = window.innerHeight
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
   }
 
   createStats() {
@@ -114,15 +119,13 @@ class HelixLogoTexture {
   createScene() {
 
     this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true, devicePixelRatio:1} )
-
-    this.renderer.setSize( this.width, this.height)
+    this.renderer.setSize( this.width, this.height )
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
-    // this.renderer.setPixelRatio( window.devicePixelRatio * 1.5 );
     
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 65, this.width / this.height, 1, 2000 )
+    this.camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 2000 )
     this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
 
     // this.composer = new THREE.EffectComposer( this.renderer )
@@ -181,8 +184,8 @@ class HelixLogoTexture {
   }
 
   updateValues(values) {
-    // this.lineCount = values['lineCount']
-    this.lineCount = 10
+    this.lineCount = values['lineCount']
+    // this.lineCount = 10
     this.lineSpeed = values['lineSpeed']
     this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']

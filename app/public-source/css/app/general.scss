@@ -1,0 +1,116 @@
+/*=============================
+=            Fonts            =
+=============================*/
+
+@font-face {
+    font-family: 'HelixBlack';
+    src: url('../../fonts/NewcastleHelix-Black.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelixBold';
+    src: url('../../fonts/NewcastleHelix-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelixSemiBold';
+    src: url('../../fonts/NewcastleHelix-SemiBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelixMedium';
+    src: url('../../fonts/NewcastleHelix-Medium.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelixRegular';
+    src: url('../../fonts/NewcastleHelix-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+input {
+    border-radius: 0;
+}
+
+* {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+html, body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+  font-family: 'AdihausDIN';
+  overflow: hidden
+}
+
+*:focus {
+  outline: 0;
+}
+
+input[type='submit'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
+
+/*=============================================
+=                Variables                    =
+=============================================*/
+
+
+/*----------  Lerp range  ----------*/
+  $lower-sizing-range: 400px;
+  $upper-sizing-range: 1440px;
+  $diff-range: 1040;
+
+
+/*=====================================
+=            Media Queries            =
+=====================================*/
+@mixin q-is-medium {
+  @media ( max-width: 1024px ) {
+    @content;
+  }
+}
+
+@mixin q-is-medium-small {
+  @media ( max-width: 950px ) {
+    @content;
+  }
+}
+
+
+@mixin q-is-small {
+  @media ( max-width: 650px ) {
+    @content;
+  }
+}
+
+
+.letter-spacing-4 {
+  letter-spacing: 10px;
+}

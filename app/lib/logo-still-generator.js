@@ -33,7 +33,7 @@ module.exports = (() => {
           sharp(logoCapture)
           .resize(capture.width, capture.height)
           .crop(sharp.strategy.entropy)
-          .extract({left: capture.width / 2, top: 0, width: capture.width / 4, height: capture.height })
+          .extract({left: 0, top: 0, width: capture.width / 4, height: capture.height })
           .sharpen(2.0)
           .toFile(`${__dirname}/../tmp/${Date.now()}-${capture.name}_helix.png`, (err, info) => 
             console.log(info)

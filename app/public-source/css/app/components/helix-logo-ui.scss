@@ -1,0 +1,44 @@
+.helix-logo-ui {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.helix-logo-controls {
+  width: 100%;
+}
+
+h5 {
+  font-family: 'HelixMedium';
+  @include calc-value(font-size, 18px, 36px);
+  text-transform: capitalize;
+  line-height: 1.1;
+
+  .helix-theme-dark & {
+    color: white;
+  }
+}
+
+h6 {
+  font-family: 'HelixSemiBold';
+  @include calc-value(font-size, 10px, 16px);
+  opacity: 0.4;
+  .helix-theme-dark & {
+    color: white;
+  }
+}
+
+p {
+  font-family: 'HelixRegular';
+  letter-spacing: 1.2px;
+  @include calc-value(font-size, 10px, 12px);
+  text-transform: uppercase;
+
+  .helix-theme-dark & {
+    color: white;
+  }
+}
+
+
+
