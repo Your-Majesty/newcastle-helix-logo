@@ -117,7 +117,7 @@ body {
   height: 100%;
  
   top: 0;
-  z-index: -1;
+  z-index: 0;
   left: 0px;
   top: 0px;
 }
@@ -128,13 +128,25 @@ body {
   height: 30%;
   bottom: 0;
   transform: translateX(0%);
+  z-index: 3;
+  cursor: move;
+
+  // @include q-is-small {
+  //   width: 100%;
+  //   transform: translateX(-50%);
+  // }
 }
 
 .helix-logo-timeline__line {
   position: relative;
   width: 1px;
-  height: 210px;
+  height: 100%;
   background-color: white;
-  margin-left: 20%;
+  margin: 0 0.5%;
   float: left;
+  transform: translateY(99%);
+
+  @include q-is-small {
+    margin: 0 2px;
+  }
 }

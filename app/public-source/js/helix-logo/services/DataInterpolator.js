@@ -1,4 +1,4 @@
-const DataTimeline = (() => {
+const DataInterpolator = (() => {
 
   const controller = {}
   controller.limits = {

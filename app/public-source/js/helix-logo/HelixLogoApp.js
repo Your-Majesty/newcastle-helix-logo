@@ -1,13 +1,23 @@
 HelixLogoApp = function(){
 
   DataCollector.getData().then(() => {
+    
     if (!helixRibbon.createdElement) {
       helixRibbon.init()
+      helixUI.init()
     }
     
-    helixTimeline.calculateTimeline()
-    DataTimeline.calculatePoint(DataCollector.collection[0])
-    helixRibbon.updateValues(DataTimeline.calculatedPoint)
+
+    helixUI.mapValues()
+
+    // helixTimeline.calculateTimeline()
+    DataInterpolator.calculatePoint(DataCollector.collection[0])
+    helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+
+    
+    // console.log(DataCollector)
+
+
 
   }, () => {
     if (!helixRibbon.createdElement) {
@@ -16,7 +26,10 @@ HelixLogoApp = function(){
   })
 
   const helixRibbon = new HelixLogoTexture()
-  const helixTimeline = new HelixLogoTimeline()
+  const helixUI = new HelixLogoUI()
+  
+
+  // const helixTimeline = new HelixLogoTimeline()
   const gui = new dat.GUI()
 
   // DAT GUI
@@ -47,11 +60,11 @@ HelixLogoApp = function(){
   gui.add(helixRibbon, 'coloredDivisions');
 
 
-  let timelineControl = gui.add(helixTimeline, 'currentTimelineValue', 1., 24.);
-  timelineControl.onChange(function(value) {
-    DataTimeline.calculatePoint(DataCollector.collection[helixTimeline.collectionIndex()])
-    helixRibbon.updateValues(DataTimeline.calculatedPoint)
-  })
+  // let timelineControl = gui.add(helixTimeline, 'currentTimelineValue', 1., 24.);
+  // timelineControl.onChange(function(value) {
+  //   // DataInterpolator.calculatePoint(DataCollector.collection[helixTimeline.collectionIndex()])
+  //   // helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+  // })
 }()
 
 

@@ -143,7 +143,7 @@ class HelixLogoTexture {
     this.controls.minDistance = 1
     this.controls.maxDistance = 100
     this.controls.update()
-    this.controls.enableRotate = true
+    this.controls.enableRotate = false
   }
 
   createRibbons() {
