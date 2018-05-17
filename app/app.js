@@ -24,11 +24,11 @@ dataHarvester.harvest().then(() => {
 
 
 setInterval(() => {
+
   dataHarvester.harvest().then(() => {
     dataCache.update()
-
     // TODO: PUT IN DIFFERENT TIMER
-    // logoStillGenerator.captureCurrentState()
+    logoStillGenerator.captureCurrentState()
   }) 
 }, process.env.HARVEST_INTERVAL)
 

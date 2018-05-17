@@ -11,7 +11,7 @@ class HelixLogoUI {
     this.timeline.createLines()
     this.buttons.createButtons()
     this.anchor.mapAnchorValue(0)
-    // this.animateIn()
+    this.animateIn()
   }
 
   animateIn() {
