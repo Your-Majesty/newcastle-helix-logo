@@ -3,7 +3,7 @@ module.exports = (() => {
   const SensorState = require('../models/sensor-state')
   const controller = {}
 
-  const sensorIds = ['humidity', 'temperature', 'energy', 'wind', 'vehicleSpeed', 'parkedCars']
+  const sensorIds = ['humidity', 'temperature', 'energy', 'wind', 'vehicleSpeed', 'vehicleCount']
   
   let sensors = []
   
@@ -19,6 +19,7 @@ module.exports = (() => {
 
     var data = await SensorState.find().sort({
     timestamp: 'desc'}).limit(96)
+
     data.forEach(function (dataPoint, index) {
       sensors.push({
           timestamp: dataPoint.timestamp,
@@ -27,7 +28,7 @@ module.exports = (() => {
           energy: dataPoint.sensors['Energy consumption at Newcastle Helix'],
           wind: dataPoint.sensors['Average wind speed'],
           vehicleSpeed: dataPoint.sensors['Air pressure'],
-          parkedCars: dataPoint.sensors['Vehicle count']
+          vehicleCount: dataPoint.sensors['Vehicle count']
       })  
     })
     sensors.forEach(function (a) {

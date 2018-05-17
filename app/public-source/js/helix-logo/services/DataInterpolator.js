@@ -1,6 +1,8 @@
 const DataInterpolator = (() => {
 
   const controller = {}
+  
+  controller.sensorIds = ['humidity', 'temperature', 'energy', 'wind', 'vehicle Speed', 'vehicle Count']
   controller.limits = {
     humidity: {
       lineCount: {
@@ -44,7 +46,7 @@ const DataInterpolator = (() => {
         max: 0.30
       }
     },
-    parkedCars: {
+    vehicleCount: {
       breakFrequency: {
         min: 5,
         max: 19
