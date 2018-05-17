@@ -33,10 +33,14 @@ module.exports = (() => {
     await fs.ensureDir(`${__dirname}/../tmp/`)
 
     for (option of urlOptions) {
+      
       var logoCapture = await imageCapture.capture(`http://localhost:3000/?${option}`, 3360, 2100 )
       
       for (capture of screenShotGuide) {
         if (capture.type === 'logo') {
+
+        let colorBackground = option !== 'black' ? `${__dirname}/../static/logo-white-template.png` : `${__dirname}/../static/logo-black-template.png`
+        
         let logoElement = await sharp(logoCapture)
           .resize(capture.width, capture.height)
           .crop(sharp.strategy.entropy)
@@ -44,10 +48,10 @@ module.exports = (() => {
           .toBuffer()
           
          await sharp(logoElement)
-            .resize(86, 86)
+            .resize(82, 82)
             .toFile(`${__dirname}/../tmp/${capture.name}-86-86.png`)
 
-        await sharp(capture.overlay)
+        await sharp(colorBackground)
             .overlayWith(`${__dirname}/../tmp/${capture.name}-86-86.png`, { left: 170, top: 0 } )
             .toFile(`${__dirname}/../public/latest/${capture.name}-${option}.png`)
 
