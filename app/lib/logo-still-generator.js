@@ -49,6 +49,7 @@ module.exports = (() => {
           
          await sharp(logoElement)
             .resize(82, 82)
+            .sharpen(2.0)
             .toFile(`${__dirname}/../tmp/${capture.name}-86-86.png`)
 
         await sharp(colorBackground)
