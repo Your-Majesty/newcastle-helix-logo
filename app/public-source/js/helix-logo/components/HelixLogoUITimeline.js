@@ -52,7 +52,7 @@ class HelixLogoUITimeline {
   }
 
   moveTimeline(e) {
-    console.log(e)
+    // console.log(e)
     this.linesWrapper.style.transform =  `translateX(${e.clientX - 150}px)`;
   }
 }

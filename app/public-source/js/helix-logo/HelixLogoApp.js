@@ -9,14 +9,12 @@ const HelixLogoApp = (() => {
   }) 
 
   DataCollector.getData().then(() => {
-
     if (!helixRibbon.createdElement) {
       helixRibbon.init()
       helixUI.init()
     }
 
     helixUI.mapValues()
-
     helixTimeline.calculateTimeline()
     DataInterpolator.calculatePoint(DataCollector.collection[0])
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
@@ -25,6 +23,20 @@ const HelixLogoApp = (() => {
       helixRibbon.init()
     }
   })
+
+  setInterval(() => {
+
+    DataCollector.getData().then(() => {
+      helixUI.mapValues()
+      helixTimeline.calculateTimeline()
+      DataInterpolator.calculatePoint(DataCollector.collection[0])
+      helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+    })
+    
+  }, 900000)
+
+
+
 
   const helixRibbon = new HelixLogoTexture()
   const helixUI = new HelixLogoUI()

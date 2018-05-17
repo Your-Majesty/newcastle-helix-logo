@@ -5,7 +5,7 @@ class HelixLogoUIButtons {
 
   createButtons() {
     this.buttons.innerHTML = `
-     ${DataInterpolator.sensorIds.map((id, i) => `
+     ${DataInterpolator.sensorNames.map((id, i) => `
         <div class="helix-logo-button ${id}">
           <button>50</button>
           <p>${id}</p>
@@ -29,9 +29,10 @@ class HelixLogoUIButtons {
 
   mapButtonsValues(index) {
 
-    DataInterpolator.sensorIds.forEach((sensor) => {
-      // DataCollector.collection[index][]
-      console.log(sensor)
+    DataInterpolator.sensorIds.forEach((sensor, index) => {
+      this.buttonCollection[index].querySelector('button').innerHTML = DataCollector.collection[index][sensor]
+      // console.log(DataCollector.collection[index][sensor])
+      // console.log(sensor)
     })
 
     console.log(DataCollector.collection[index])
