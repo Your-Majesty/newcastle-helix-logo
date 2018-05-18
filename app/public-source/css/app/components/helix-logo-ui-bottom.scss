@@ -97,7 +97,7 @@
     border-radius: 50%;
     @include calc-value(height, 54px, 72px);
     @include calc-value(width, 54px, 72px);
-    @include calc-value(font-size, 12px, 14px);
+    @include calc-value(font-size, 10px, 12px);
     font-family: 'HelixMedium';
     letter-spacing: 0.5px;
 

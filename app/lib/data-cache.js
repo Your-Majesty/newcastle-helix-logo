@@ -35,17 +35,11 @@ module.exports = (() => {
       })
     }
 
-
-    console.log('passed data')
-
-
     sensors.forEach(function (a) {
       sensorIds.forEach(function (k, i) {
         sensorLimits[i].data.push(a[k])
       });
     });
-
-    console.log('passed limits')
 
     sensorLimits.forEach(function (m) {
       m.min = Math.min(...m.data)

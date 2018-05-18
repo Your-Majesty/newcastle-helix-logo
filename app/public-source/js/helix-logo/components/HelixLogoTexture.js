@@ -13,7 +13,7 @@ class HelixLogoTexture {
     this.totalCurls = 2.
     this.variationRatio = 0.0058
     this.noiseSize = 180.5
-    this.colorBackground = true
+    this.colorBackground = false
     this.coloredDivisions = false
     this.colorTransparency = false
     this.breakSize = 0.3
@@ -91,7 +91,7 @@ class HelixLogoTexture {
       this.monochromeColor = 0.    
       this.coloredDivisions = false
     } else {
-      this.coloredDivisions = true
+      this.coloredDivisions = false
       this.isMonochrome = false
 
     }

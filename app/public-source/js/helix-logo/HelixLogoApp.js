@@ -40,6 +40,7 @@ const HelixLogoApp = (() => {
     console.log('got')
 
     DataCollector.getData().then(() => {
+      console.log('got new values')
       helixUI.mapValues()
       helixTimeline.calculateTimeline()
       DataInterpolator.calculatePoint(DataCollector.collection[0])

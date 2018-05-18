@@ -107,8 +107,12 @@
   left: 0;
   width: 1px;
   @include calc-value(height, 132px, 240px);
-  background-color: white;
+  background-color: black;
   margin: auto;
+
+  .helix-theme-dark & {
+    background-color: white;
+  }
 }
 
 /*----------  Timeline  ----------*/
@@ -139,10 +143,14 @@
   position: relative;
   width: 1px;
   height: 100%;
-  background-color: white;
+  background-color: black;
   margin: 0 0.5%;
   float: left;
   transform: translateY(99%);
+
+  .helix-theme-dark & {
+    background-color: white;
+  }
 
   @include q-is-small {
     margin: 0 2px;

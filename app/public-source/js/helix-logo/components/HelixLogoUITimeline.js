@@ -7,10 +7,10 @@ class HelixLogoUITimeline {
     this.mouseUp = this.mouseUp.bind(this)
     this.mouseDown = this.mouseDown.bind(this)
 
-    this.linesWrapper.addEventListener('mousedown', this.mouseDown)
-    this.linesWrapper.addEventListener('touchstart', this.mouseDown)
-    window.addEventListener('mouseup', this.mouseUp)
-    window.addEventListener('touchend', this.mouseUp)
+    // this.linesWrapper.addEventListener('mousedown', this.mouseDown)
+    // this.linesWrapper.addEventListener('touchstart', this.mouseDown)
+    // window.addEventListener('mouseup', this.mouseUp)
+    // window.addEventListener('touchend', this.mouseUp)
 
   }
 
