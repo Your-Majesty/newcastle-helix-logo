@@ -23,7 +23,8 @@ class HelixLogoUI {
 
   animateOut() {
 
-
+    this.element.style.display = 'none'
+    this.element.style.opacity = 0
 
   }
 

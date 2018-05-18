@@ -6,6 +6,17 @@ const HelixLogoApp = (() => {
     if (result.action == 'show-ui') {
       helixUI.animateIn()
     }
+    
+    if (result.action == 'hide-ui') {
+      helixUI.animateOut()
+    }
+    
+    if (result.action == 'start-rendering') {
+      helixRibbon.play()
+    }
+    if (result.action == 'stop-rendering') {
+      helixRibbon.pause()
+    }
   }) 
 
   DataCollector.getData().then(() => {

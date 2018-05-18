@@ -20,6 +20,10 @@ class HelixLogoTexture {
     this.breakFrequency = 10.0
     this.isMonochrome = false
 
+
+    this.animationFrame = null
+    this.isPlaying = false
+
     this.colors = [
       new THREE.Color(0x7292b6),
       new THREE.Color(0xffffff),
@@ -92,14 +96,21 @@ class HelixLogoTexture {
 
     }
 
-    
-    this.createStats()
     this.createScene()
     this.createRibbons()
-    this.animate()
     this.resize()
     this.resize = this.resize.bind(this)
     window.addEventListener('resize', this.resize, false)
+  }
+
+  pause() {
+    if (this.animationFrame) {
+      window.cancelAnimationFrame(this.animationFrame)
+    }
+  }
+
+  play() {
+    this.animate()
   }
 
   resize() {
@@ -144,6 +155,9 @@ class HelixLogoTexture {
     this.controls.maxDistance = 100
     this.controls.update()
     this.controls.enableRotate = false
+
+    this.renderer.render( this.scene, this.camera )
+
   }
 
   createRibbons() {
@@ -194,18 +208,33 @@ class HelixLogoTexture {
     this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
+
+    if (!this.isPlaying) {
+      this.updateCurves()
+      this.renderer.render( this.scene, this.camera )
+    }
+
   }
 
+  updateCurves() {
+    this.calculateColors(this.colorScale)
+    this.ribbon.drawGeometry()
+  }
+
+  
   animate() {
-    requestAnimationFrame(() => { this.animate() })
-    this.stats.begin()
-    this.time += .006
+    // this.stats.begin()
+    this.animationFrame = requestAnimationFrame(() => { this.animate() })
+    this.time += .003
+
+    this.isPlaying = true
+
     // Update Ribbons
     this.ribbon.uniform.time.value = this.time
     this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
     this.ribbon.uniform.outerRadius.value = this.outerRadius
     this.ribbon.uniform.totalCurls.value = (1. - 0.3) * this.ribbon.uniform.totalCurls.value + 0.3 * this.totalCurls; 
-    this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
+    // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     this.ribbon.noiseSize = this.noiseSize
     this.ribbon.variator +=  this.variationRatio
 
@@ -216,11 +245,9 @@ class HelixLogoTexture {
     this.ribbon.uniform.breakSize.value = this.breakSize; 
     this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
     
-    this.calculateColors(this.colorScale)
-    this.ribbon.drawGeometry()
-    this.stats.end()
-    // this.composer.render()
+    this.updateCurves()
     this.renderer.render( this.scene, this.camera )
+   
 
   }
 }

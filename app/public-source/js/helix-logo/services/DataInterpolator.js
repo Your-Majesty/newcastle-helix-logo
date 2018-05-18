@@ -2,8 +2,45 @@ const DataInterpolator = (() => {
 
   const controller = {}
   
-  controller.sensorIds = ['humidity', 'temperature', 'energy', 'wind', 'vehicleSpeed', 'vehicleCount']
-  controller.sensorNames = ['humidity', 'temperature', 'energy', 'wind', 'vehicle Speed', 'vehicle Count']
+  controller.sensors = [
+    {
+      name: 'humidity',
+      id: 'humidity',
+      units: '%rH',
+      unitsFull: 'percentage relative humidity'
+    },
+    {
+      name: 'temperature',
+      id: 'temperature',
+      units: '°C',
+      unitsFull: 'degrees celsius'
+    },
+    {
+      name: 'energy',
+      id: 'energy',
+      units: 'kW',
+      unitsFull: 'kilowatts'
+    },
+    {
+      name: 'wind',
+      id: 'wind',
+      units: 'm/s',
+      unitsFull: 'metres per second'
+    },
+    {
+      name: 'vehicle Speed',
+      id: 'vehicleSpeed',
+      units: 'mph',
+      unitsFull: 'miles per hour'
+    },
+    {
+      name: 'vehicle Count',
+      id: 'vehicleCount',
+      units: '',
+      unitsFull: 'total number of vehicles passing'
+    }
+  ]
+
   controller.limits = {
     humidity: {
       lineCount: {
