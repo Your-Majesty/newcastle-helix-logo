@@ -33,7 +33,6 @@ setInterval(() => {
 }, process.env.HARVEST_INTERVAL)
 
 app.listen(3000, () => {
-  console.log('hello')
   setTimeout (() => {
     logoStillGenerator.captureCurrentState() 
   }, 5000)

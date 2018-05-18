@@ -7,9 +7,7 @@ module.exports = (() => {
   
   let sensors = []
   
-  let sensorLimits = sensorIds.map(function (a, i) {
-    return { name: sensorIds[i], data: [], min: 0, max: 0 }
-  })
+  let sensorLimits = []
 
   controller.cache = {}
   controller.limits = {}
@@ -17,10 +15,15 @@ module.exports = (() => {
   controller.update = async () => {
     sensors = []
 
+    sensorLimits = sensorIds.map((a, i) => {
+    return { name: sensorIds[i], data: [], min: 0, max: 0 }
+    })
+
     var data = await SensorState.find().sort({
     timestamp: 'desc'}).limit(96)
 
-    data.forEach(function (dataPoint, index) {
+    
+    for (dataPoint of data) {
       sensors.push({
           timestamp: dataPoint.timestamp,
           humidity: dataPoint.sensors['Humidity'],
@@ -29,13 +32,20 @@ module.exports = (() => {
           wind: dataPoint.sensors['Average wind speed'],
           vehicleSpeed: dataPoint.sensors['Air pressure'],
           vehicleCount: dataPoint.sensors['Vehicle count']
-      })  
-    })
+      })
+    }
+
+
+    console.log('passed data')
+
+
     sensors.forEach(function (a) {
       sensorIds.forEach(function (k, i) {
         sensorLimits[i].data.push(a[k])
       });
     });
+
+    console.log('passed limits')
 
     sensorLimits.forEach(function (m) {
       m.min = Math.min(...m.data)

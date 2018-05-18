@@ -37,6 +37,8 @@ const HelixLogoApp = (() => {
 
   setInterval(() => {
 
+    console.log('got')
+
     DataCollector.getData().then(() => {
       helixUI.mapValues()
       helixTimeline.calculateTimeline()

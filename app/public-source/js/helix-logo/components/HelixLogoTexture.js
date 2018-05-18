@@ -99,6 +99,7 @@ class HelixLogoTexture {
     this.createScene()
     this.createRibbons()
     this.resize()
+    this.animate()
     this.resize = this.resize.bind(this)
     window.addEventListener('resize', this.resize, false)
   }
@@ -236,6 +237,7 @@ class HelixLogoTexture {
     this.ribbon.uniform.outerRadius.value = this.outerRadius
     this.ribbon.uniform.totalCurls.value = (1. - 0.3) * this.ribbon.uniform.totalCurls.value + 0.3 * this.totalCurls; 
     // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
+    this.ribbon.variationRatio = this.ribbon.variationRatio
     this.ribbon.noiseSize = this.noiseSize
     this.ribbon.variator +=  this.variationRatio
 
