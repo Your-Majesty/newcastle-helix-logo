@@ -28,7 +28,6 @@ module.exports = (() => {
   ]
 
   controller.captureCurrentState = async () => {
-    
     await fs.ensureDir(`${__dirname}/../public/latest/`)
     await fs.ensureDir(`${__dirname}/../tmp/`)
 
