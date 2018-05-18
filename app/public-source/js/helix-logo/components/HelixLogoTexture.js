@@ -105,6 +105,7 @@ class HelixLogoTexture {
 
   pause() {
     if (this.animationFrame) {
+      this.isPlaying = false
       window.cancelAnimationFrame(this.animationFrame)
     }
   }
