@@ -86,11 +86,14 @@ class HelixLogoTexture {
       this.isMonochrome = true
       this.monochromeColor = 1.    
       this.coloredDivisions = false
+      this.element.style.backgroundColor = 'transparent'
     } else if(window.location.href.split('?')[1] == 'black') {
       this.isMonochrome = true
       this.monochromeColor = 0.    
       this.coloredDivisions = false
+      this.element.style.backgroundColor = 'transparent'
     } else {
+      this.element.style.backgroundColor = '#ffffff'
       this.coloredDivisions = true
       this.isMonochrome = false
 
@@ -174,7 +177,7 @@ class HelixLogoTexture {
     if (this.colorBackground && !this.isMonochrome) {
       this.element.style.backgroundColor = this.backgroundColors[gradientGuide]
     } else {
-      this.element.style.backgroundColor = 'transparent'
+      // this.element.style.backgroundColor = 'transparent'
     }
     let colorlightSegments = 1 / (this.lightColors.length - 1)
     let colorLight01 = Math.ceil(temperatureAverage / colorlightSegments)
