@@ -25,6 +25,8 @@ const HelixLogoApp = (() => {
       helixUI.init()
     }
 
+    helixUI.animateIn()
+
     helixUI.mapValues()
     helixTimeline.calculateTimeline()
     DataInterpolator.calculatePoint(DataCollector.collection[0])
@@ -36,27 +38,24 @@ const HelixLogoApp = (() => {
   })
 
   setInterval(() => {
-
-    console.log('got')
-
     DataCollector.getData().then(() => {
       console.log('got new values')
+      console.log(DataCollector.collection[0])
       helixUI.mapValues()
       helixTimeline.calculateTimeline()
       DataInterpolator.calculatePoint(DataCollector.collection[0])
       helixRibbon.updateValues(DataInterpolator.calculatedPoint)
     })
     
-  }, 900000)
+  }, 90000)
 
 
 
 
   const helixRibbon = new HelixLogoTexture()
   const helixUI = new HelixLogoUI()
-  
-
   const helixTimeline = new HelixLogoTimeline()
+  
   // const gui = new dat.GUI()
 
   // // DAT GUI

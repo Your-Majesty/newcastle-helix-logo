@@ -30,7 +30,7 @@ module.exports = (() => {
           temperature: dataPoint.sensors['Temperature'],
           energy: dataPoint.sensors['Energy consumption at Newcastle Helix'],
           wind: dataPoint.sensors['Average wind speed'],
-          vehicleSpeed: dataPoint.sensors['Air pressure'],
+          vehicleSpeed: dataPoint.sensors['Average vehicle speed'],
           vehicleCount: dataPoint.sensors['Vehicle count']
       })
     }

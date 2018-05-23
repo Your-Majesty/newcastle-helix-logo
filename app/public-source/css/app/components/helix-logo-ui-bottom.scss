@@ -81,7 +81,6 @@
   display: inline-block;
   margin: 0;
   vertical-align: top;
-  // width: 92px;
   @include calc-value(width, 52px, 92px);
 
   @include q-is-medium {
@@ -100,10 +99,11 @@
     @include calc-value(font-size, 10px, 12px);
     font-family: 'HelixMedium';
     letter-spacing: 0.5px;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0;
 
     .helix-theme-dark & {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
       border: 0;
       color: white;
     }

@@ -11,7 +11,6 @@ class HelixLogoUI {
     this.timeline.createLines()
     this.buttons.createButtons()
     this.anchor.mapAnchorValue(0)
-    // this.animateIn()
   }
 
   animateIn() {
@@ -31,5 +30,6 @@ class HelixLogoUI {
   mapValues() {
     this.timeline.mapValues()
     this.buttons.mapButtonsValues(0)
+    this.anchor.mapAnchorValue(0)
   }
 }

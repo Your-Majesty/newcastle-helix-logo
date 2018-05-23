@@ -19,8 +19,7 @@ class HelixLogoTexture {
     this.breakSize = 0.3
     this.breakFrequency = 10.0
     this.isMonochrome = false
-
-
+    
     this.animationFrame = null
     this.isPlaying = false
 
@@ -204,7 +203,6 @@ class HelixLogoTexture {
 
   updateValues(values) {
     this.lineCount = values['lineCount']
-    // this.lineCount = 10
     this.lineSpeed = values['lineSpeed']
     this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']

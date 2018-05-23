@@ -51,8 +51,6 @@
   left: 50%;
   transform: translateX(-50%);
   top: -52px;
-
-  
   z-index: 2;
 
   .helix-theme-dark & {
@@ -81,8 +79,11 @@
     float: left;
     cursor: pointer;
 
-
-
+    svg {
+      position: relative;
+      left: 1px;
+    }
+    
     .helix-theme-dark & {
       background-color: rgba(255, 255, 255, 0.3);
       border: 0;
@@ -131,7 +132,7 @@
 .helix-logo-timeline__lines {
   will-change: transform;
   position: absolute;
-  width: 50%;  
+  width: 150%;  
   height: 30%;
   bottom: 0;
   transform: translateX(0%);
@@ -142,9 +143,9 @@
 .helix-logo-timeline__line {
   position: relative;
   width: 1px;
+  @include calc-value(margin-right, 2px, 7px);
   height: 100%;
   background-color: black;
-  margin: 0 0.5%;
   float: left;
   transform: translateY(99%);
 
