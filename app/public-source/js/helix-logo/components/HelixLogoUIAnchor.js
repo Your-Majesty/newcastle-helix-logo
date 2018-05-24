@@ -43,6 +43,6 @@ class HelixLogoUIAnchor {
       this.day.innerHTML = this.dayString
     }
 
-    this.time.innerHTML = `${hours}:${minutes}`
+    this.time.innerHTML = `${hours}:${minutes} ${hours < 12 ? 'am' : 'pm'}`
   }
 }

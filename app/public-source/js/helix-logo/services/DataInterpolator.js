@@ -32,12 +32,6 @@ const DataInterpolator = (() => {
       id: 'vehicleSpeed',
       units: 'mph',
       unitsFull: 'miles per hour'
-    },
-    {
-      name: 'vehicle Count',
-      id: 'vehicleCount',
-      units: '',
-      unitsFull: 'total number of vehicles passing'
     }
   ]
 

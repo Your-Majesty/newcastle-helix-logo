@@ -133,7 +133,7 @@ class HelixLogoTexture {
 
   createScene() {
 
-    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true, devicePixelRatio:1} )
+    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true, devicePixelRatio:1, preserveDrawingBuffer: true} )
     this.renderer.setSize( this.width, this.height )
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     this.renderer.setPixelRatio( window.devicePixelRatio )
@@ -167,6 +167,12 @@ class HelixLogoTexture {
   createRibbons() {
     this.ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4], this.isMonochrome, this.monochromeColor)
     this.scene.add(this.ribbon.ribbonMesh)
+  }
+
+
+  createShot() {
+    this.frame = this.renderer.domElement.toDataURL('image/jpeg', .8)
+    console.log(this.frame)
   }
 
   calculateColors(temperatureAverage) {
@@ -236,8 +242,8 @@ class HelixLogoTexture {
     this.ribbon.uniform.time.value = this.time
     this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
     this.ribbon.uniform.outerRadius.value = this.outerRadius
-    this.ribbon.uniform.totalCurls.value = (1. - 0.3) * this.ribbon.uniform.totalCurls.value + 0.3 * this.totalCurls; 
-    // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
+    this.ribbon.totalCurls = (1. - 0.1) * this.ribbon.totalCurls + 0.1 * this.totalCurls; 
+    this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     this.ribbon.variationRatio = this.ribbon.variationRatio
     this.ribbon.noiseSize = this.noiseSize
     this.ribbon.variator +=  this.variationRatio

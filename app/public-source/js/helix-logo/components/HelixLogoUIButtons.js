@@ -30,7 +30,7 @@ class HelixLogoUIButtons {
   mapButtonsValues(timelineIndex) {
 
     DataInterpolator.sensors.forEach((sensor, index) => {
-      this.buttonCollection[index].querySelector('button .value').innerHTML = Math.floor(DataCollector.collection[timelineIndex][sensor.id])
+      this.buttonCollection[index].querySelector('button .value').innerHTML = DataCollector.collection[timelineIndex][sensor.id]
       this.buttonCollection[index].querySelector('button .units').innerHTML = sensor.units
     })
 

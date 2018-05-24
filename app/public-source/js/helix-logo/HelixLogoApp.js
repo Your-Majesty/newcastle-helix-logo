@@ -19,14 +19,26 @@ const HelixLogoApp = (() => {
     }
   }) 
 
+
+  window.addEventListener('uiTimeline', function (e) {
+
+    DataInterpolator.calculatePoint(DataCollector.collection[e.detail])
+    helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+    helixUI.mapValuesTimeline(e.detail)
+
+  }, false);
+
+
+  window.addEventListener('uiDownload', function (e) {
+    helixRibbon.createShot()
+  })
+
+
   DataCollector.getData().then(() => {
     if (!helixRibbon.createdElement) {
       helixRibbon.init()
       helixUI.init()
     }
-
-    helixUI.animateIn()
-
     helixUI.mapValues()
     helixTimeline.calculateTimeline()
     DataInterpolator.calculatePoint(DataCollector.collection[0])
@@ -50,6 +62,8 @@ const HelixLogoApp = (() => {
   }, 90000)
 
 
+
+  
 
 
   const helixRibbon = new HelixLogoTexture()
