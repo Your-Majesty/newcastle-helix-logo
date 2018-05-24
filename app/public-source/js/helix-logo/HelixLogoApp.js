@@ -39,10 +39,14 @@ const HelixLogoApp = (() => {
       helixRibbon.init()
       helixUI.init()
     }
-    helixUI.mapValues()
+
+    helixUI.animateIn()
+
+    helixUI.mapValues(TimelineCollector.currentIndex)
     helixTimeline.calculateTimeline()
     DataInterpolator.calculatePoint(DataCollector.collection[0])
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+
   }, () => {
     if (!helixRibbon.createdElement) {
       helixRibbon.init()
@@ -51,12 +55,12 @@ const HelixLogoApp = (() => {
 
   setInterval(() => {
     DataCollector.getData().then(() => {
-      console.log('got new values')
-      console.log(DataCollector.collection[0])
-      helixUI.mapValues()
-      helixTimeline.calculateTimeline()
-      DataInterpolator.calculatePoint(DataCollector.collection[0])
-      helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+      if (TimelineCollector.currentIndex == 0) {
+        helixUI.mapValues(TimelineCollector.currentIndex)
+        helixTimeline.calculateTimeline()
+        DataInterpolator.calculatePoint(DataCollector.collection[0])
+        helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+      }
     })
     
   }, 90000)

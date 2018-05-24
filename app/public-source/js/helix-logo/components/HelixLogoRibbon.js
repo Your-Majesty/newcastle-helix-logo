@@ -209,6 +209,7 @@ class HelixLogoRibbon {
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
 
       let R = (this.outerRadius) + (Math.cos(noise) * this.amplitude ) * Math.sin(noise)
+      // let noise = 0.5
       let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
       let angleVertex = i * this.angle
       this.geometry.vertices[2*i].x = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.cos(140.5))

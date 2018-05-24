@@ -1,6 +1,5 @@
 class HelixLogoUI {
   constructor(args) {
-
     this.element = document.querySelector('.helix-logo-ui')
     this.timeline = new HelixLogoUITimeline()
     this.anchor = new HelixLogoUIAnchor()
@@ -9,7 +8,7 @@ class HelixLogoUI {
   }
 
   init() {
-    this.timeline.createLines()
+    this.timeline.init()
     this.buttons.createButtons()
     this.anchor.mapAnchorValue(0)
     this.download.init()
@@ -32,9 +31,8 @@ class HelixLogoUI {
     this.anchor.mapAnchorValue(index)
   }
 
-  mapValues() {
+  mapValues(index) {
     this.timeline.mapValues()
-    this.buttons.mapButtonsValues(0)
-    this.anchor.mapAnchorValue(0)
+    this.mapValuesTimeline(index)
   }
 }
