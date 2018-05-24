@@ -40,7 +40,7 @@ const HelixLogoApp = (() => {
       helixUI.init()
     }
 
-    helixUI.animateIn()
+    // helixUI.animateIn()
 
     helixUI.mapValues(TimelineCollector.currentIndex)
     helixTimeline.calculateTimeline()
