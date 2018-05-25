@@ -1,6 +1,6 @@
 class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor) {
-    this.segments = 9000
+    this.segments = 4000
     this.angle = 0
     this.width =  10
     this.height = 10
