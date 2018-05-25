@@ -76,8 +76,6 @@ void main(void){
   st = tile(st, totalDivisions, totalDivisions);
   vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
 
-  // vec3 colorMixedLight = mix(colorLight1, colorLight2, colorLightInterpolation);
-  // vec3 colorMixedDark = mix(colorDark1, colorDark2, colorDarkInterpolation);
   vec3 colorMixedLight = colorA;
   vec3 colorMixedDark = colorB;
 
@@ -92,64 +90,64 @@ void main(void){
 
   if (!coloredDivisions) {
 
-    if (separation.x > .9) {
-       alpha = 0.;
-    }
+    // if (separation.x > .9) {
+    //    alpha = 0.;
+    // }
   }
   
 
-  if (separation.x > .7 && coloredDivisions) {
-    color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
-    if (colorIsDark) {
-      color *= mix(colorMixedDark, colorMixedLight, fract(d));
-    }
-  } else {
-    color += vec3(separation.x);
-  }
+  // if (separation.x > .7 && coloredDivisions) {
+  //   color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
+  //   if (colorIsDark) {
+  //     color *= mix(colorMixedDark, colorMixedLight, fract(d));
+  //   }
+  // } else {
+  //   color += vec3(separation.x);
+  // }
 
   color += mix(colorMixedDark, colorMixedLight, fract(d));
   
-  vec2 stY = vUv;
+  // vec2 stY = vUv;
 
-  if (stY.x < 1./lineCount) {
-    stY.y = fract(stY.y - line1);
-  }
-  else if (stY.x < 2./lineCount) {
-    stY.y = fract(stY.y - line2);
-  }
-  else if (stY.x < 3./lineCount) {
-      stY.y = fract(stY.y - line3);
-  } 
-  else if (stY.x < 4./lineCount) {
-      stY.y = fract(stY.y - line4);
-  }
-  else if (stY.x < 5./lineCount) {
-      stY.y = fract(stY.y - line5);
-  }
-  else if (stY.x < 6./lineCount) {
-      stY.y = fract(stY.y - line6);
-  }
-    else if (stY.x < 7./lineCount) {
-      stY.y = fract(stY.y - line7);
-  }
-    else if (stY.x < 8./lineCount) {
-      stY.y = fract(stY.y - line8);
-  }
-    else if (stY.x < 9./lineCount) {
-      stY.y = fract(stY.y - line9);
-  }
-    else if (stY.x < 10./lineCount) {
-      stY.y = fract(stY.y - line10);
-  }
+  // if (stY.x < 1./lineCount) {
+  //   stY.y = fract(stY.y - line1);
+  // }
+  // else if (stY.x < 2./lineCount) {
+  //   stY.y = fract(stY.y - line2);
+  // }
+  // else if (stY.x < 3./lineCount) {
+  //     stY.y = fract(stY.y - line3);
+  // } 
+  // else if (stY.x < 4./lineCount) {
+  //     stY.y = fract(stY.y - line4);
+  // }
+  // else if (stY.x < 5./lineCount) {
+  //     stY.y = fract(stY.y - line5);
+  // }
+  // else if (stY.x < 6./lineCount) {
+  //     stY.y = fract(stY.y - line6);
+  // }
+  //   else if (stY.x < 7./lineCount) {
+  //     stY.y = fract(stY.y - line7);
+  // }
+  //   else if (stY.x < 8./lineCount) {
+  //     stY.y = fract(stY.y - line8);
+  // }
+  //   else if (stY.x < 9./lineCount) {
+  //     stY.y = fract(stY.y - line9);
+  // }
+  //   else if (stY.x < 10./lineCount) {
+  //     stY.y = fract(stY.y - line10);
+  // }
 
-  stY = tile(stY + (time * lineSpeed), totalDivisions, breakFrequency);
+  // stY = tile(stY + (time * lineSpeed), totalDivisions, breakFrequency);
   
-  if (coloredDivisions) {
-    colorSeparation = vec3(colorMixedLight);
-  }
+  // if (coloredDivisions) {
+  //   colorSeparation = vec3(colorMixedLight);
+  // }
   
-  color = mix(color, colorSeparation,
-    rect(fract(vec2(stY)) - vec2(-separation.x), vec2(separation.x + lineBreakSeparation, 0.00001)));
+  // color = mix(color, colorSeparation,
+  //   rect(fract(vec2(stY)) - vec2(-separation.x), vec2(separation.x + lineBreakSeparation, 0.00001)));
   
   gl_FragColor = vec4(color,alpha);
 }

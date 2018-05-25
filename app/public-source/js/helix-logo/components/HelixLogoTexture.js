@@ -84,9 +84,10 @@ class HelixLogoTexture {
     this.analizeURL(window.location.href.split('?')[1])
     this.createScene()
     this.createRibbons()
+    this.createCaptureCanvas() 
     this.resize()
     this.play()
-    this.createCaptureCanvas() 
+  
   }
 
   analizeURL(url) {
@@ -106,6 +107,9 @@ class HelixLogoTexture {
     this.canvas = document.createElement('canvas')
     this.element.appendChild(this.canvas)
     this.context = this.canvas.getContext('2d')
+    this.watermark = new Image()
+    this.watermark.src = `${heroLogoURL}/latest/logo-black.png`
+    // this.watermark.src = `${heroLogoURL}/images/helix-logo.png`
   }
 
   pause() {
@@ -127,6 +131,8 @@ class HelixLogoTexture {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize( window.innerWidth, window.innerHeight );
+    this.canvas.width = this.width
+    this.canvas.height = this.height
   }
 
   createStats() {
@@ -164,22 +170,36 @@ class HelixLogoTexture {
 
   createShot() {
     this.frame = this.renderer.domElement.toDataURL('image/png', .9)
+    this.context.fillStyle = this.colorBackground ? this.backgroundColors[this.gradientGuide] : 'white'
+    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
+    
+    let a = document.createElement('a')
+    this.element.appendChild(a)
 
     let base_image = new Image()
     base_image.src = this.frame
     base_image.onload = () => {
-      this.context.drawImage(base_image, 0, 0);
+      this.context.drawImage(base_image, 0, 0)
+      this.context.globalAlpha = 0.25
+      this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
+      this.context.globalAlpha = 1.0
+      a.setAttribute('href', this.canvas.toDataURL('image/jpg', .9))
+    
+      return this.canvas.toDataURL('image/jpg', .9)
     }
     
-    return this.frame
+    console.log(a)
+
+
+  
   }
 
   calculateColors(temperatureAverage) {
     let colorSegments = 1 / (this.gradientColors.length - 1) 
-    let gradientGuide = Math.floor(temperatureAverage / colorSegments)
+    this.gradientGuide = Math.floor(temperatureAverage / colorSegments)
 
     if (this.colorBackground) {
-      this.element.style.backgroundColor = this.backgroundColors[gradientGuide]
+      this.element.style.backgroundColor = this.backgroundColors[this.gradientGuide]
     } else {
       this.element.style.backgroundColor = 'transparent'
     }
@@ -201,9 +221,9 @@ class HelixLogoTexture {
     this.ribbon.uniform.colorDark1.value = this.darkColors[colorDark01]
     this.ribbon.uniform.colorDark2.value = this.darkColors[colorDark02]
     this.ribbon.uniform.colorDarkInterpolation.value = colorDarkInterpolation
-    this.ribbon.uniform.colorIsDark.value = this.colorsWeight[gradientGuide]
-    this.ribbon.uniform.colorA.value = this.gradientColors[gradientGuide]
-    this.ribbon.uniform.colorB.value = this.gradientColors[gradientGuide + 1]
+    this.ribbon.uniform.colorIsDark.value = this.colorsWeight[this.gradientGuide]
+    this.ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
+    this.ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
   }
 
   updateValues(values) {
