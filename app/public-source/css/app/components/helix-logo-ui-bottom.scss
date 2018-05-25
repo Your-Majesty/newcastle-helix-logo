@@ -51,7 +51,7 @@
     }
   }
 
-  button {
+  a {
     float: left;
     width: 38px;
     height: 38px;
@@ -61,7 +61,15 @@
     cursor: pointer;
     z-index: 2;
 
-
+    svg {
+      margin: auto;
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+    
     .helix-theme-dark & {
       background-color: rgba(255, 255, 255, 0.4);
       border: 0;
@@ -99,8 +107,8 @@
   button {
     cursor: pointer;
     border-radius: 50%;
-    @include calc-value(height, 54px, 72px);
-    @include calc-value(width, 54px, 72px);
+    @include calc-value(height, 58px, 72px);
+    @include calc-value(width, 58px, 72px);
     @include calc-value(font-size, 9px, 12px);
     font-family: 'HelixMedium';
     letter-spacing: 0.5px;

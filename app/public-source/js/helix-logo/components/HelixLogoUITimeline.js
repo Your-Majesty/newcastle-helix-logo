@@ -27,6 +27,7 @@ class HelixLogoUITimeline {
     this.animationFrame = null
 
     this.isPlaying = false
+    this.time = 0
   }
 
   animateIn() {
@@ -44,7 +45,6 @@ class HelixLogoUITimeline {
 
   createLines() {
     this.totalCollection = DataCollector.collection.length - 1
-    
     for (var i = 0; i < (this.totalCollection + 1) * 3; i++) {
       let line = document.createElement('div')
       line.classList.add('helix-logo-timeline__line')
@@ -91,14 +91,15 @@ class HelixLogoUITimeline {
   animate() {
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
     this.linesWrapper.style.transform =  `translateX(${this.totalDrag}%)`
-
+  
     if (this.isPlaying && this.indexTimeline > 0) {
-      this.indexTimeline =  this.indexTimeline > 0 ? Math.abs(Math.floor(this.indexTimeline - 0.5)) : 0
-      this.totalDrag = -(((Math.abs(this.indexTimeline - 95)) / this.percentageConversion) + this.minPercentage)
+      this.time += 0.001
+
+      this.indexTimeline =  this.indexTimeline > 0 ? this.indexTimeline - 1 : 0
+      this.totalDrag = -(((Math.abs(this.indexTimeline - this.totalCollection)) / this.percentageConversion) + this.minPercentage)
       this.currentPercentage = this.totalDrag
       
       TimelineCollector.updateIndex(this.indexTimeline)
-
     } else {
       this.isPlaying = false
     }
@@ -118,7 +119,7 @@ class HelixLogoUITimeline {
 
     if (Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion)) !== this.indexTimeline) {
       if ((Math.abs(this.totalDrag) >= this.minPercentage) && (Math.abs(this.totalDrag) <= this.maxPercentage)) {
-        this.indexTimeline = Math.abs((Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion))) - 95)
+        this.indexTimeline = Math.abs((Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion))) - this.totalCollection)
         TimelineCollector.updateIndex(this.indexTimeline)
       }
     }

@@ -13,15 +13,17 @@ class HelixLogoTexture {
     this.totalCurls = 2.
     this.variationRatio = 0.0058
     this.noiseSize = 180.5
-    this.colorBackground = false
-    this.coloredDivisions = true
-    this.colorTransparency = false
     this.breakSize = 0.3
     this.breakFrequency = 10.0
+
+    this.colorBackground = false
+    this.coloredDivisions = false
+    this.colorTransparency = false
     this.isMonochrome = false
     
     this.animationFrame = null
     this.isPlaying = false
+    this.resize = this.resize.bind(this)
 
     this.colors = [
       new THREE.Color(0x7292b6),
@@ -77,43 +79,45 @@ class HelixLogoTexture {
     ]
   }
 
-
-
   init() {
     this.createdElement = true
-    if (window.location.href.split('?')[1] == 'white') {
-      this.isMonochrome = true
-      this.monochromeColor = 1.    
-      this.coloredDivisions = false
-      this.element.style.backgroundColor = 'transparent'
-    } else if(window.location.href.split('?')[1] == 'black') {
-      this.isMonochrome = true
-      this.monochromeColor = 0.    
-      this.coloredDivisions = false
-      this.element.style.backgroundColor = 'transparent'
-    } else {
-      this.element.style.backgroundColor = '#ffffff'
-      this.coloredDivisions = true
-      this.isMonochrome = false
-
-    }
-
+    this.analizeURL(window.location.href.split('?')[1])
     this.createScene()
     this.createRibbons()
     this.resize()
-    this.animate()
-    this.resize = this.resize.bind(this)
-    window.addEventListener('resize', this.resize, false)
+    this.play()
+    this.createCaptureCanvas() 
+  }
+
+  analizeURL(url) {
+    if (url == 'white' || url == 'black') {
+      this.isMonochrome = true
+      this.coloredDivisions = false
+      this.colorBackground = false
+      this.monochromeColor = url == 'white' ? 1. : 0.
+    } else {
+      this.coloredDivisions = false
+      this.colorBackground = false
+      this.isMonochrome = false
+    }
+  }
+
+  createCaptureCanvas() {
+    this.canvas = document.createElement('canvas')
+    this.element.appendChild(this.canvas)
+    this.context = this.canvas.getContext('2d')
   }
 
   pause() {
+    window.removeEventListener('resize', this.resize, false)
     if (this.animationFrame) {
-      this.isPlaying = false
-      window.cancelAnimationFrame(this.animationFrame)
+      // this.isPlaying = false
+      // window.cancelAnimationFrame(this.animationFrame)
     }
   }
 
   play() {
+    window.addEventListener('resize', this.resize, false)
     this.animate()
   }
 
@@ -138,20 +142,9 @@ class HelixLogoTexture {
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
-    
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 2000 )
     this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
-
-    // this.composer = new THREE.EffectComposer( this.renderer )
-    // this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) )
-  
-    // this.shaderPass = new THREE.ShaderPass(threeShaderFXAA)
-    // this.shaderPass.renderToScreen = true
-    // this.composer.addPass(this.shaderPass)
-
-    // this.shaderPass.uniforms.resolution.value.set(this.width, this.height)
-    
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
     this.controls.enableDamping = false 
     this.controls.dampingFactor = 0.8
@@ -159,7 +152,6 @@ class HelixLogoTexture {
     this.controls.maxDistance = 100
     this.controls.update()
     this.controls.enableRotate = false
-
     this.renderer.render( this.scene, this.camera )
 
   }
@@ -171,18 +163,25 @@ class HelixLogoTexture {
 
 
   createShot() {
-    this.frame = this.renderer.domElement.toDataURL('image/jpeg', .8)
-    console.log(this.frame)
+    this.frame = this.renderer.domElement.toDataURL('image/png', .9)
+
+    let base_image = new Image()
+    base_image.src = this.frame
+    base_image.onload = () => {
+      this.context.drawImage(base_image, 0, 0);
+    }
+    
+    return this.frame
   }
 
   calculateColors(temperatureAverage) {
     let colorSegments = 1 / (this.gradientColors.length - 1) 
     let gradientGuide = Math.floor(temperatureAverage / colorSegments)
 
-    if (this.colorBackground && !this.isMonochrome) {
+    if (this.colorBackground) {
       this.element.style.backgroundColor = this.backgroundColors[gradientGuide]
     } else {
-      // this.element.style.backgroundColor = 'transparent'
+      this.element.style.backgroundColor = 'transparent'
     }
     let colorlightSegments = 1 / (this.lightColors.length - 1)
     let colorLight01 = Math.ceil(temperatureAverage / colorlightSegments)
@@ -224,7 +223,7 @@ class HelixLogoTexture {
     }
 
   }
-
+  
   updateCurves() {
     this.calculateColors(this.colorScale)
     this.ribbon.drawGeometry()
@@ -233,18 +232,19 @@ class HelixLogoTexture {
   
   animate() {
     // this.stats.begin()
-    this.animationFrame = requestAnimationFrame(() => { this.animate() })
-    this.time += .003
-
     this.isPlaying = true
+    this.animationFrame = requestAnimationFrame(() => { this.animate() })
+    // this.time += .003
+
+   
 
     // Update Ribbons
     this.ribbon.uniform.time.value = this.time
     this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
-    this.ribbon.uniform.outerRadius.value = this.outerRadius
+    // this.ribbon.uniform.outerRadius.value = this.outerRadius
     this.ribbon.totalCurls = (1. - 0.1) * this.ribbon.totalCurls + 0.1 * this.totalCurls; 
-    this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
-    this.ribbon.variationRatio = this.ribbon.variationRatio
+    // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
+    // this.ribbon.variationRatio = this.ribbon.variationRatio
     this.ribbon.noiseSize = this.noiseSize
     this.ribbon.variator +=  this.variationRatio
 

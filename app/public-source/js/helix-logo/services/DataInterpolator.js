@@ -100,6 +100,8 @@ const DataInterpolator = (() => {
 
   controller.calculatePoint = (dataPoint) => {
     
+    SunCalculator.calculateDay(dataPoint.timestamp)
+
     for (let property of DataCollector.limits) {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {

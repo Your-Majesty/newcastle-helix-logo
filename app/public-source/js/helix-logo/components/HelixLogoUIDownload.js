@@ -8,8 +8,10 @@ class HelixLogoUIDownload {
     
     this.event = new CustomEvent('uiDownload', {bubbles: true})
     this.element.dispatchEvent(this.event)
-    console.log('download click') 
+  }
 
+  setScreenShot(image) {
+    this.element.setAttribute('href', image)
   }
 
 

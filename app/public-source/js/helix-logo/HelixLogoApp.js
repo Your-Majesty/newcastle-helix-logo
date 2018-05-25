@@ -30,7 +30,8 @@ const HelixLogoApp = (() => {
 
 
   window.addEventListener('uiDownload', function (e) {
-    helixRibbon.createShot()
+    let screenShot = helixRibbon.createShot()
+    helixUI.download.setScreenShot(screenShot)
   })
 
 
@@ -40,7 +41,7 @@ const HelixLogoApp = (() => {
       helixUI.init()
     }
 
-    // helixUI.animateIn()
+    helixUI.animateIn()
 
     helixUI.mapValues(TimelineCollector.currentIndex)
     helixTimeline.calculateTimeline()
@@ -64,11 +65,6 @@ const HelixLogoApp = (() => {
     })
     
   }, 90000)
-
-
-
-  
-
 
   const helixRibbon = new HelixLogoTexture()
   const helixUI = new HelixLogoUI()

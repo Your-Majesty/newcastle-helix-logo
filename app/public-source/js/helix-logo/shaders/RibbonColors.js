@@ -89,6 +89,13 @@ void main(void){
        alpha = 0.;
     }
   }
+
+  if (!coloredDivisions) {
+
+    if (separation.x > .9) {
+       alpha = 0.;
+    }
+  }
   
 
   if (separation.x > .7 && coloredDivisions) {
