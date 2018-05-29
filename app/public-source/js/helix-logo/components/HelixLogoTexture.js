@@ -1,8 +1,11 @@
 class HelixLogoTexture {
   constructor() {
     this.element = document.querySelector('.helix-logo-element')
+
     this.time = 0
     this.createdElement = false
+
+
     this.colorScale = 0.2
     this.lineSpeed = 0.1
     this.lineSeparation = 0.5
@@ -24,6 +27,12 @@ class HelixLogoTexture {
     this.animationFrame = null
     this.isPlaying = false
     this.resize = this.resize.bind(this)
+
+    this.allRibbons = []
+    this.totalRibbons = 20
+    this.noiseArray = []
+    this.perlin = new ClassicalNoise()
+
 
     this.colors = [
       new THREE.Color(0x7292b6),
@@ -80,6 +89,7 @@ class HelixLogoTexture {
   }
 
   init() {
+     this.createStats()
     this.createdElement = true
     this.analizeURL(window.location.href.split('?')[1])
     this.createScene()
@@ -87,6 +97,7 @@ class HelixLogoTexture {
     this.createCaptureCanvas() 
     this.resize()
     this.play()
+
   
   }
 
@@ -155,7 +166,7 @@ class HelixLogoTexture {
     this.controls.enableDamping = false 
     this.controls.dampingFactor = 0.8
     this.controls.minDistance = 1
-    this.controls.maxDistance = 100
+    this.controls.maxDistance = 500
     this.controls.update()
     this.controls.enableRotate = true
     this.renderer.render( this.scene, this.camera )
@@ -163,9 +174,27 @@ class HelixLogoTexture {
   }
 
   createRibbons() {
-    this.ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4], this.isMonochrome, this.monochromeColor)
-    this.scene.add(this.ribbon.ribbonMesh)
-    this.ribbon.drawGeometry()
+    for (var i = 0; i < this.totalRibbons; i++) {
+      let ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4], this.isMonochrome, this.monochromeColor, i)
+      this.allRibbons.push(ribbon)  
+      this.scene.add(ribbon.ribbonMesh)
+      // ribbon.drawGeometry()
+    }
+    
+    this.totalRibbonVertices = this.allRibbons[0].geometry.vertices.length / 2
+    this.calculateRibbonsNoise()
+  }
+
+  calculateRibbonsNoise() {
+    this.noiseSize = 280.5
+    this.variator = .0002
+    for (var i = 0; i < this.totalRibbonVertices; i++) {
+      this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
+    }
+
+    this.allRibbons.forEach((ribbon) => {
+      ribbon.drawGeometry(this.noiseArray)
+    })
   }
 
 
@@ -246,14 +275,14 @@ class HelixLogoTexture {
   }
   
   updateCurves() {
-    this.calculateColors(this.colorScale)
+    // this.calculateColors(this.colorScale)
     // this.ribbon.drawGeometry()
     // this.ribbon2.drawGeometry()
   }
 
   
   animate() {
-    // this.stats.begin()
+    this.stats.begin()
     this.isPlaying = true
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
     // this.time += .003
@@ -261,23 +290,24 @@ class HelixLogoTexture {
    
 
     // Update Ribbons
-    this.ribbon.uniform.time.value = this.time
-    this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
-    // this.ribbon.uniform.outerRadius.value = this.outerRadius
-    this.ribbon.totalCurls = (1. - 0.1) * this.ribbon.totalCurls + 0.1 * this.totalCurls; 
-    // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
-    // this.ribbon.variationRatio = this.ribbon.variationRatio
-    this.ribbon.noiseSize = this.noiseSize
-    this.ribbon.variator +=  this.variationRatio
+    // this.ribbon.uniform.time.value = this.time
+    // this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
+    // // this.ribbon.uniform.outerRadius.value = this.outerRadius
+    // this.ribbon.totalCurls = (1. - 0.1) * this.ribbon.totalCurls + 0.1 * this.totalCurls; 
+    // // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
+    // // this.ribbon.variationRatio = this.ribbon.variationRatio
+    // this.ribbon.noiseSize = this.noiseSize
+   this.variator +=  this.variationRatio
 
-    this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
-    this.ribbon.uniform.lineSpeed.value = this.lineSpeed
-    this.ribbon.uniform.lineBreakSeparation.value =  this.lineSeparation
-    this.ribbon.uniform.lineCount.value = (1. - 0.1) * this.ribbon.uniform.lineCount.value + 0.1 * this.lineCount
-    this.ribbon.uniform.breakSize.value = this.breakSize; 
-    this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
+    // this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
+    // this.ribbon.uniform.lineSpeed.value = this.lineSpeed
+    // this.ribbon.uniform.lineBreakSeparation.value =  this.lineSeparation
+    // this.ribbon.uniform.lineCount.value = (1. - 0.1) * this.ribbon.uniform.lineCount.value + 0.1 * this.lineCount
+    // this.ribbon.uniform.breakSize.value = this.breakSize; 
+    // this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
     
     this.updateCurves()
+    this.calculateRibbonsNoise()
     this.renderer.render( this.scene, this.camera )
    
 

@@ -83,9 +83,9 @@ void main(void){
     colorMixedLight = vec3(monochromeColorB);
     colorMixedDark = vec3(monochromeColorA);
 
-    // if (separation.x > .9) {
-    //    alpha = 0.;
-    // }
+    if (separation.x > .9) {
+       alpha = 0.;
+    }
   }
 
   if (!coloredDivisions) {

@@ -1,22 +1,22 @@
 class HelixLogoRibbon {
-  constructor(colorA, colorB, isMonochrome, monochromeColor) {
-    this.segmentsX = 4
-    this.segmentsY = 5
+  constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
+    this.segments = 2000
     this.angle = 0
-    this.width = 10
-    this.height = 100
+    this.width = 4
+    this.height = 400
     this.variation = 0.1
     this.amplitude = 2.5
 
     this.innerRadius = 4.7
-    this.outerRadius = 90.7
+    this.outerRadius = 190.7
     this.totalCurls = 4
     this.variationRatio = 0.004
     this.noiseSize = 280.5
+    this.index = index
 
     this.offset = Math.random()
     this.variator = .0002
-    this.perlin = new ClassicalNoise()
+
     this.isMonochrome = isMonochrome
     this.monochromeColor = monochromeColor
     
@@ -178,7 +178,7 @@ class HelixLogoRibbon {
   }
   
   createGeometry() {
-    this.geometry = new THREE.PlaneGeometry(this.width, this.height, this.segmentsX, this.segmentsY)
+    this.geometry = new THREE.PlaneGeometry(this.width, this.height, 1, this.segments)
     this.angle = (365 / ((this.geometry.vertices.length) / 2)) * (Math.PI / 180)
   }
 
@@ -200,46 +200,26 @@ class HelixLogoRibbon {
     this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
     this.ribbonMesh.position.x += 60
-    this.ribbonMesh.position.y -= 20 * Math.random()
+    this.ribbonMesh.position.y -= 20
     this.ribbonMesh.position.z -= 20
   }
 
-  drawGeometry() {
+  drawGeometry(noiseArray) {
    
-    this.variation = this.variationRatio * Math.cos(0.5) + Math.sin(0.001)  
-
-    console.log(this.geometry.vertices.length)
-
-    for (var i = 0; i < this.geometry.vertices.length / this.segmentsX; i++) {
-      for (var n = 0; n < this.segmentsX; n++) {
-        console.log('first' + (2*i+n))
-        console.log('second' + (2*i+1+n))
-      }
-
-      console.log('OTHER')
-
-      console.log(i)
-
-      console.log('first' + 2*i)
-      console.log('second' + (2*i+1))
-
-      console.log('-----')
-
-      // let R = (this.outerRadius) + (Math.cos(noise) * this.amplitude ) * Math.sin(noise)
-      // let noise = this.perlin.noise(i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variation + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6)
-      // let angleVertex = i * this.angle
-      // this.geometry.vertices[2*i].x = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.cos(140.5))
-      // this.geometry.vertices[2*i].y = ((R + this.width) + (this.innerRadius * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.sin(150.5)) * (this.amplitude * Math.sin(noise))
-      // this.geometry.vertices[2*i].z = this.innerRadius * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise)) + Math.cos(-noise)
+    this.variation = this.variationRatio
+    let noise = 1
+    for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
+      let R = this.outerRadius
+      let noise = noiseArray[i]
+      let angleVertex = i * this.angle
+      this.geometry.vertices[2*i].x = ((R + this.width) + ((this.innerRadius + (this.width * this.index)) * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex)
+      this.geometry.vertices[2*i].y = ((R + this.width) + ((this.innerRadius + (this.width * this.index)) * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex)
+      this.geometry.vertices[2*i].z = (this.innerRadius + (this.width * this.index))  * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise))
       
-
-
-      // this.geometry.vertices[2*i+1].x = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) + (noise * Math.cos(140.5)) 
-      // this.geometry.vertices[2*i+1].y = ((R + this.width) + ((this.innerRadius + this.width) * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex) + (noise * Math.cos(150.5)) * (this.amplitude * Math.sin(noise))
-      // this.geometry.vertices[2*i+1].z = (this.innerRadius + this.width) * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise)) + Math.cos(noise) 
+      this.geometry.vertices[2*i+1].x = ((R + this.width) + (((this.innerRadius + this.width) + (this.width * this.index)) * Math.cos(this.totalCurls * angleVertex))) * Math.cos(angleVertex) 
+      this.geometry.vertices[2*i+1].y = ((R + this.width) + (((this.innerRadius + this.width) + (this.width * this.index)) * Math.cos(this.totalCurls * angleVertex))) * Math.sin(angleVertex)
+      this.geometry.vertices[2*i+1].z = ((this.innerRadius + this.width) + (this.width * this.index)) * Math.sin(this.totalCurls * angleVertex) * (this.amplitude * Math.sin(noise))
     }
-
-    console.log(this.geometry)
     this.geometry.verticesNeedUpdate = true;
   }
 }
