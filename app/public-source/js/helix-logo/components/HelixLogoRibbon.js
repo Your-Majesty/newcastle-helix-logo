@@ -1,20 +1,20 @@
 class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
-    this.segments = 2000
+    this.segments = 3000
     this.angle = 0
-    this.width = 4
-    this.height = 400
+    this.width = 12
+    this.height = 300
     this.variation = 0.1
     this.amplitude = 2.5
 
-    this.innerRadius = 4.7
-    this.outerRadius = 190.7
+    this.innerRadius = 40.7
+    this.outerRadius = 350
     this.totalCurls = 4
     this.variationRatio = 0.004
     this.noiseSize = 280.5
     this.index = index
 
-    this.offset = Math.random()
+    this.offset = 5
     this.variator = .0002
 
     this.isMonochrome = isMonochrome
@@ -31,7 +31,7 @@ class HelixLogoRibbon {
       },
       coloredDivisions: {
         type: 'bool',
-        value: true,
+        value: false,
       },
       colorA: {
         type: 'vec3',
@@ -207,7 +207,7 @@ class HelixLogoRibbon {
   drawGeometry(noiseArray) {
    
     this.variation = this.variationRatio
-    let noise = 1
+    // let noise = 1
     for (var i = 0; i < this.geometry.vertices.length / 2; i++) {
       let R = this.outerRadius
       let noise = noiseArray[i]

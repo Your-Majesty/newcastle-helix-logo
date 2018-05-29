@@ -15,6 +15,7 @@ class HelixLogoTexture {
     this.outerRadius = 65
     this.totalCurls = 2.
     this.variationRatio = 0.0058
+    this.variator = 0.1
     this.noiseSize = 180.5
     this.breakSize = 0.3
     this.breakFrequency = 10.0
@@ -89,7 +90,7 @@ class HelixLogoTexture {
   }
 
   init() {
-     this.createStats()
+    this.createStats()
     this.createdElement = true
     this.analizeURL(window.location.href.split('?')[1])
     this.createScene()
@@ -182,12 +183,13 @@ class HelixLogoTexture {
     }
     
     this.totalRibbonVertices = this.allRibbons[0].geometry.vertices.length / 2
-    this.calculateRibbonsNoise()
+    // this.calculateRibbonsNoise()
   }
 
   calculateRibbonsNoise() {
+    this.noiseArray = []
     this.noiseSize = 280.5
-    this.variator = .0002
+    // this.variator = .0002
     for (var i = 0; i < this.totalRibbonVertices; i++) {
       this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
     }
@@ -195,6 +197,14 @@ class HelixLogoTexture {
     this.allRibbons.forEach((ribbon) => {
       ribbon.drawGeometry(this.noiseArray)
     })
+
+    this.allRibbons[0].uniform.colorA.value = this.gradientColors[0]
+    this.allRibbons[1].uniform.colorA.value = this.gradientColors[1]
+    this.allRibbons[2].uniform.colorA.value = this.gradientColors[0]
+    this.allRibbons[3].uniform.colorA.value = this.gradientColors[1]
+    this.allRibbons[4].uniform.colorA.value = this.gradientColors[0]
+    this.allRibbons[5].uniform.colorA.value = this.gradientColors[1]
+    // this.allRibbons[0].uniform.colorDark1.value = this.darkColors[2]
   }
 
 
@@ -297,7 +307,9 @@ class HelixLogoTexture {
     // // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     // // this.ribbon.variationRatio = this.ribbon.variationRatio
     // this.ribbon.noiseSize = this.noiseSize
-   this.variator +=  this.variationRatio
+    // this.variator +=  this.variationRatio
+
+    // console.log(this.variator)
 
     // this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
     // this.ribbon.uniform.lineSpeed.value = this.lineSpeed
