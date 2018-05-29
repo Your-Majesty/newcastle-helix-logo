@@ -28,10 +28,9 @@ class HelixLogoTexture {
     this.resize = this.resize.bind(this)
 
     this.allRibbons = []
-    this.totalRibbons = 14
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
-
+    this.totalRibbons = 14
 
     this.colors = [
       new THREE.Color(0x7292b6),
@@ -55,15 +54,13 @@ class HelixLogoTexture {
       true,
       false
     ]
-
-
+    
     this.lightColors = [
       new THREE.Color("rgb(51, 255, 204)"),
       new THREE.Color("rgb(0, 51, 255)"),
       new THREE.Color("rgb(166, 10, 122)"),
       new THREE.Color("rgb(255, 107, 0)"),
       new THREE.Color("rgb(166, 10, 122)")
-
     ]
 
     this.darkColors = [
@@ -96,8 +93,6 @@ class HelixLogoTexture {
     this.createCaptureCanvas() 
     this.resize()
     this.play()
-
-  
   }
 
   analizeURL(url) {
@@ -111,15 +106,6 @@ class HelixLogoTexture {
       this.colorBackground = false
       this.isMonochrome = false
     }
-  }
-
-  createCaptureCanvas() {
-    this.canvas = document.createElement('canvas')
-    this.element.appendChild(this.canvas)
-    this.context = this.canvas.getContext('2d')
-    this.watermark = new Image()
-    this.watermark.src = `${heroLogoURL}/latest/logo-black.png`
-    // this.watermark.src = `${heroLogoURL}/images/helix-logo.png`
   }
 
   pause() {
@@ -138,9 +124,9 @@ class HelixLogoTexture {
   resize() {
     this.width = window.innerWidth,
     this.height = window.innerHeight
-    this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    this.camera.aspect = window.innerWidth / window.innerHeight
+    this.renderer.setSize( window.innerWidth, window.innerHeight)
+    this.camera.updateProjectionMatrix()
     this.canvas.width = this.width
     this.canvas.height = this.height
   }
@@ -152,15 +138,14 @@ class HelixLogoTexture {
   }
 
   createScene() {
-
     this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true, devicePixelRatio:1, preserveDrawingBuffer: true} )
     this.renderer.setSize( this.width, this.height )
-    this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
+    this.renderer.shadowMapType = THREE.PCFSoftShadowMap
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 2000 )
-    this.scene.fog = new THREE.Fog( 0x000000, 1, 1000 )
+    
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
     this.controls.enableDamping = false 
     this.controls.dampingFactor = 0.8
@@ -169,7 +154,6 @@ class HelixLogoTexture {
     this.controls.update()
     this.controls.enableRotate = true
     this.renderer.render( this.scene, this.camera )
-
   }
 
   createRibbons() {
@@ -177,36 +161,29 @@ class HelixLogoTexture {
       let ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4], this.isMonochrome, this.monochromeColor, i)
       this.allRibbons.push(ribbon)  
       this.scene.add(ribbon.ribbonMesh)
-      // ribbon.drawGeometry()
     }
-    
-    // this.totalRibbonVertices = this.allRibbons[0].bufferGeometry.attributes.position.count / 2
     this.totalRibbonVertices = this.allRibbons[0].bufferGeometry.attributes.position.count/2
-    this.calculateRibbonsNoise()
   }
 
   calculateRibbonsNoise() {
     this.noiseArray = []
     this.noiseSize = 280.5
-    // this.variator = .0002
     for (var i = 0; i < this.totalRibbonVertices; i++) {
       this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
     }
-
     this.allRibbons.forEach((ribbon) => {
       ribbon.drawGeometry(this.noiseArray)
     })
-
-    // this.allRibbons[0].uniform.colorA.value = this.gradientColors[0]
-    // this.allRibbons[1].uniform.colorA.value = this.gradientColors[1]
-    // this.allRibbons[2].uniform.colorA.value = this.gradientColors[0]
-    // this.allRibbons[3].uniform.colorA.value = this.gradientColors[1]
-    // this.allRibbons[4].uniform.colorA.value = this.gradientColors[0]
-    // this.allRibbons[5].uniform.colorA.value = this.gradientColors[1]
-    // this.allRibbons[0].uniform.colorDark1.value = this.darkColors[2]
   }
 
-
+  createCaptureCanvas() {
+    this.canvas = document.createElement('canvas')
+    this.element.appendChild(this.canvas)
+    this.context = this.canvas.getContext('2d')
+    this.watermark = new Image()
+    this.watermark.src = `${heroLogoURL}/latest/logo-black.png`
+  }  
+  
   createShot() {
     this.frame = this.renderer.domElement.toDataURL('image/png', .9)
     this.context.fillStyle = this.colorBackground ? this.backgroundColors[this.gradientGuide] : 'white'
@@ -223,14 +200,8 @@ class HelixLogoTexture {
       this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
       this.context.globalAlpha = 1.0
       a.setAttribute('href', this.canvas.toDataURL('image/jpg', .9))
-    
       return this.canvas.toDataURL('image/jpg', .9)
     }
-    
-    console.log(a)
-
-
-  
   }
 
   calculateColors(temperatureAverage) {
@@ -247,9 +218,9 @@ class HelixLogoTexture {
     let colorLight02 = Math.floor(temperatureAverage / colorlightSegments)
     let colorLightInterpolation = Math.abs(Math.ceil(temperatureAverage / colorlightSegments) - (temperatureAverage / colorlightSegments))
 
-    this.ribbon.uniform.colorLight1.value = this.lightColors[colorLight01]
-    this.ribbon.uniform.colorLight2.value = this.lightColors[colorLight02]
-    this.ribbon.uniform.colorLightInterpolation.value = colorLightInterpolation
+    // this.ribbon.uniform.colorLight1.value = this.lightColors[colorLight01]
+    // this.ribbon.uniform.colorLight2.value = this.lightColors[colorLight02]
+    // this.ribbon.uniform.colorLightInterpolation.value = colorLightInterpolation
 
     let colorDarkSegments = 1 / (this.darkColors.length - 1)
     let colorDark01 = Math.ceil(temperatureAverage / colorDarkSegments)
@@ -257,12 +228,16 @@ class HelixLogoTexture {
     let colorDarkInterpolation = Math.abs(Math.ceil(temperatureAverage / colorDarkSegments) - (temperatureAverage / colorDarkSegments))
 
 
-    this.ribbon.uniform.colorDark1.value = this.darkColors[colorDark01]
-    this.ribbon.uniform.colorDark2.value = this.darkColors[colorDark02]
-    this.ribbon.uniform.colorDarkInterpolation.value = colorDarkInterpolation
-    this.ribbon.uniform.colorIsDark.value = this.colorsWeight[this.gradientGuide]
-    this.ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
-    this.ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
+    // this.ribbon.uniform.colorDark1.value = this.darkColors[colorDark01]
+    // this.ribbon.uniform.colorDark2.value = this.darkColors[colorDark02]
+    // this.ribbon.uniform.colorDarkInterpolation.value = colorDarkInterpolation
+    // this.ribbon.uniform.colorIsDark.value = this.colorsWeight[this.gradientGuide]
+
+
+    this.allRibbons.forEach((ribbon) => {
+      ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
+      ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
+    })
   }
 
   updateValues(values) {
@@ -280,16 +255,13 @@ class HelixLogoTexture {
       this.updateCurves()
       this.renderer.render( this.scene, this.camera )
     }
-
   }
   
   updateCurves() {
-    // this.calculateColors(this.colorScale)
-    // this.ribbon.drawGeometry()
-    // this.ribbon2.drawGeometry()
+    this.calculateColors(this.colorScale)
+    this.calculateRibbonsNoise()
   }
 
-  
   animate() {
     this.stats.begin()
     this.isPlaying = true
@@ -304,7 +276,7 @@ class HelixLogoTexture {
     // // this.ribbon.uniform.outerRadius.value = this.outerRadius
     // this.ribbon.totalCurls = (1. - 0.1) * this.ribbon.totalCurls + 0.1 * this.totalCurls; 
     // // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
-    // // this.ribbon.variationRatio = this.ribbon.variationRatio
+    // this.ribbon.variationRatio = this.ribbon.variationRatio
     // this.ribbon.noiseSize = this.noiseSize
     this.variator +=  this.variationRatio
 
@@ -318,10 +290,7 @@ class HelixLogoTexture {
     // this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
     
     this.updateCurves()
-    this.calculateRibbonsNoise()
     this.stats.end()
     this.renderer.render( this.scene, this.camera )
-   
-
   }
 }

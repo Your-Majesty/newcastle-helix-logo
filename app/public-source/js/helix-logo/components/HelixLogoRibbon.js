@@ -2,12 +2,12 @@ class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
     this.segments = 1000
     this.angle = 0
-    this.width = 20
-    this.height = 100
+    this.width = 24
+    this.height = 700
     this.variation = 0.1
     this.amplitude = 2.5
 
-    this.innerRadius = 40.7
+    this.innerRadius = 50.7
     this.outerRadius = 400
     this.totalCurls = 4
     this.variationRatio = 0.004
@@ -25,6 +25,10 @@ class HelixLogoRibbon {
         type: 'f',
         value: 0
       },
+      index: {
+        type: 'float',
+        value: parseFloat(this.index)
+      }, 
       offset: {
         type: 'f',
         value: this.offset
@@ -211,7 +215,7 @@ class HelixLogoRibbon {
     this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
     this.ribbonMesh.position.x += 60
-    this.ribbonMesh.position.y -= 20
+    this.ribbonMesh.position.y += 20
   }
 
   drawGeometry(noiseArray) {

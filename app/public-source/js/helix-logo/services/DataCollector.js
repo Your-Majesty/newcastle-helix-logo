@@ -1,12 +1,10 @@
 const DataCollector = (() => {
 
   const controller = {}
-  
   controller.limits = {}
   controller.collection = {}
 
   controller.getData = () => {
-
     return new Promise(resolve => {
       const localePath = '/api/data'
       const xhr = new XMLHttpRequest()
@@ -31,7 +29,6 @@ const DataCollector = (() => {
       xhr.send()
     })
   }
-
   return controller
 
 })()

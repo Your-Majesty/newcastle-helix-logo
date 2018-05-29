@@ -6,6 +6,7 @@ varying vec2 vUv;
 varying vec3 vWorldPosition;
 
 uniform float time;
+uniform float index;
 
 uniform vec3 colorA;
 uniform vec3 colorB;
@@ -105,7 +106,17 @@ void main(void){
   //   color += vec3(separation.x);
   // }
 
+if (mod(index, 2.0) == 0.0) {
   color += mix(colorMixedDark, colorMixedLight, fract(d));
+  alpha = 1.;
+  } else {
+    color = vec3(1.);
+   // alpha = 0.;
+  }
+
+
+
+  
   
   // vec2 stY = vUv;
 
