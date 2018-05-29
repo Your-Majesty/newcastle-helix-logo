@@ -1,4 +1,5 @@
 class HelixLogoUIAnchor {
+  
   constructor(args) {
     this.anchor = document.querySelector('.helix-logo-anchor')
     this.day = this.anchor.querySelector('.helix-logo-day')
@@ -18,7 +19,6 @@ class HelixLogoUIAnchor {
   }
 
   mapAnchorValue(value) {
-
     let day = new Date(DataCollector.collection[value].timestamp.split('T')[0])
     let dayToday = new Date()
     let hours = DataCollector.collection[value].timestamp.split('T')[1].split(':')[0]
@@ -43,6 +43,6 @@ class HelixLogoUIAnchor {
       this.day.innerHTML = this.dayString
     }
 
-    this.time.innerHTML = `${hours}:${minutes} ${hours < 12 ? 'am' : 'pm'}`
+    this.time.innerHTML = `${hours}:${minutes} hrs`
   }
 }

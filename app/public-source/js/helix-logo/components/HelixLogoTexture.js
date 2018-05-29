@@ -157,7 +157,7 @@ class HelixLogoTexture {
     this.controls.minDistance = 1
     this.controls.maxDistance = 100
     this.controls.update()
-    this.controls.enableRotate = false
+    this.controls.enableRotate = true
     this.renderer.render( this.scene, this.camera )
 
   }
@@ -165,6 +165,7 @@ class HelixLogoTexture {
   createRibbons() {
     this.ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4], this.isMonochrome, this.monochromeColor)
     this.scene.add(this.ribbon.ribbonMesh)
+    this.ribbon.drawGeometry()
   }
 
 
@@ -246,7 +247,8 @@ class HelixLogoTexture {
   
   updateCurves() {
     this.calculateColors(this.colorScale)
-    this.ribbon.drawGeometry()
+    // this.ribbon.drawGeometry()
+    // this.ribbon2.drawGeometry()
   }
 
   
