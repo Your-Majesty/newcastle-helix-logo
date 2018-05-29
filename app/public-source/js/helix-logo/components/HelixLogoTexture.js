@@ -4,8 +4,6 @@ class HelixLogoTexture {
 
     this.time = 0
     this.createdElement = false
-
-
     this.colorScale = 0.2
     this.lineSpeed = 0.1
     this.lineSeparation = 0.5
@@ -30,7 +28,7 @@ class HelixLogoTexture {
     this.resize = this.resize.bind(this)
 
     this.allRibbons = []
-    this.totalRibbons = 20
+    this.totalRibbons = 14
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
 
@@ -182,8 +180,9 @@ class HelixLogoTexture {
       // ribbon.drawGeometry()
     }
     
-    this.totalRibbonVertices = this.allRibbons[0].geometry.vertices.length / 2
-    // this.calculateRibbonsNoise()
+    // this.totalRibbonVertices = this.allRibbons[0].bufferGeometry.attributes.position.count / 2
+    this.totalRibbonVertices = this.allRibbons[0].bufferGeometry.attributes.position.count/2
+    this.calculateRibbonsNoise()
   }
 
   calculateRibbonsNoise() {
@@ -198,12 +197,12 @@ class HelixLogoTexture {
       ribbon.drawGeometry(this.noiseArray)
     })
 
-    this.allRibbons[0].uniform.colorA.value = this.gradientColors[0]
-    this.allRibbons[1].uniform.colorA.value = this.gradientColors[1]
-    this.allRibbons[2].uniform.colorA.value = this.gradientColors[0]
-    this.allRibbons[3].uniform.colorA.value = this.gradientColors[1]
-    this.allRibbons[4].uniform.colorA.value = this.gradientColors[0]
-    this.allRibbons[5].uniform.colorA.value = this.gradientColors[1]
+    // this.allRibbons[0].uniform.colorA.value = this.gradientColors[0]
+    // this.allRibbons[1].uniform.colorA.value = this.gradientColors[1]
+    // this.allRibbons[2].uniform.colorA.value = this.gradientColors[0]
+    // this.allRibbons[3].uniform.colorA.value = this.gradientColors[1]
+    // this.allRibbons[4].uniform.colorA.value = this.gradientColors[0]
+    // this.allRibbons[5].uniform.colorA.value = this.gradientColors[1]
     // this.allRibbons[0].uniform.colorDark1.value = this.darkColors[2]
   }
 
@@ -307,7 +306,7 @@ class HelixLogoTexture {
     // // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     // // this.ribbon.variationRatio = this.ribbon.variationRatio
     // this.ribbon.noiseSize = this.noiseSize
-    // this.variator +=  this.variationRatio
+    this.variator +=  this.variationRatio
 
     // console.log(this.variator)
 
@@ -320,6 +319,7 @@ class HelixLogoTexture {
     
     this.updateCurves()
     this.calculateRibbonsNoise()
+    this.stats.end()
     this.renderer.render( this.scene, this.camera )
    
 
