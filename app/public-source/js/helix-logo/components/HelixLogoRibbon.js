@@ -1,6 +1,6 @@
 class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
-    this.segments = 1000
+    this.segments = 1100
     this.angle = 0
     this.width = 24
     this.height = 700
@@ -9,7 +9,7 @@ class HelixLogoRibbon {
 
     this.innerRadius = 50.7
     this.outerRadius = 400
-    this.totalCurls = 4
+    this.totalCurls = 10
     this.variationRatio = 0.004
     this.noiseSize = 280.5
     this.index = index
@@ -41,33 +41,21 @@ class HelixLogoRibbon {
         type: 'vec3',
         value: colorA
       },
-      colorLight1: {
-        type: 'vec3',
-        value: colorA
-      },
-      colorLight2: {
-        type: 'vec3',
-        value: colorA
-      },
-      colorLightInterpolation: {
-        type: 'float',
-        value: 0.
-      },
-      colorDark1: {
-        type: 'vec3',
-        value: colorA
-      },
-      colorDark2: {
-        type: 'vec3',
-        value: colorA
-      },
-      colorDarkInterpolation: {
-        type: 'float',
-        value: 0.
-      },
       colorB: {
         type: 'vec3',
         value: colorB
+      },
+      colorLastA: {
+        type: 'vec3',
+        value: colorA
+      },
+      colorLastB: {
+        type: 'vec3',
+        value: colorB
+      },
+      colorTiming: {
+        type: 'f',
+        'value': 1.
       },
       colorIsDark: {
         type: 'bool',
@@ -85,7 +73,6 @@ class HelixLogoRibbon {
         type: 'float',
         value: this.monochromeColor > 0. ? .9 : .2,
       },
-
       lineSpeed: {
         type: 'f',
         value: 0.1

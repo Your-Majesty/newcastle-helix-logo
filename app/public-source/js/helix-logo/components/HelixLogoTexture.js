@@ -1,14 +1,13 @@
 class HelixLogoTexture {
   constructor() {
     this.element = document.querySelector('.helix-logo-element')
-
     this.time = 0
     this.createdElement = false
     this.colorScale = 0.2
     this.lineSpeed = 0.1
     this.lineSeparation = 0.5
     this.lineCount = 10.
- 
+    
     this.innerRadius = 20.
     this.outerRadius = 65
     this.totalCurls = 2.
@@ -17,11 +16,14 @@ class HelixLogoTexture {
     this.noiseSize = 180.5
     this.breakSize = 0.3
     this.breakFrequency = 10.0
+    this.noiseSize = 280.5
 
     this.colorBackground = false
     this.coloredDivisions = false
     this.colorTransparency = false
     this.isMonochrome = false
+    this.gradientGuide = 0
+    this.colorTiming = 0
     
     this.animationFrame = null
     this.isPlaying = false
@@ -31,15 +33,6 @@ class HelixLogoTexture {
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
     this.totalRibbons = 12
-
-    this.colors = [
-      new THREE.Color(0x7292b6),
-      new THREE.Color(0xffffff),
-      new THREE.Color(0x4a4c90),
-      new THREE.Color(0xffffff),
-      new THREE.Color(0x513a80),
-      new THREE.Color(0xffffff)
-    ]
 
     this.backgroundColors = [
       '#58f9ea',
@@ -53,21 +46,6 @@ class HelixLogoTexture {
       true,
       true,
       false
-    ]
-    
-    this.lightColors = [
-      new THREE.Color("rgb(51, 255, 204)"),
-      new THREE.Color("rgb(0, 51, 255)"),
-      new THREE.Color("rgb(166, 10, 122)"),
-      new THREE.Color("rgb(255, 107, 0)"),
-      new THREE.Color("rgb(166, 10, 122)")
-    ]
-
-    this.darkColors = [
-      new THREE.Color("rgb(0, 51, 255)"),
-      new THREE.Color("rgb(51, 0, 102)"),
-      new THREE.Color("rgb(166, 10, 122)"),
-      new THREE.Color("rgb(255, 107, 0)")
     ]
     
     this.gradientColors = [
@@ -138,7 +116,7 @@ class HelixLogoTexture {
   }
 
   createScene() {
-    this.renderer = new THREE.WebGLRenderer( {alpha: true, antialias: true, devicePixelRatio:1, preserveDrawingBuffer: true} )
+    this.renderer = new THREE.WebGLRenderer({alpha: true, antialias: true, devicePixelRatio:1, preserveDrawingBuffer: true} )
     this.renderer.setSize( this.width, this.height )
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap
     this.renderer.setPixelRatio( window.devicePixelRatio )
@@ -167,7 +145,6 @@ class HelixLogoTexture {
 
   calculateRibbonsNoise() {
     this.noiseArray = []
-    this.noiseSize = 280.5
     for (var i = 0; i < this.totalRibbonVertices; i++) {
       this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
     }
@@ -200,24 +177,35 @@ class HelixLogoTexture {
       this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
       this.context.globalAlpha = 1.0
       a.setAttribute('href', this.canvas.toDataURL('image/jpg', .9))
+      // console.log(a)
       return this.canvas.toDataURL('image/jpg', .9)
     }
   }
 
   calculateColors(temperatureAverage) {
-      
-    // console.log(temperatureAverage)
     let colorSegments = 1.1 / (this.gradientColors.length - 1) 
-    this.gradientGuide = Math.floor(temperatureAverage / colorSegments)
+    
+    if (this.gradientGuide !== Math.floor(temperatureAverage / colorSegments)) {
+      
+      this.animateColor = true
+      this.colorTiming = 0
+
+      this.lastGradientGuide = this.gradientGuide
+      this.gradientGuide = Math.floor(temperatureAverage / colorSegments)
+
+      this.allRibbons.forEach((ribbon) => {
+        ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
+        ribbon.uniform.colorLastA.value = this.gradientColors[this.lastGradientGuide]
+        ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
+        ribbon.uniform.colorLastB.value = this.gradientColors[this.lastGradientGuide + 1]
+      })
+    }
+
     if (this.colorBackground) {
       this.element.style.backgroundColor = this.backgroundColors[this.gradientGuide]
-    } else {
+      } else {
       this.element.style.backgroundColor = 'transparent'
     }
-    this.allRibbons.forEach((ribbon) => {
-      ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
-      ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
-    })
   }
 
   updateValues(values) {
@@ -227,20 +215,18 @@ class HelixLogoTexture {
     this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
     this.totalCurls = values['totalCurls']
-    this.variationRatio = values['variationRatio']
+    // this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
+    this.calculateColors(this.colorScale)
 
     if (!this.isPlaying) {
       this.updateCurves()
       this.renderer.render( this.scene, this.camera )
     }
-
-    this.calculateColors(this.colorScale)
   }
   
   updateCurves() {
- 
     this.calculateRibbonsNoise()
   }
 
@@ -249,13 +235,28 @@ class HelixLogoTexture {
     this.isPlaying = true
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
     // this.time += .003
-
+    if (this.animateColor) {
+      if (this.colorTiming <= 1) {
+        this.colorTiming += .01
+        this.allRibbons.forEach((ribbon) => {
+          ribbon.uniform.colorTiming.value = this.colorTiming
+        })
+      } else {
+        this.animateColor = false
+      }
+    }
    
+
+    this.allRibbons.forEach((ribbon) => {
+      ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
+      ribbon.totalCurls = (1. - 0.1) * ribbon.totalCurls + 0.1 * this.totalCurls;
+      ribbon.uniform.coloredDivisions.value = this.coloredDivisions
+      ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
+    })
 
     // Update Ribbons
     // this.ribbon.uniform.time.value = this.time
-    // this.ribbon.uniform.innerRadius.value = (1. - 0.1) * this.ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
-    // // this.ribbon.uniform.outerRadius.value = this.outerRadius
+
     // this.ribbon.totalCurls = (1. - 0.1) * this.ribbon.totalCurls + 0.1 * this.totalCurls; 
     // // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     // this.ribbon.variationRatio = this.ribbon.variationRatio

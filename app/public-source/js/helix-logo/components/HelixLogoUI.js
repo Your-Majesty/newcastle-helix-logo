@@ -35,4 +35,13 @@ class HelixLogoUI {
     this.timeline.mapValues()
     this.mapValuesTimeline(index)
   }
+
+  updateTheme(lightTheme) {
+    if (lightTheme) {
+      this.element.classList.add('helix-theme-dark') 
+    } else {
+      this.element.classList.remove('helix-theme-dark') 
+    }
+
+  }
 }

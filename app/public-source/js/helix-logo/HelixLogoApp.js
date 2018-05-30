@@ -31,17 +31,14 @@ const HelixLogoApp = (() => {
 
   window.addEventListener('uiDownload', function (e) {
     let screenShot = helixRibbon.createShot()
-
-    
-
     helixUI.download.setScreenShot(screenShot)
   })
 
   window.addEventListener('sunCalculator', function (e) {
-    
     if (!helixRibbon.isMonochrome) {
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
+      helixUI.updateTheme(e.detail)
     }
   })
 

@@ -9,15 +9,12 @@ uniform float time;
 uniform float index;
 
 uniform vec3 colorA;
+uniform vec3 colorLastA;
+
 uniform vec3 colorB;
+uniform vec3 colorLastB;
 
-uniform vec3 colorLight1;
-uniform vec3 colorLight2;
-uniform float colorLightInterpolation;
-
-uniform vec3 colorDark1;
-uniform vec3 colorDark2;
-uniform float colorDarkInterpolation;
+uniform float colorTiming;
 
 uniform float line1;
 uniform float line2;
@@ -77,8 +74,8 @@ void main(void){
   st = tile(st, totalDivisions, totalDivisions);
   vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
 
-  vec3 colorMixedLight = colorA;
-  vec3 colorMixedDark = colorB;
+  vec3 colorMixedLight = mix(colorLastA, colorA, colorTiming);
+  vec3 colorMixedDark = mix(colorLastB, colorB, colorTiming);
 
   if (isMonochrome) {
     colorMixedLight = vec3(monochromeColorB);
@@ -107,14 +104,20 @@ void main(void){
   // }
 
 if (mod(index, 2.0) == 0.0) {
-  color += mix(colorMixedDark, colorMixedLight, fract(d));
-  alpha = 1.;
+    alpha = 1.;
+
   } else {
-    color = vec3(1.);
-   // alpha = 0.;
+    if (coloredDivisions) {
+      color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
+      if (colorIsDark) {
+        color *= mix(colorMixedDark, colorMixedLight, fract(d));
+      }
+    } else {
+      color = vec3(1.);
+    }
   }
 
-
+color += mix(colorMixedDark, colorMixedLight, fract(d));
 
   
   
