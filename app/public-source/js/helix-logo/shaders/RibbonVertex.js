@@ -105,7 +105,6 @@ void main() {
     pos.y = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
     pos.z = (innerRadius + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise));
   }
-
   vec4 worldPosition = modelMatrix * vec4(position, 1.0);
   vWorldPosition = worldPosition.xyz;
   gl_Position = projectionMatrix *
