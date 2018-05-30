@@ -25,13 +25,13 @@ module.exports = (() => {
     
     for (dataPoint of data) {
       sensors.push({
-          timestamp: dataPoint.timestamp,
-          humidity: dataPoint.sensors['Humidity'],
-          temperature: dataPoint.sensors['Temperature'],
-          energy: dataPoint.sensors['Energy consumption at Newcastle Helix'],
-          wind: dataPoint.sensors['Average wind speed'],
-          vehicleSpeed: dataPoint.sensors['Average vehicle speed'],
-          vehicleCount: dataPoint.sensors['Vehicle count']
+        timestamp: dataPoint.timestamp,
+        humidity: dataPoint.sensors['Humidity'],
+        temperature: dataPoint.sensors['Temperature'],
+        energy: dataPoint.sensors['Energy consumption at Newcastle Helix'],
+        wind: dataPoint.sensors['Average wind speed'],
+        vehicleSpeed: dataPoint.sensors['Average vehicle speed'],
+        vehicleCount: dataPoint.sensors['Vehicle count']
       })
     }
 

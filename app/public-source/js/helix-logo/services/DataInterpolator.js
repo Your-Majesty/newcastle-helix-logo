@@ -99,19 +99,22 @@ const DataInterpolator = (() => {
   }
 
   controller.calculatePoint = (dataPoint) => {
-    
     SunCalculator.calculateDay(dataPoint.timestamp)
-
+    
     for (let property of DataCollector.limits) {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {
-        controller.calculatedPoint[key] = controller.linearInterpolation(
-          property.min, 
-          property.max,
-          dataPoint[property.name],
-          controller.limits[property.name][key].min,
-          controller.limits[property.name][key].max
-        )
+        if (key == 'colorScale') {
+          controller.calculatedPoint[key] = TemperatureAnalizer.calculateDate(dataPoint.timestamp, dataPoint['temperature'])
+        } else {
+          controller.calculatedPoint[key] = controller.linearInterpolation(
+            property.min, 
+            property.max,
+            dataPoint[property.name],
+            controller.limits[property.name][key].min,
+            controller.limits[property.name][key].max
+          )
+        }
       }
     }
   }

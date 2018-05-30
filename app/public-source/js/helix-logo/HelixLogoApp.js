@@ -52,6 +52,7 @@ const HelixLogoApp = (() => {
       helixUI.init()
     }
 
+
     helixUI.animateIn()
 
     helixUI.mapValues(TimelineCollector.currentIndex)

@@ -26,4 +26,5 @@ const SunCalculator = (() => {
   }
 
   return controller
+  
 })()

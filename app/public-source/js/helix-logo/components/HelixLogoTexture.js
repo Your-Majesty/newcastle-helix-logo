@@ -30,7 +30,7 @@ class HelixLogoTexture {
     this.allRibbons = []
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
-    this.totalRibbons = 14
+    this.totalRibbons = 12
 
     this.colors = [
       new THREE.Color(0x7292b6),
@@ -205,35 +205,15 @@ class HelixLogoTexture {
   }
 
   calculateColors(temperatureAverage) {
-    let colorSegments = 1 / (this.gradientColors.length - 1) 
+      
+    // console.log(temperatureAverage)
+    let colorSegments = 1.1 / (this.gradientColors.length - 1) 
     this.gradientGuide = Math.floor(temperatureAverage / colorSegments)
-
     if (this.colorBackground) {
       this.element.style.backgroundColor = this.backgroundColors[this.gradientGuide]
     } else {
       this.element.style.backgroundColor = 'transparent'
     }
-    let colorlightSegments = 1 / (this.lightColors.length - 1)
-    let colorLight01 = Math.ceil(temperatureAverage / colorlightSegments)
-    let colorLight02 = Math.floor(temperatureAverage / colorlightSegments)
-    let colorLightInterpolation = Math.abs(Math.ceil(temperatureAverage / colorlightSegments) - (temperatureAverage / colorlightSegments))
-
-    // this.ribbon.uniform.colorLight1.value = this.lightColors[colorLight01]
-    // this.ribbon.uniform.colorLight2.value = this.lightColors[colorLight02]
-    // this.ribbon.uniform.colorLightInterpolation.value = colorLightInterpolation
-
-    let colorDarkSegments = 1 / (this.darkColors.length - 1)
-    let colorDark01 = Math.ceil(temperatureAverage / colorDarkSegments)
-    let colorDark02 = Math.floor(temperatureAverage / colorDarkSegments)
-    let colorDarkInterpolation = Math.abs(Math.ceil(temperatureAverage / colorDarkSegments) - (temperatureAverage / colorDarkSegments))
-
-
-    // this.ribbon.uniform.colorDark1.value = this.darkColors[colorDark01]
-    // this.ribbon.uniform.colorDark2.value = this.darkColors[colorDark02]
-    // this.ribbon.uniform.colorDarkInterpolation.value = colorDarkInterpolation
-    // this.ribbon.uniform.colorIsDark.value = this.colorsWeight[this.gradientGuide]
-
-
     this.allRibbons.forEach((ribbon) => {
       ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
       ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
@@ -255,10 +235,12 @@ class HelixLogoTexture {
       this.updateCurves()
       this.renderer.render( this.scene, this.camera )
     }
+
+    this.calculateColors(this.colorScale)
   }
   
   updateCurves() {
-    this.calculateColors(this.colorScale)
+ 
     this.calculateRibbonsNoise()
   }
 
