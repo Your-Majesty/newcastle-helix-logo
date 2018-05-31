@@ -123,12 +123,13 @@ class HelixLogoTexture {
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 2000 )
-    
+    this.camera.position.set(0, 0, -700);
+
     this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
-    this.controls.enableDamping = false 
+    this.controls.enableDamping = true
     this.controls.dampingFactor = 0.8
     this.controls.minDistance = 1
-    this.controls.maxDistance = 500
+    this.controls.maxDistance = 2500
     this.controls.update()
     this.controls.enableRotate = true
     this.renderer.render( this.scene, this.camera )
@@ -146,7 +147,7 @@ class HelixLogoTexture {
   calculateRibbonsNoise() {
     this.noiseArray = []
     for (var i = 0; i < this.totalRibbonVertices; i++) {
-      this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
+      this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.9), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
     }
     this.allRibbons.forEach((ribbon) => {
       ribbon.drawGeometry(this.noiseArray)
@@ -177,7 +178,7 @@ class HelixLogoTexture {
       this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
       this.context.globalAlpha = 1.0
       a.setAttribute('href', this.canvas.toDataURL('image/jpg', .9))
-      // console.log(a)
+      console.log(a)
       return this.canvas.toDataURL('image/jpg', .9)
     }
   }
@@ -215,6 +216,8 @@ class HelixLogoTexture {
     this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
     this.totalCurls = values['totalCurls']
+
+    console.log(this.totalCurls)
     // this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
@@ -249,7 +252,7 @@ class HelixLogoTexture {
 
     this.allRibbons.forEach((ribbon) => {
       ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
-      ribbon.totalCurls = (1. - 0.1) * ribbon.totalCurls + 0.1 * this.totalCurls;
+      ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls;
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
       ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
     })

@@ -95,16 +95,18 @@ void main() {
   vNormal = normal;
   vec3 pos = position;
 
-  float R = outerRadius;
+  float R = (outerRadius);
   if (mod(vertexIndex, 2.0) == 0.0) {
-    pos.x = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
-    pos.y = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
-    pos.z = ((innerRadius + width) + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)); 
+    pos.x = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
+    pos.y = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * cos(150.5)) * (amplitude * sin(vertexNoise));
+    pos.z = ((innerRadius + width) + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(vertexNoise); 
   } else {
-   pos.x = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
-    pos.y = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
-    pos.z = (innerRadius + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise));
+   pos.x = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
+    pos.y = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * sin(150.5)) * (amplitude * sin(vertexNoise));
+    pos.z = (innerRadius + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(-vertexNoise);
   }
+
+
   vec4 worldPosition = modelMatrix * vec4(position, 1.0);
   vWorldPosition = worldPosition.xyz;
   gl_Position = projectionMatrix *

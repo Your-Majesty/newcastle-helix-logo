@@ -5,7 +5,7 @@ class HelixLogoRibbon {
     this.width = 24
     this.height = 700
     this.variation = 0.1
-    this.amplitude = 2.5
+    this.amplitude = 1
 
     this.innerRadius = 50.7
     this.outerRadius = 400
@@ -170,7 +170,7 @@ class HelixLogoRibbon {
   
   createGeometry() {
     this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
-    this.angle = (365 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180)
+    this.angle = (720 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180)
     
     this.vertexIndex = new Float32Array(this.bufferGeometry.attributes.position.count)
     this.vertexAngle = new Float32Array(this.bufferGeometry.attributes.position.count)
@@ -201,8 +201,6 @@ class HelixLogoRibbon {
     this.ribbonMesh.castShadow = true
     this.ribbonMesh.receiveShadow = true
     this.shaderMaterial.side = THREE.DoubleSide
-    this.ribbonMesh.position.x += 60
-    this.ribbonMesh.position.y += 20
   }
 
   drawGeometry(noiseArray) {

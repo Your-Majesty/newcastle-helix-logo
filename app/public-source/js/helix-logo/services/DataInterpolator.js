@@ -54,12 +54,12 @@ const DataInterpolator = (() => {
     },
     energy: {
       innerRadius: {
-        min: -40,
-        max: 60
+        min: 0,
+        max: 100
       },
       totalCurls: {
-        min: 3.5,
-        max: 10
+        min: 1,
+        max: 4
       }
     },
     wind: {
