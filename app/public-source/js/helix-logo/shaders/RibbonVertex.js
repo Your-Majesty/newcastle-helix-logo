@@ -95,15 +95,15 @@ void main() {
   vNormal = normal;
   vec3 pos = position;
 
-  float R = (outerRadius);
+  float R = (outerRadius) + (cos(vertexNoise) * amplitude) * sin(vertexNoise) * 10.;
   if (mod(vertexIndex, 2.0) == 0.0) {
-    pos.x = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
-    pos.y = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * cos(150.5)) * (amplitude * sin(vertexNoise));
-    pos.z = ((innerRadius + width) + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(vertexNoise); 
+    pos.x = ((R + width) + (((innerRadius * vertexNoise + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
+    pos.y = ((R + width) + (((innerRadius * vertexNoise + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * cos(150.5)) * (amplitude * sin(vertexNoise));
+    pos.z = ((innerRadius * vertexNoise + width) + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(vertexNoise); 
   } else {
-   pos.x = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
-    pos.y = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * sin(150.5)) * (amplitude * sin(vertexNoise));
-    pos.z = (innerRadius + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(-vertexNoise);
+   pos.x = ((R + width) + ((innerRadius * vertexNoise + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle) + (vertexNoise * cos(140.5));
+    pos.y = ((R + width) + ((innerRadius * vertexNoise + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle) + (vertexNoise * sin(150.5)) * (amplitude * sin(vertexNoise));
+    pos.z = (innerRadius * vertexNoise + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(-vertexNoise);
   }
 
 
