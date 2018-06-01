@@ -7,6 +7,7 @@ varying vec3 vWorldPosition;
 
 uniform float time;
 uniform float index;
+uniform float offsetLines;
 
 uniform vec3 colorA;
 uniform vec3 colorLastA;
@@ -15,17 +16,6 @@ uniform vec3 colorB;
 uniform vec3 colorLastB;
 
 uniform float colorTiming;
-
-uniform float line1;
-uniform float line2;
-uniform float line3;
-uniform float line4;
-uniform float line5;
-uniform float line6;
-uniform float line7;
-uniform float line8;
-uniform float line9;
-uniform float line10;
 
 uniform float lineSpeed;
 uniform float lineBreakSeparation;
@@ -44,9 +34,8 @@ float random (in float x) {
   return fract(sin(x)*1e4);
 }
 
-vec2 tile(vec2 _st, float _zoomX, float _zoomY ){
-  _st.x *= _zoomX;
-  _st.y *= _zoomY;
+vec2 tile(vec2 _st, float _zoom){
+  _st.y *= _zoom;
   return fract(_st);
 }
 
@@ -71,8 +60,9 @@ void main(void){
   float totalDivisions = lineCount;
   float divisionPercentage = lineBreakSeparation;
   
-  st = tile(st, totalDivisions, totalDivisions);
-  vec2 separation = smoothstep(divisionPercentage, divisionPercentage, fract(st));
+
+  st = tile(st + ((time + fract(offsetLines*20.0)) * lineSpeed),totalDivisions);
+  vec2 separation = smoothstep(divisionPercentage,divisionPercentage,st);
 
   vec3 colorMixedLight = mix(colorLastA, colorA, colorTiming);
   vec3 colorMixedDark = mix(colorLastB, colorB, colorTiming);
@@ -80,30 +70,9 @@ void main(void){
   if (isMonochrome) {
     colorMixedLight = vec3(monochromeColorB);
     colorMixedDark = vec3(monochromeColorA);
-
-    if (separation.x > .9) {
-       alpha = 0.;
-    }
   }
 
-  if (!coloredDivisions) {
-
-    // if (separation.x > .9) {
-    //    alpha = 0.;
-    // }
-  }
-  
-
-  // if (separation.x > .7 && coloredDivisions) {
-  //   color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
-  //   if (colorIsDark) {
-  //     color *= mix(colorMixedDark, colorMixedLight, fract(d));
-  //   }
-  // } else {
-  //   color += vec3(separation.x);
-  // }
-
-if (mod(index, 2.0) == 0.0) {
+  if (mod(index, 2.0) == 0.0) {
     alpha = 1.;
 
   } else {
@@ -112,57 +81,20 @@ if (mod(index, 2.0) == 0.0) {
       if (colorIsDark) {
         color *= mix(colorMixedDark, colorMixedLight, fract(d));
       }
+
+
     } else {
       color = vec3(1.);
     }
   }
 
-color += mix(colorMixedDark, colorMixedLight, fract(d));
+  if (coloredDivisions) {
+    colorSeparation = vec3(colorMixedLight);
+  }
+  
+  color += mix(colorMixedDark, colorMixedLight, fract(d));
 
-  
-  
-  // vec2 stY = vUv;
-
-  // if (stY.x < 1./lineCount) {
-  //   stY.y = fract(stY.y - line1);
-  // }
-  // else if (stY.x < 2./lineCount) {
-  //   stY.y = fract(stY.y - line2);
-  // }
-  // else if (stY.x < 3./lineCount) {
-  //     stY.y = fract(stY.y - line3);
-  // } 
-  // else if (stY.x < 4./lineCount) {
-  //     stY.y = fract(stY.y - line4);
-  // }
-  // else if (stY.x < 5./lineCount) {
-  //     stY.y = fract(stY.y - line5);
-  // }
-  // else if (stY.x < 6./lineCount) {
-  //     stY.y = fract(stY.y - line6);
-  // }
-  //   else if (stY.x < 7./lineCount) {
-  //     stY.y = fract(stY.y - line7);
-  // }
-  //   else if (stY.x < 8./lineCount) {
-  //     stY.y = fract(stY.y - line8);
-  // }
-  //   else if (stY.x < 9./lineCount) {
-  //     stY.y = fract(stY.y - line9);
-  // }
-  //   else if (stY.x < 10./lineCount) {
-  //     stY.y = fract(stY.y - line10);
-  // }
-
-  // stY = tile(stY + (time * lineSpeed), totalDivisions, breakFrequency);
-  
-  // if (coloredDivisions) {
-  //   colorSeparation = vec3(colorMixedLight);
-  // }
-  
-  // color = mix(color, colorSeparation,
-  //   rect(fract(vec2(stY)) - vec2(-separation.x), vec2(separation.x + lineBreakSeparation, 0.00001)));
-  
-  gl_FragColor = vec4(color,alpha);
+  // color += vec3(separation.y);
+  gl_FragColor = vec4(color, alpha);
 }
 `

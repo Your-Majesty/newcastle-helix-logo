@@ -80,6 +80,18 @@ appearance: none;
 /*=====================================
 =            Media Queries            =
 =====================================*/
+@mixin q-is-x-large {
+  @media ( max-width: 1800px ) {
+    @content;
+  }
+}
+
+@mixin q-is-large {
+  @media ( max-width: 1350px ) {
+    @content;
+  }
+}
+
 @mixin q-is-medium {
   @media ( max-width: 1024px ) {
     @content;

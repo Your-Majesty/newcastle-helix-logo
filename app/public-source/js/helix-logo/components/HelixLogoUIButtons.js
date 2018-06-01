@@ -1,6 +1,9 @@
 class HelixLogoUIButtons {
   constructor(args) {
     this.buttons = document.querySelector('.helix-logo-buttons')
+    this.buttonsActive = false
+    this.currentSensor = null
+    this.selectButton = this.selectButton.bind(this)
   }
 
   createButtons() {
@@ -15,27 +18,25 @@ class HelixLogoUIButtons {
     this.buttonCollection = this.buttons.querySelectorAll('.helix-logo-button')
   }
 
-
   animateIn() {
-    this.timeline.animateIn()
 
+  
   }
 
   animateOut() {
 
+  
+  }
+
+  selectButton() {
 
 
   }
 
   mapButtonsValues(timelineIndex) {
-
     DataInterpolator.sensors.forEach((sensor, index) => {
       this.buttonCollection[index].querySelector('button .value').innerHTML = DataCollector.collection[timelineIndex][sensor.id]
       this.buttonCollection[index].querySelector('button .units').innerHTML = sensor.units
     })
-
-    // console.log(DataCollector.collection[index])
-    
-
   }
 }

@@ -2,7 +2,8 @@ class HelixLogoUITimeline {
   constructor() {
     this.element = document.querySelector('.helix-logo-timeline')
     this.linesWrapper = document.querySelector('.helix-logo-timeline__lines')
-      
+    this.isActive = false  
+
     this.moveTimeline = this.moveTimeline.bind(this)
 
     this.totalCollection = 0
@@ -31,18 +32,23 @@ class HelixLogoUITimeline {
   }
 
   animateIn() {
+    this.playButton.addEventListener('click', this.playTimeline)
+    this.element.style.display = 'block'
+    TweenLite.to(this.element, 0.5, {y: 0,  ease: Sine.easeOut, onComplete: () => {
+      this.isActive = true
+    }})
     this.animate()
   }
   
   animateOut() {
+    this.playButton.removeEventListener('click', this.playTimeline)
+    TweenLite.to(this.element, 0.4, {y: '100%', onComplete: () => {
+      this.element.style.display = 'none'
+      this.isActive = false
+    }})
     this.pause()
   }
-
-  init() {
-    this.createLines()
-    this.playButton.addEventListener('click', this.playTimeline)
-  }
-
+  
   createLines() {
     this.totalCollection = DataCollector.collection.length - 1
     for (var i = 0; i < (this.totalCollection + 1) * 3; i++) {
@@ -64,7 +70,6 @@ class HelixLogoUITimeline {
   }
 
   rewindTimeline() {
-
     this.indexTimeline = this.totalCollection
     this.totalDrag = -((Math.abs(this.indexTimeline - this.totalCollection) / this.percentageConversion) + this.minPercentage)
     this.currentPercentage = this.totalDrag
@@ -76,15 +81,10 @@ class HelixLogoUITimeline {
   }
 
   playTimeLine() {
-
     if (this.indexTimeline == 0) {
-
       this.rewindTimeline()
-
     } else {
-
       this.isPlaying = true
-
     }
   }
 
@@ -107,6 +107,7 @@ class HelixLogoUITimeline {
 
   pause() {
     this.isPlaying = false
+    this.indexTimeline = 0
     if (this.animationFrame) {
       window.cancelAnimationFrame(this.animationFrame)
     }

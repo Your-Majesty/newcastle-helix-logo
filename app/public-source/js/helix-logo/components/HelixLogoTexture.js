@@ -122,17 +122,19 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 2000 )
-    this.camera.position.set(0, 0, -700);
+    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 780 )
+    this.camera.lookAt(0,0,0) 
+    this.camera.rotation.x = 50 * Math.PI / 180
+    // this.camera.position.set(0, 0, -700);
 
-    this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
-    this.controls.enableDamping = true
-    this.controls.dampingFactor = 0.8
-    this.controls.minDistance = 1
-    this.controls.maxDistance = 2500
-    this.controls.update()
-    this.controls.enableRotate = true
-    this.renderer.render( this.scene, this.camera )
+    // this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
+    // this.controls.enableDamping = true
+    // this.controls.dampingFactor = 0.8
+    // this.controls.minDistance = 1
+    // this.controls.maxDistance = 2500
+    // this.controls.update()
+    // this.controls.enableRotate = true
+    // this.renderer.render( this.scene, this.camera )
   }
 
   createRibbons() {
@@ -215,7 +217,7 @@ class HelixLogoTexture {
     this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
-    this.totalCurls = values['totalCurls']
+    this.totalCurls = Math.floor(values['totalCurls'])
 
     console.log(this.totalCurls)
     // this.variationRatio = values['variationRatio']
@@ -237,7 +239,7 @@ class HelixLogoTexture {
     this.stats.begin()
     this.isPlaying = true
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
-    // this.time += .003
+    this.time += .003
     if (this.animateColor) {
       if (this.colorTiming <= 1) {
         this.colorTiming += .01
@@ -251,14 +253,18 @@ class HelixLogoTexture {
    
 
     this.allRibbons.forEach((ribbon) => {
-      ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius; 
-      ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls;
+      ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius 
+      ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
       ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
+      ribbon.uniform.time.value = this.time
+      ribbon.uniform.lineSpeed.value = this.lineSpeed
+      ribbon.uniform.lineCount.value = (1. - 0.1) * ribbon.uniform.lineCount.value + 0.1 * this.lineCount
+      ribbon.uniform.breakSize.value = this.breakSize 
+      ribbon.uniform.breakFrequency.value = (1. - 0.1) * ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
+      ribbon.uniform.coloredDivisions.value = this.coloredDivisions
+      // ribbon.uniform.amplitude.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
     })
-
-    // Update Ribbons
-    // this.ribbon.uniform.time.value = this.time
 
     // this.ribbon.totalCurls = (1. - 0.1) * this.ribbon.totalCurls + 0.1 * this.totalCurls; 
     // // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
@@ -268,7 +274,7 @@ class HelixLogoTexture {
 
     // console.log(this.variator)
 
-    // this.ribbon.uniform.coloredDivisions.value = this.coloredDivisions
+    
     // this.ribbon.uniform.lineSpeed.value = this.lineSpeed
     // this.ribbon.uniform.lineBreakSeparation.value =  this.lineSeparation
     // this.ribbon.uniform.lineCount.value = (1. - 0.1) * this.ribbon.uniform.lineCount.value + 0.1 * this.lineCount

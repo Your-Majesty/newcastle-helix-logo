@@ -5,27 +5,68 @@ class HelixLogoUI {
     this.anchor = new HelixLogoUIAnchor()
     this.buttons = new HelixLogoUIButtons()
     this.download = new HelixLogoUIDownload()
+    this.slider = new HelixLogoUISlider()
+    this.overlay = new HelixLogoUIOverlay()
+
+    this.timelineIsActive = false
+    this.sliderIsActive = false
+
+    this.animateIn()
   }
 
   init() {
-    this.timeline.init()
     this.buttons.createButtons()
     this.anchor.mapAnchorValue(0)
     this.download.init()
+    this.timeline.createLines()
   }
 
   animateIn() {
     this.element.style.display = 'block'
+ 
     this.element.style.opacity = 1
-    this.timeline.animateIn()
+    
+    this.anchor.animateIn()
+    this.showTimeline()
   }
 
   animateOut() {
     this.element.style.display = 'none'
+    this.anchor.animateOut()
     this.element.style.opacity = 0
-    this.timeline.animateOut()
+  }
+
+  showSliders() {
+    if (this.timelineIsActive) {
+      this.hideTimeline()
+      this.anchor.playButtonAction(false)
+    }
+    this.anchor.resetButtonAction(true)
+    this.sliderIsActive = true
+    this.overlay.activate()
+    this.slider.animateIn()
+  }
+
+  hideSliders() {
+    this.slider.animateOut()
+    this.sliderIsActive = false
   }
   
+  showTimeline() {
+    if (this.sliderIsActive) {
+      this.anchor.resetButtonAction(false)
+      this.hideSliders()
+    }
+    this.anchor.playButtonAction(true)
+    this.timeline.animateIn()
+    this.timelineIsActive = true
+  }
+
+  hideTimeline() {
+    this.timeline.animateOut()
+    this.timelineIsActive = false
+  }
+
   mapValuesTimeline(index) {
     this.buttons.mapButtonsValues(index)
     this.anchor.mapAnchorValue(index)
@@ -42,6 +83,6 @@ class HelixLogoUI {
     } else {
       this.element.classList.remove('helix-theme-dark') 
     }
-
   }
+
 }

@@ -1,14 +1,14 @@
 class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
-    this.segments = 1100
+    this.segments = 2000
     this.angle = 0
-    this.width = 24
-    this.height = 700
+    this.width = 16
+    this.height = 100
     this.variation = 0.1
-    this.amplitude = 1
+    this.amplitude = 5
 
     this.innerRadius = 50.7
-    this.outerRadius = 400
+    this.outerRadius = 500
     this.totalCurls = 10
     this.variationRatio = 0.004
     this.noiseSize = 280.5
@@ -32,6 +32,11 @@ class HelixLogoRibbon {
       offset: {
         type: 'f',
         value: this.offset
+      },
+      offsetLines : {
+        type: 'f',
+        value: Math.random()
+
       },
       coloredDivisions: {
         type: 'bool',
@@ -79,11 +84,11 @@ class HelixLogoRibbon {
       },
       lineBreakSeparation: {
         type: 'f',
-        value: 0.5
+        value: 0.95
       },
       lineCount: {
         type: 'f',
-        value: 10.
+        value: 20.
       },
       childRadius: {
         type: 'f',
@@ -99,47 +104,7 @@ class HelixLogoRibbon {
       },
       breakFrequency: {
         type: 'f',
-        'value': 10.
-      },
-      line1: {
-        type: 'f',
-        'value': .4
-      },
-      line2: {
-        type: 'f',
-        'value': .2
-      },
-      line3: {
-        type: 'f',
-        'value': .1
-      },
-      line4: {
-        type: 'f',
-        'value': .6
-      },
-      line5: {
-        type: 'f',
-        'value': .9
-      },
-      line6: {
-        type: 'f',
-        'value': .6
-      },
-      line7: {
-        type: 'f',
-        'value': .2
-      },
-      line8: {
-        type: 'f',
-        'value': .1
-      },
-      line9: {
-        type: 'f',
-        'value': .7
-      },
-      line10: {
-        type: 'f',
-        'value': .3
+        'value': 20.
       },
       outerRadius: {
         type: 'f',
@@ -170,7 +135,7 @@ class HelixLogoRibbon {
   
   createGeometry() {
     this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
-    this.angle = (720 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180)
+    this.angle = (720 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180) 
     
     this.vertexIndex = new Float32Array(this.bufferGeometry.attributes.position.count)
     this.vertexAngle = new Float32Array(this.bufferGeometry.attributes.position.count)
@@ -198,8 +163,11 @@ class HelixLogoRibbon {
       this.bufferGeometry,
       this.shaderMaterial
     )
-    this.ribbonMesh.castShadow = true
-    this.ribbonMesh.receiveShadow = true
+
+    this.ribbonMesh.position.y = 750
+    this.ribbonMesh.position.z = -250
+
+
     this.shaderMaterial.side = THREE.DoubleSide
   }
 
@@ -213,5 +181,6 @@ class HelixLogoRibbon {
     this.bufferGeometry.attributes.position.needsUpdate = true
     this.bufferGeometry.attributes.vertexAngle.needsUpdate = true
     this.bufferGeometry.attributes.vertexNoise.needsUpdate = true
+  
   }
 }

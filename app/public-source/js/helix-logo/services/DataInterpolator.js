@@ -10,7 +10,7 @@ const DataInterpolator = (() => {
       unitsFull: 'percentage relative humidity'
     },
     {
-      name: 'temperature',
+      name: 'temp.',
       id: 'temperature',
       units: '°C',
       unitsFull: 'degrees celsius'
@@ -54,11 +54,11 @@ const DataInterpolator = (() => {
     },
     energy: {
       innerRadius: {
-        min: 0,
-        max: 100
+        min: -50,
+        max: 50
       },
       totalCurls: {
-        min: 1,
+        min: 2,
         max: 4
       }
     },
