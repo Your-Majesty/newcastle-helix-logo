@@ -32,7 +32,7 @@ class HelixLogoTexture {
     this.allRibbons = []
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
-    this.totalRibbons = 12
+    this.totalRibbons = 10
 
     this.backgroundColors = [
       '#58f9ea',
@@ -254,10 +254,10 @@ class HelixLogoTexture {
 
     this.allRibbons.forEach((ribbon) => {
       ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius 
-      ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
+      ribbon.uniform.totalCurls.value = this.totalCurls
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
-      ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
-      ribbon.uniform.time.value = this.time
+      // ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
+      // ribbon.uniform.time.value = this.time
       ribbon.uniform.lineSpeed.value = this.lineSpeed
       ribbon.uniform.lineCount.value = (1. - 0.1) * ribbon.uniform.lineCount.value + 0.1 * this.lineCount
       ribbon.uniform.breakSize.value = this.breakSize 

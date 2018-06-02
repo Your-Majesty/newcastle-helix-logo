@@ -3,19 +3,25 @@ class HelixLogoUIButtons {
     this.buttons = document.querySelector('.helix-logo-buttons')
     this.buttonsActive = false
     this.currentSensor = null
+    this.currentButton = null
     this.selectButton = this.selectButton.bind(this)
   }
 
   createButtons() {
     this.buttons.innerHTML = `
      ${DataInterpolator.sensors.map((sensor, i) => `
-        <div class="helix-logo-button ${sensor.name}">
-          <button><span class="value"></span><span class="units"></span></button>
+        <div class="helix-logo-button button-color ${sensor.id}" data-sensor=${sensor.id}>
+          <button class='${sensor.id}'><span class="value"></span><span class="units"></span></button>
           <p>${sensor.name}</p>
         </div>
       `).join('')}
     `
     this.buttonCollection = this.buttons.querySelectorAll('.helix-logo-button')
+    this.buttonCollection.forEach((button) => {
+      button.addEventListener('click', () => {
+        this.selectButton(button)
+      })
+    })
   }
 
   animateIn() {
@@ -28,9 +34,23 @@ class HelixLogoUIButtons {
   
   }
 
-  selectButton() {
+  resetButtons() {
+    this.currentButton.classList.remove('active')
+    this.currentButton = null
+  }
 
-
+  selectButton(button) {
+    if (button !== this.currentButton) {
+      if (this.currentButton) {
+        this.currentButton.classList.remove('active')
+      }
+      button.classList.add('active')
+      this.currentButton = button
+      this.currentSensor = this.currentButton.getAttribute('data-sensor')
+      
+      this.event = new CustomEvent('uiButtonPressed', {bubbles: true, detail:this.currentSensor})
+      this.buttons.dispatchEvent(this.event)
+    }
   }
 
   mapButtonsValues(timelineIndex) {

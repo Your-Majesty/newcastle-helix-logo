@@ -15,6 +15,8 @@
   position: relative;
 
   transform: translateY(130%);
+
+  z-index: 0;
 }
 
 
@@ -51,6 +53,7 @@
   transform: translateX(-50%);
   top: -52px;
   z-index: 2;
+  border: 1px solid rgba(0,0,0,0.2);
 
   .helix-theme-dark & {
     color: white;
@@ -132,21 +135,20 @@
 .helix-logo-timeline {
   position: absolute;
   width: 100%;
-  height: 100%;
+  @include calc-value(height, 60px, 110px);
  
-  top: 0;
   z-index: 0;
   left: 50%;
-  // transform: translateX(-50%);
-  top: 0px;
-  transform: translate(-50%, 100%);
+  transform: translateX(-50%);
+  bottom: 0;
+  // transform: translate(-50%, 100%);
 }
 
 .helix-logo-timeline__lines {
   display: inline-flex;
   will-change: transform;
   position: absolute;
-  height: 30%;
+  height: 100%;
   bottom: 0;
   transform: translateX(-65.75%);
   left: 50%;
@@ -180,8 +182,8 @@
 .helix-logo-slider {
   position: absolute;
   width: 100%;
-  height: 100%;
-  top: 0;
+  height: 110px;
+  bottom: 0;
   cursor: move;
   cursor: grab;
 
@@ -208,7 +210,7 @@
   margin: auto;
   width: 60%;
   max-width: 600px;
-  height: 25%;
+  height: 100%;
   overflow:hidden;
   clip-path: polygon(100% 0, 100% 100%, 50% 100%, 0 100%);
 
@@ -243,6 +245,7 @@
   bottom: 0;
   margin: auto;
 
+  display: none;
   cursor: pointer;
 
   @include q-is-medium {
@@ -302,6 +305,8 @@
   right: 3%;
   top: 3%;
   z-index: 5;
+
+  display: none;
 
   a {
     font-size: 14px;

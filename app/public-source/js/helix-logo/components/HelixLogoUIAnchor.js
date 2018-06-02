@@ -1,5 +1,4 @@
 class HelixLogoUIAnchor {
-  
   constructor(args) {
     this.anchor = document.querySelector('.helix-logo-anchor')
     this.day = this.anchor.querySelector('.helix-logo-day')
@@ -32,9 +31,7 @@ class HelixLogoUIAnchor {
     }
   }
 
-
   resetButtonAction(shouldShow) {
-    
     if (shouldShow) {
       this.resetButton.style.display = 'block'
       this.resetButton.addEventListener('click', this.resetAction)
@@ -45,7 +42,8 @@ class HelixLogoUIAnchor {
   }
 
   resetAction() {
-    console.log('THIS IS THE RESET BUTTON')
+    this.event = new CustomEvent('uiResetPressed', {bubbles: true})
+    this.resetButton.dispatchEvent(this.event)
   }
 
   mapSensorValue(sensorName, value) {

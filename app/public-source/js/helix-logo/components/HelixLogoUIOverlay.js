@@ -9,40 +9,38 @@ class HelixLogoUIOverlay {
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
 
-    let sensorExplanations = {
+    this.button.addEventListener('click', this.openModal)
+    this.closeButton.addEventListener('click', this.closeModal)
+    this.sensorExplanations = {
       humidity: {
-        copy: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'Humidity Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
       },
       temperature: {
-        copy: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'Temperature Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
       },
       energy: {
-        copy: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'Energy Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
         
       },
       wind: {
-        copy: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'Wind Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
       },
       vehicleSpeed: {
-        copy: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'Vehicle Speed Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
       },
       vehicleCount: {
-        copy: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'Vehicle Count Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
       }
     }
   }
   
   activate() {
     this.button.style.display = 'block'
-    this.button.addEventListener('click', this.openModal)
-    this.closeButton.addEventListener('click', this.closeModal)
   }
 
   deactivate() { 
     this.closeModal()
     this.button.style.display = 'none'
-    this.button.removeEventListener('click', this.openModal)
-    this.closeButton.removeEventListener('click', this.closeModal)
   }
 
   openModal() {
@@ -58,6 +56,6 @@ class HelixLogoUIOverlay {
   }
   
   setInfo(currentSensor) {
-   this.text.innerHTML = sensorExplanations['currentSensor']
+   this.text.innerHTML = this.sensorExplanations[`${currentSensor}`].copy
   }
 }

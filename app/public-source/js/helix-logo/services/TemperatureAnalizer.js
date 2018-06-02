@@ -24,6 +24,7 @@ const TemperatureAnalizer = (() => {
       return 0.5 + (0.5 - (lastYearTemperature / (temperature * 2)))
     }
   } 
+  
   return controller
 
 })()

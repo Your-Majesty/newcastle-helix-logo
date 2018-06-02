@@ -10,8 +10,23 @@ class HelixLogoUI {
 
     this.timelineIsActive = false
     this.sliderIsActive = false
-
     this.animateIn()
+
+    this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
+      if (!this.sliderIsActive) {
+        this.showSliders()
+      }
+      this.overlay.setInfo(e.detail)
+      this.anchor.mapSensorValue(e.detail, 'test')
+    })
+
+    this.anchor.resetButton.addEventListener('uiResetPressed', (e) => {
+      this.showTimeline()
+      this.overlay.deactivate()
+      this.overlay.closeModal()
+      this.buttons.resetButtons()
+      this.mapValues(TimelineCollector.currentIndex)
+    })
   }
 
   init() {
@@ -23,9 +38,7 @@ class HelixLogoUI {
 
   animateIn() {
     this.element.style.display = 'block'
- 
     this.element.style.opacity = 1
-    
     this.anchor.animateIn()
     this.showTimeline()
   }
@@ -33,6 +46,7 @@ class HelixLogoUI {
   animateOut() {
     this.element.style.display = 'none'
     this.anchor.animateOut()
+
     this.element.style.opacity = 0
   }
 
@@ -84,5 +98,4 @@ class HelixLogoUI {
       this.element.classList.remove('helix-theme-dark') 
     }
   }
-
 }

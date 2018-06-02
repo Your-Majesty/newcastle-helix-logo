@@ -34,7 +34,7 @@ class HelixLogoUITimeline {
   animateIn() {
     this.playButton.addEventListener('click', this.playTimeline)
     this.element.style.display = 'block'
-    TweenLite.to(this.element, 0.5, {y: 0,  ease: Sine.easeOut, onComplete: () => {
+    TweenLite.to(this.element, 0.5, {y: '0%',  ease: Sine.easeOut, onComplete: () => {
       this.isActive = true
     }})
     this.animate()
@@ -44,9 +44,11 @@ class HelixLogoUITimeline {
     this.playButton.removeEventListener('click', this.playTimeline)
     TweenLite.to(this.element, 0.4, {y: '100%', onComplete: () => {
       this.element.style.display = 'none'
+      this.reset()
       this.isActive = false
     }})
     this.pause()
+
   }
   
   createLines() {
@@ -67,6 +69,13 @@ class HelixLogoUITimeline {
         })
       }
     }
+  }
+
+  reset() {
+
+    this.totalDrag = -65.3
+    this.currentPercentage = -65.3
+
   }
 
   rewindTimeline() {

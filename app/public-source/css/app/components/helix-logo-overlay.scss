@@ -4,7 +4,7 @@
   bottom: 30%;
   height: auto;
   width: auto;
-  z-index: 3;
+  z-index: 12;
 
   display: none;
 
@@ -46,13 +46,17 @@
 }
 
 .helix-logo-ui-overlay-wrapper {
-  max-width: 320px;
+  max-width: 400px;
 
   p {
     font-family: 'HelixSemiBold';
     line-height: 1.5;
     @include calc-value(font-size, 12px, 16px);
     text-transform: capitalize;
+  }
+
+  @include q-is-x-large {
+    max-width: 310px;
   }
 
   @include q-is-large {

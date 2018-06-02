@@ -47,7 +47,7 @@ class HelixLogoUISlider {
 
   animateIn() {
     this.element.style.display = 'block'
-    TweenLite.to(this.element, 0.4, {y: 0})
+    TweenLite.to(this.element, 0.4, {y: '0%'})
     this.animate()
   }
 
