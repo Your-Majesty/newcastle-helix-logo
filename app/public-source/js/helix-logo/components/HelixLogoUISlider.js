@@ -15,8 +15,6 @@ class HelixLogoUISlider {
     this.minPercentage = 50
     this.maxPercentage = -50
 
-    this.percentageConversion = 100 / 100
-
     this.touchElement = new Hammer(this.element)
     this.touchElement.add( new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 0 }))
     this.touchElement.on("pan", this.moveSlider)
@@ -35,7 +33,8 @@ class HelixLogoUISlider {
   moveSlider(ev) {
     this.percentageDragged = (ev.deltaX / this.element.offsetWidth) * 100
     this.totalDrag = this.currentPercentage + this.percentageDragged
-    
+    SliderCollector.updateValues((100 - (50 + this.totalDrag))/ 100) 
+
     if (ev.isFinal) {
       this.currentPercentage = this.currentPercentage + this.percentageDragged
       
@@ -45,9 +44,16 @@ class HelixLogoUISlider {
     }
   }
 
+  setPercentage(sensor) {
+    let percentage = 100 - (SliderCollector.sensors[`${sensor}`].percentage * 100) - 50
+    this.totalDrag = percentage
+    this.currentPercentage = percentage
+    this.percentageDragged = percentage  
+  }
+
   animateIn() {
     this.element.style.display = 'block'
-    TweenLite.to(this.element, 0.4, {y: '0%'})
+    TweenLite.to(this.element, 0.2, {y: '0%', delay: 0.3})
     this.animate()
   }
 

@@ -182,7 +182,7 @@
 .helix-logo-slider {
   position: absolute;
   width: 100%;
-  height: 110px;
+  @include calc-value(height, 70px, 110px);
   bottom: 0;
   cursor: move;
   cursor: grab;

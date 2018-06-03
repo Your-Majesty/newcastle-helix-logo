@@ -5,12 +5,13 @@ class HelixLogoUIDownload {
   }
 
   downloadAction() {
-    
     this.event = new CustomEvent('uiDownload', {bubbles: true})
     this.element.dispatchEvent(this.event)
   }
 
   setScreenShot(image) {
+
+    
     this.element.setAttribute('href', image)
   }
 

@@ -39,6 +39,12 @@ const HelixLogoApp = (() => {
       helixUI.updateTheme(e.detail)
     }
   })
+  
+  window.addEventListener('uiSliderUpdated', function (e) {
+    helixUI.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
+
+    console.log('slider updated')
+  })
 
 
   DataCollector.getData().then(() => {
@@ -49,10 +55,10 @@ const HelixLogoApp = (() => {
 
 
     helixUI.animateIn()
-
     helixUI.mapValues(TimelineCollector.currentIndex)
     helixTimeline.calculateTimeline()
     DataInterpolator.calculatePoint(DataCollector.collection[0])
+
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
 
   }, () => {

@@ -17,7 +17,10 @@ class HelixLogoUI {
         this.showSliders()
       }
       this.overlay.setInfo(e.detail)
-      this.anchor.mapSensorValue(e.detail, 'test')
+      SliderCollector.currentSensor = e.detail
+      this.anchor.mapSensorName(e.detail)
+      this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
+      this.slider.setPercentage(e.detail)
     })
 
     this.anchor.resetButton.addEventListener('uiResetPressed', (e) => {
@@ -82,8 +85,10 @@ class HelixLogoUI {
   }
 
   mapValuesTimeline(index) {
+    SliderCollector.getCurrentValues(index)
     this.buttons.mapButtonsValues(index)
     this.anchor.mapAnchorValue(index)
+
   }
 
   mapValues(index) {

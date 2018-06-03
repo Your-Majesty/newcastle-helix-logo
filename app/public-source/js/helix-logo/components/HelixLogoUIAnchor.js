@@ -46,8 +46,11 @@ class HelixLogoUIAnchor {
     this.resetButton.dispatchEvent(this.event)
   }
 
-  mapSensorValue(sensorName, value) {
+  mapSensorName(sensorName) {
     this.day.innerHTML = sensorName
+  }
+
+  mapSensorValue(value) {
     this.time.innerHTML = value
   }
 

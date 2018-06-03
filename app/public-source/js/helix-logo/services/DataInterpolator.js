@@ -55,7 +55,7 @@ const DataInterpolator = (() => {
     energy: {
       innerRadius: {
         min: -50,
-        max: 50
+        max: 60
       },
       totalCurls: {
         min: 2,
@@ -100,7 +100,6 @@ const DataInterpolator = (() => {
 
   controller.calculatePoint = (dataPoint) => {
     SunCalculator.calculateDay(dataPoint.timestamp)
-    
     for (let property of DataCollector.limits) {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {
@@ -115,6 +114,21 @@ const DataInterpolator = (() => {
             controller.limits[property.name][key].max
           )
         }
+      }
+    }
+  }
+
+  controller.calculateSlider = (sliderPoint) => {
+    for (let property of DataCollector.limits) {
+      let propertyLimits = controller.limits[property.name]
+      for (let key in propertyLimits) {
+       controller.calculatedPoint[key] = controller.linearInterpolation(
+          property.min, 
+          property.max,
+          dataPoint[property.name],
+          controller.limits[property.name][key].min,
+          controller.limits[property.name][key].max
+        )
       }
     }
   }

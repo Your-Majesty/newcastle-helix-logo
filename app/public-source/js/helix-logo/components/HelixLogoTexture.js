@@ -102,7 +102,7 @@ class HelixLogoTexture {
   resize() {
     this.width = window.innerWidth,
     this.height = window.innerHeight
-    this.camera.aspect = window.innerWidth / window.innerHeight
+    // this.camera.aspect = window.innerWidth / window.innerHeight
     this.renderer.setSize( window.innerWidth, window.innerHeight)
     this.camera.updateProjectionMatrix()
     this.canvas.width = this.width
@@ -119,7 +119,7 @@ class HelixLogoTexture {
     this.renderer = new THREE.WebGLRenderer({alpha: true, antialias: true, devicePixelRatio:1, preserveDrawingBuffer: true} )
     this.renderer.setSize( this.width, this.height )
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap
-    this.renderer.setPixelRatio( window.devicePixelRatio )
+    // this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 780 )
@@ -165,24 +165,38 @@ class HelixLogoTexture {
   }  
   
   createShot() {
-    this.frame = this.renderer.domElement.toDataURL('image/png', .9)
-    this.context.fillStyle = this.colorBackground ? this.backgroundColors[this.gradientGuide] : 'white'
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
-    
-    let a = document.createElement('a')
-    this.element.appendChild(a)
+    // const pixels = this.renderer.getContext().readPixels()
+    const pixels = new Uint8Array (this.renderer.domElement.width * this.renderer.domElement.height * 4);
+    // this.renderer.readRenderTargetPixels(null, 0, 0, this.renderer.domElement.width, this.renderer.domElement.height, pixels);
+    const gl = this.renderer.getContext();
+    gl.readPixels(0, 0, this.renderer.domElement.width, this.renderer.domElement.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
+    const imageData = new ImageData(new Uint8ClampedArray(pixels), this.canvas.width, this.canvas.height);
+    this.context.putImageData(imageData, 0, 0);
+    this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
 
-    let base_image = new Image()
-    base_image.src = this.frame
-    base_image.onload = () => {
-      this.context.drawImage(base_image, 0, 0)
-      this.context.globalAlpha = 0.25
-      this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
-      this.context.globalAlpha = 1.0
-      a.setAttribute('href', this.canvas.toDataURL('image/jpg', .9))
-      console.log(a)
-      return this.canvas.toDataURL('image/jpg', .9)
-    }
+
+
+
+    // this.frame = this.renderer.domElement.toDataURL('image/png', .9)
+    // this.context.fillStyle = this.colorBackground ? this.backgroundColors[this.gradientGuide] : 'white'
+    // this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
+    
+    // let a = document.createElement('a')
+    // this.element.appendChild(a)
+
+    // let base_image = new Image()
+    // base_image.src = this.frame
+    // base_image.onload = () => {
+    //   this.context.drawImage(base_image, 0, 0)
+    //   this.context.globalAlpha = 0.25
+    //   this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
+    //   this.context.globalAlpha = 1.0
+    //   a.setAttribute('href', this.canvas.toDataURL('image/jpg', .9))
+    //   console.log(a)
+      
+    // }
+
+    return this.canvas.toDataURL('image/jpg', .9)
   }
 
   calculateColors(temperatureAverage) {
