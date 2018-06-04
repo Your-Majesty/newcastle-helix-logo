@@ -73,7 +73,7 @@ void main(void){
 
   if (mod(index, 2.0) == 0.0) {
     alpha = 1.;
-    color += vec3(separation.y);
+    // color += vec3(separation.y);
   } else {
     if (isMonochrome) {
       alpha = .0;
