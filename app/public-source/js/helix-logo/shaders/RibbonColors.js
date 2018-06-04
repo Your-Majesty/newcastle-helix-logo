@@ -76,15 +76,19 @@ void main(void){
     alpha = 1.;
 
   } else {
-    if (coloredDivisions) {
-      color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
-      if (colorIsDark) {
-        color *= mix(colorMixedDark, colorMixedLight, fract(d));
-      }
-
+    if (isMonochrome) {
+      alpha = .0;
 
     } else {
-      color = vec3(1.);
+      alpha = 1.0;
+      if (coloredDivisions) {
+        color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
+        if (colorIsDark) {
+          color *= mix(colorMixedDark, colorMixedLight, fract(d));
+        }
+      } else {
+        color = vec3(1.);
+      }
     }
   }
 
