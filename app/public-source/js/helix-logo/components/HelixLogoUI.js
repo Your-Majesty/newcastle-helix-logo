@@ -23,13 +23,13 @@ class HelixLogoUI {
       this.slider.setPercentage(e.detail)
     })
 
-    this.anchor.resetButton.addEventListener('uiResetPressed', (e) => {
-      this.showTimeline()
-      this.overlay.deactivate()
-      this.overlay.closeModal()
-      this.buttons.resetButtons()
-      this.mapValues(TimelineCollector.currentIndex)
-    })
+    // this.anchor.resetButton.addEventListener('uiResetPressed', (e) => {
+    //   this.showTimeline()
+    //   this.overlay.deactivate()
+    //   this.overlay.closeModal()
+    //   this.buttons.resetButtons()
+    //   this.mapValues(TimelineCollector.currentIndex)
+    // })
   }
 
   init() {
@@ -64,6 +64,14 @@ class HelixLogoUI {
     this.slider.animateIn()
   }
 
+  resetValues() {
+    this.showTimeline()
+    this.overlay.deactivate()
+    this.overlay.closeModal()
+    this.buttons.resetButtons()
+    this.mapValues(TimelineCollector.currentIndex)
+  }
+
   hideSliders() {
     this.slider.animateOut()
     this.sliderIsActive = false
@@ -88,7 +96,11 @@ class HelixLogoUI {
     SliderCollector.getCurrentValues(index)
     this.buttons.mapButtonsValues(index)
     this.anchor.mapAnchorValue(index)
+  }
 
+  mapValuesSlider() {
+    this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
+    this.buttons.mapButtonsSliderValues(SliderCollector.getCurrentSensor())
   }
 
   mapValues(index) {

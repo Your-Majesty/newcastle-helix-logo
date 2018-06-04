@@ -102,11 +102,17 @@ class HelixLogoTexture {
   resize() {
     this.width = window.innerWidth,
     this.height = window.innerHeight
-    // this.camera.aspect = window.innerWidth / window.innerHeight
+    this.camera.aspect = window.innerWidth / window.innerHeight
     this.renderer.setSize( window.innerWidth, window.innerHeight)
     this.camera.updateProjectionMatrix()
-    this.canvas.width = this.width
-    this.canvas.height = this.height
+      
+    if (this.width >= this.height) {
+      this.captureCanvas.width = this.height * this.pixelRatio
+      this.captureCanvas.height = this.height * this.pixelRatio
+    } else {
+      this.captureCanvas.width = this.width * this.pixelRatio
+      this.captureCanvas.height = this.width * this.pixelRatio
+    }
   }
 
   createStats() {
@@ -119,22 +125,13 @@ class HelixLogoTexture {
     this.renderer = new THREE.WebGLRenderer({alpha: true, antialias: true, devicePixelRatio:1, preserveDrawingBuffer: true} )
     this.renderer.setSize( this.width, this.height )
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap
-    // this.renderer.setPixelRatio( window.devicePixelRatio )
+    this.pixelRatio = window.devicePixelRatio
+    this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 780 )
+    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 900 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
-    // this.camera.position.set(0, 0, -700);
-
-    // this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement )
-    // this.controls.enableDamping = true
-    // this.controls.dampingFactor = 0.8
-    // this.controls.minDistance = 1
-    // this.controls.maxDistance = 2500
-    // this.controls.update()
-    // this.controls.enableRotate = true
-    // this.renderer.render( this.scene, this.camera )
   }
 
   createRibbons() {
@@ -157,46 +154,34 @@ class HelixLogoTexture {
   }
 
   createCaptureCanvas() {
-    this.canvas = document.createElement('canvas')
-    this.element.appendChild(this.canvas)
-    this.context = this.canvas.getContext('2d')
-    this.watermark = new Image()
-    this.watermark.src = `${heroLogoURL}/latest/logo-black.png`
+    this.watermarkDark = new Image()
+    this.watermarkDark.src = `${heroLogoURL}/images/newCastleLogoDark.png`
+
+    this.watermarkLight = new Image()
+    this.watermarkLight.src = `${heroLogoURL}/images/newCastleLogoWhite.png`
+    this.captureCanvas = document.createElement('canvas')
+    this.element.appendChild(this.captureCanvas)
+    this.captureContext = this.captureCanvas.getContext('2d')
   }  
   
   createShot() {
-    // const pixels = this.renderer.getContext().readPixels()
-    const pixels = new Uint8Array (this.renderer.domElement.width * this.renderer.domElement.height * 4);
-    // this.renderer.readRenderTargetPixels(null, 0, 0, this.renderer.domElement.width, this.renderer.domElement.height, pixels);
-    const gl = this.renderer.getContext();
-    gl.readPixels(0, 0, this.renderer.domElement.width, this.renderer.domElement.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
-    const imageData = new ImageData(new Uint8ClampedArray(pixels), this.canvas.width, this.canvas.height);
-    this.context.putImageData(imageData, 0, 0);
-    this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
+    // const pixels = new Uint8Array (this.renderer.domElement.width * this.renderer.domElement.height * 4)
+    // const gl = this.renderer.getContext()
+    // gl.readPixels(0, 0, this.renderer.domElement.width, this.renderer.domElement.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
+    // const imageData = new ImageData(new Uint8ClampedArray(pixels), this.canvas.width, this.canvas.height)
+    // this.context.putImageData(imageData, 0, 0);
+    // this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
+    this.watermark = SunCalculator.darkTheme ? this.watermarkLight : this.watermarkDark
+    this.captureContext.fillStyle = this.colorBackground ? this.backgroundColors[this.gradientGuide] : 'white'
+    this.captureContext.fillRect(0, 0, this.captureCanvas.width, this.captureCanvas.height)
+    if (this.width < this.height) {
+      this.captureContext.drawImage(this.renderer.domElement, 0, -this.height/2)
+    } else {
+      this.captureContext.drawImage(this.renderer.domElement, 0, 0)
+    }
 
-
-
-
-    // this.frame = this.renderer.domElement.toDataURL('image/png', .9)
-    // this.context.fillStyle = this.colorBackground ? this.backgroundColors[this.gradientGuide] : 'white'
-    // this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
-    
-    // let a = document.createElement('a')
-    // this.element.appendChild(a)
-
-    // let base_image = new Image()
-    // base_image.src = this.frame
-    // base_image.onload = () => {
-    //   this.context.drawImage(base_image, 0, 0)
-    //   this.context.globalAlpha = 0.25
-    //   this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
-    //   this.context.globalAlpha = 1.0
-    //   a.setAttribute('href', this.canvas.toDataURL('image/jpg', .9))
-    //   console.log(a)
-      
-    // }
-
-    return this.canvas.toDataURL('image/jpg', .9)
+    this.captureContext.drawImage(this.watermark, (this.captureCanvas.width / 2) - 170, (this.captureCanvas.height / 2) - 100)
+    return this.captureCanvas.toDataURL('image/jpg', .9)
   }
 
   calculateColors(temperatureAverage) {
@@ -231,9 +216,7 @@ class HelixLogoTexture {
     this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
-    this.totalCurls = Math.floor(values['totalCurls'])
-
-    console.log(this.totalCurls)
+    this.totalCurls = values['totalCurls']
     // this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']

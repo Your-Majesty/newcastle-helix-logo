@@ -37,7 +37,6 @@ module.exports = (() => {
       
       for (capture of screenShotGuide) {
         if (capture.type === 'logo') {
-
         let colorBackground = option !== 'black' ? `${__dirname}/../static/logo-white-template.png` : `${__dirname}/../static/logo-black-template.png`
         
         let logoElement = await sharp(logoCapture)
@@ -59,6 +58,7 @@ module.exports = (() => {
           sharp(logoCapture)
           .resize(capture.width, capture.height)
           .crop(sharp.strategy.entropy)
+          
           .toFile(`${__dirname}/../public/latest/${capture.name}-${option}.png`)
         }
       }

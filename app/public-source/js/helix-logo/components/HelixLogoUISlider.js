@@ -31,16 +31,26 @@ class HelixLogoUISlider {
   }
 
   moveSlider(ev) {
-    this.percentageDragged = (ev.deltaX / this.element.offsetWidth) * 100
-    this.totalDrag = this.currentPercentage + this.percentageDragged
-    SliderCollector.updateValues((100 - (50 + this.totalDrag))/ 100) 
+      this.percentageDragged = (ev.deltaX / this.slide.offsetWidth) * 100
+      this.totalDrag = this.currentPercentage + this.percentageDragged
+      
+      if (this.totalDrag <= this.maxPercentage) {
+        this.totalDrag = this.maxPercentage
+        this.currentPercentage = this.maxPercentage
+        this.percentageDragged = 0
+      } else if(this.totalDrag >= this.minPercentage) {
+        this.totalDrag = this.minPercentage
+        this.currentPercentage = this.minPercentage
+        this.percentageDragged = 0
+      } else {
+        this.percentageDragged = (ev.deltaX / this.slide.offsetWidth) * 100
+        this.totalDrag = this.currentPercentage + this.percentageDragged
+        SliderCollector.updateValues((100 - (50 + this.totalDrag))/ 100) 
+      }
 
     if (ev.isFinal) {
       this.currentPercentage = this.currentPercentage + this.percentageDragged
       
-      if (-this.currentPercentage <= -this.minPercentage) {
-          this.totalDrag = this.minPercentage
-      }
     }
   }
 

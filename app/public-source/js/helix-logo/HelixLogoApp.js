@@ -41,9 +41,16 @@ const HelixLogoApp = (() => {
   })
   
   window.addEventListener('uiSliderUpdated', function (e) {
-    helixUI.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
+    helixUI.mapValuesSlider()
+    DataInterpolator.calculateSlider(SliderCollector.sensors)
+    helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+  })
 
-    console.log('slider updated')
+  window.addEventListener('uiResetPressed', function (e) {
+    helixUI.resetValues()
+    helixTimeline.calculateTimeline()
+    DataInterpolator.calculatePoint(DataCollector.collection[0])
+    helixRibbon.updateValues(DataInterpolator.calculatedPoint)
   })
 
 

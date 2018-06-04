@@ -43,15 +43,19 @@ class HelixLogoUIAnchor {
 
   resetAction() {
     this.event = new CustomEvent('uiResetPressed', {bubbles: true})
-    this.resetButton.dispatchEvent(this.event)
+    window.dispatchEvent(this.event)
   }
 
   mapSensorName(sensorName) {
     this.day.innerHTML = sensorName
   }
 
-  mapSensorValue(value) {
-    this.time.innerHTML = value
+  mapSensorValue(currentSensor) {
+    DataInterpolator.sensors.forEach((sensor) => {
+      if (sensor.id == currentSensor.name) {
+        this.time.innerHTML = `${currentSensor.value} ${sensor.units}`
+      }
+    })
   }
 
   mapAnchorValue(value) {

@@ -53,6 +53,10 @@ class HelixLogoUIButtons {
     }
   }
 
+  mapButtonsSliderValues(currentSensor) {
+    this.currentButton.querySelector('button .value').innerHTML = currentSensor.value
+  }
+
   mapButtonsValues(timelineIndex) {
     DataInterpolator.sensors.forEach((sensor, index) => {
       this.buttonCollection[index].querySelector('button .value').innerHTML = DataCollector.collection[timelineIndex][sensor.id]

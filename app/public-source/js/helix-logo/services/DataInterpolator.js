@@ -1,7 +1,6 @@
 const DataInterpolator = (() => {
 
   const controller = {}
-  
   controller.sensors = [
     {
       name: 'humidity',
@@ -54,12 +53,12 @@ const DataInterpolator = (() => {
     },
     energy: {
       innerRadius: {
-        min: -50,
-        max: 60
+        min: -100,
+        max: 100
       },
       totalCurls: {
         min: 2,
-        max: 4
+        max: 2
       }
     },
     wind: {
@@ -125,7 +124,7 @@ const DataInterpolator = (() => {
        controller.calculatedPoint[key] = controller.linearInterpolation(
           property.min, 
           property.max,
-          dataPoint[property.name],
+          sliderPoint[property.name].value,
           controller.limits[property.name][key].min,
           controller.limits[property.name][key].max
         )

@@ -6,35 +6,39 @@ const SliderCollector = (() => {
 
   controller.sensors = {
     energy: {
+      id: 'energy',
       value:0,
       percentage: 0
     }, 
     humidity: {
+      id: 'humidity',
       value:0,
       percentage: 0
     }, 
     temperature: {
+      id: 'temperature',
       value:0,
       percentage: 0
     },
     vehicleSpeed:{
+      id: 'vehicleSpeed',
       value:0,
       percentage: 0
     },
     wind: {
+      id: 'wind',
       value:0,
       percentage: 0
     },
     vehicleCount: {
+      id:'vehicleCount',
       value:0,
       percentage: 0
     }
   }
 
   controller.getCurrentSensor = () => {
-
-    return parseFloat(controller.sensors[`${controller.currentSensor}`].value).toFixed( 2 )
-
+    return {name: controller.currentSensor, value:parseFloat(controller.sensors[`${controller.currentSensor}`].value).toFixed( 2 )}
   }
 
   controller.getCurrentValues = (dataPointIndex) => {
