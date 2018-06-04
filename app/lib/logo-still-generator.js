@@ -58,8 +58,7 @@ module.exports = (() => {
           sharp(logoCapture)
           .resize(capture.width, capture.height)
           .crop(sharp.strategy.entropy)
-          
-          .toFile(`${__dirname}/../public/latest/${capture.name}-${option}.png`)
+          .toFile(`${__dirname}/../public/latest/${capture.name}-${option}.jpg`)
         }
       }
     }

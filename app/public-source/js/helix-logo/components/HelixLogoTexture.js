@@ -165,12 +165,6 @@ class HelixLogoTexture {
   }  
   
   createShot() {
-    // const pixels = new Uint8Array (this.renderer.domElement.width * this.renderer.domElement.height * 4)
-    // const gl = this.renderer.getContext()
-    // gl.readPixels(0, 0, this.renderer.domElement.width, this.renderer.domElement.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
-    // const imageData = new ImageData(new Uint8ClampedArray(pixels), this.canvas.width, this.canvas.height)
-    // this.context.putImageData(imageData, 0, 0);
-    // this.context.drawImage(this.watermark, this.canvas.width - 350, this.canvas.height - 200)
     this.watermark = SunCalculator.darkTheme ? this.watermarkLight : this.watermarkDark
     this.captureContext.fillStyle = this.colorBackground ? this.backgroundColors[this.gradientGuide] : 'white'
     this.captureContext.fillRect(0, 0, this.captureCanvas.width, this.captureCanvas.height)
@@ -179,14 +173,12 @@ class HelixLogoTexture {
     } else {
       this.captureContext.drawImage(this.renderer.domElement, 0, 0)
     }
-
     this.captureContext.drawImage(this.watermark, (this.captureCanvas.width / 2) - 170, (this.captureCanvas.height / 2) - 100)
     return this.captureCanvas.toDataURL('image/jpg', .9)
   }
 
   calculateColors(temperatureAverage) {
     let colorSegments = 1.1 / (this.gradientColors.length - 1) 
-    
     if (this.gradientGuide !== Math.floor(temperatureAverage / colorSegments)) {
       
       this.animateColor = true
@@ -194,6 +186,10 @@ class HelixLogoTexture {
 
       this.lastGradientGuide = this.gradientGuide
       this.gradientGuide = Math.floor(temperatureAverage / colorSegments)
+
+      UiColorTracker.currentColor = this.lastGradientGuide
+      UiColorTracker.setUIColor(this.gradientGuide)
+
 
       this.allRibbons.forEach((ribbon) => {
         ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
@@ -203,9 +199,13 @@ class HelixLogoTexture {
       })
     }
 
-    if (this.colorBackground) {
-      this.element.style.backgroundColor = this.backgroundColors[this.gradientGuide]
+    if (!this.isMonochrome) {
+      if (this.colorBackground) {
+        this.element.style.backgroundColor = this.backgroundColors[this.gradientGuide]
       } else {
+        this.element.style.backgroundColor = 'white'
+      }
+    } else {
       this.element.style.backgroundColor = 'transparent'
     }
   }

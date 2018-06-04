@@ -134,6 +134,7 @@ class HelixLogoRibbon {
   }
   
   createGeometry() {
+
     this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
     this.angle = (720 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180) 
     

@@ -104,10 +104,6 @@
     margin: 0 1%;
   }
 
-  @include q-is-small {
-    // margin: 0;
-  }
-
   button {
     cursor: pointer;
     border-radius: 50%;

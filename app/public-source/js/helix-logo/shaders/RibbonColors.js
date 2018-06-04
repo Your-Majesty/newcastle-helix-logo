@@ -60,7 +60,6 @@ void main(void){
   float totalDivisions = lineCount;
   float divisionPercentage = lineBreakSeparation;
   
-
   st = tile(st + ((time + fract(offsetLines*20.0)) * lineSpeed),totalDivisions);
   vec2 separation = smoothstep(divisionPercentage,divisionPercentage,st);
 
@@ -74,15 +73,14 @@ void main(void){
 
   if (mod(index, 2.0) == 0.0) {
     alpha = 1.;
-
+    color += vec3(separation.y);
   } else {
     if (isMonochrome) {
       alpha = .0;
-
     } else {
       alpha = 1.0;
       if (coloredDivisions) {
-        color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
+          color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
         if (colorIsDark) {
           color *= mix(colorMixedDark, colorMixedLight, fract(d));
         }
@@ -98,7 +96,7 @@ void main(void){
   
   color += mix(colorMixedDark, colorMixedLight, fract(d));
 
-  // color += vec3(separation.y);
+
   gl_FragColor = vec4(color, alpha);
 }
 `

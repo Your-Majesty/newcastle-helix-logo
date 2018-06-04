@@ -89,7 +89,6 @@ float cnoise(vec3 P){
   return 2.2 * n_xyz;
 }
 
-
 void main() {
   vUv = uv;
   vNormal = normal;
