@@ -12,6 +12,7 @@ uniform float outerRadius;
 uniform float totalCurls;
 uniform float amplitude;
 uniform float width;
+uniform float index;
 
 attribute float vertexIndex;
 attribute float vertexAngle;
@@ -95,6 +96,7 @@ void main() {
   vec3 pos = position;
 
   float R = (outerRadius + (vertexNoise * 150.));
+  
   if (mod(vertexIndex, 2.0) == 0.0) {
     pos.x = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
     pos.y = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);

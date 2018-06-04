@@ -39,29 +39,40 @@ vec2 tile(vec2 _st, float _zoom){
   return fract(_st);
 }
 
-float rect(in vec2 _st, in vec2 _size){
-  _size = 0.1-_size*0.5;
+float rect(in vec2 _st, in vec2 _size, in float separationSize){
+  _size = 0.1-_size*separationSize;
   vec2 uv = smoothstep(_size,_size,_st);
-  uv *= smoothstep(_size,_size,vec2(1.0, breakSize)-_st);
+
+  uv *= smoothstep(_size,_size,vec2(1.0, 0.1)-_st);
   return uv.x*uv.y;
+}
+
+vec2 tile(vec2 _st, float _zoomX, float _zoomY ){
+  _st.x *= _zoomX;
+  _st.y *= _zoomY;
+  return fract(_st);
 }
 
 void main(void){
   vec2 st = vUv;
   vec3 color = vec3(.0);
   float alpha = 1.0;
+
   vec3 colorSeparation = vec3(1.0);
 
   vec2 colorSt = st;
-  colorSt *= 18.; 
+  colorSt *= 19.; 
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 
   float totalDivisions = lineCount;
   float divisionPercentage = lineBreakSeparation;
-  
-  st = tile(st + ((time + fract(offsetLines*20.0)) * lineSpeed),totalDivisions);
-  vec2 separation = smoothstep(divisionPercentage,divisionPercentage,st);
+
+  st = tile(st, 0., totalDivisions);
+
+
+  // st = tile(st + ((time + fract(offsetLines*20.0)) * lineSpeed),totalDivisions);
+  // vec2 separation = smoothstep(divisionPercentage,divisionPercentage,st);
 
   vec3 colorMixedLight = mix(colorLastA, colorA, colorTiming);
   vec3 colorMixedDark = mix(colorLastB, colorB, colorTiming);
@@ -90,13 +101,19 @@ void main(void){
     }
   }
 
-  if (coloredDivisions) {
-    colorSeparation = vec3(colorMixedLight);
-  }
-  
   color += mix(colorMixedDark, colorMixedLight, fract(d));
 
-
+  if (mod(index, 2.0) == 0.0) {
+    vec2 stY = vUv;
+    stY.y = fract((stY.y - offsetLines) + (time * lineSpeed));
+    stY = tile(stY, 1., breakFrequency);
+    
+    if (coloredDivisions) {
+      colorSeparation = vec3(colorMixedLight);
+    }
+    
+    color = mix(color, colorSeparation, rect(fract(vec2(stY)), vec2(1., .7), breakSize));
+  }
   gl_FragColor = vec4(color, alpha);
 }
 `

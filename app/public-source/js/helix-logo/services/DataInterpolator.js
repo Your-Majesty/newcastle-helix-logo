@@ -37,8 +37,8 @@ const DataInterpolator = (() => {
   controller.limits = {
     humidity: {
       lineCount: {
-        min: 4, 
-        max: 10
+        min: 2, 
+        max: 4
       },
       lineSeparation: {
         min: 0.2, 
@@ -53,34 +53,38 @@ const DataInterpolator = (() => {
     },
     energy: {
       innerRadius: {
-        min: -60,
-        max: 60
+        min: -30,
+        max: 80
       },
       totalCurls: {
-        min: 1.5,
+        min: 2,
         max: 2
       }
     },
     wind: {
       variationRatio: {
         min: 0.001,
-        max: 0.009
+        max: 0.002
+      },
+      amplitude:{
+        min: 2,
+        max: 2.2
       }
     },
     vehicleSpeed: {
       lineSpeed: {
         min: 0.05,
-        max: 0.1
+        max: 0.08
       },
       breakSize: {
-        min: 0.21,
-        max: 0.30
+        min: 0.1,
+        max: 0.14
       }
     },
     vehicleCount: {
       breakFrequency: {
-        min: 0,
-        max: 19
+        min: 10,
+        max: 70
       }
     }
   }
