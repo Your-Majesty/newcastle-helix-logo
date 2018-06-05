@@ -3,7 +3,7 @@ class HelixLogoRibbon {
     this.segments = 3000
     this.angle = 0
     this.width = 24
-    this.height = 200
+    this.height = 100
     this.variation = 0
     this.amplitude = 0
 
@@ -168,9 +168,9 @@ class HelixLogoRibbon {
       this.shaderMaterial
     )
 
-    this.ribbonMesh.position.y = 750
+    this.ribbonMesh.position.y = 760
     this.ribbonMesh.position.z = -250
-    this.ribbonMesh.position.x -= 60
+    this.ribbonMesh.position.x -= -100
 
 
     this.shaderMaterial.side = THREE.DoubleSide

@@ -129,7 +129,7 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 840 )
+    this.camera = new THREE.PerspectiveCamera( 43, window.innerWidth / window.innerHeight, 1, 860 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
   }
