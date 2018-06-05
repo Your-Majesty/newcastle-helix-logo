@@ -178,7 +178,7 @@ class HelixLogoRibbon {
 
     this.ribbonMesh.position.y = 760
     this.ribbonMesh.position.z = -250
-    this.ribbonMesh.position.x -= -100
+    // this.ribbonMesh.position.x -= -100
 
 
     this.shaderMaterial.side = THREE.DoubleSide
