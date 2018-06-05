@@ -10,7 +10,7 @@ class HelixLogoUI {
 
     this.timelineIsActive = false
     this.sliderIsActive = false
-    this.animateIn()
+    // this.animateIn()
 
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {

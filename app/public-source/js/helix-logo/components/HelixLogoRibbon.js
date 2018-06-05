@@ -1,6 +1,6 @@
 class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
-    this.segments = 3000
+    this.segments = 1300
     this.angle = 0
     this.width = 20
     this.outerWidth = 20
@@ -188,9 +188,9 @@ class HelixLogoRibbon {
       this.shaderMaterial
     )
 
-    this.ribbonMesh.position.y = 760
+    this.ribbonMesh.position.y = 700
     this.ribbonMesh.position.z = -190
-    // this.ribbonMesh.position.x -= -100
+    this.ribbonMesh.position.x -= -180
 
 
     this.shaderMaterial.side = THREE.DoubleSide

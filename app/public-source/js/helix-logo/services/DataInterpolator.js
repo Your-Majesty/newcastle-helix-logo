@@ -42,7 +42,7 @@ const DataInterpolator = (() => {
       },
       lineSeparation: {
         min: 4, 
-        max: 20
+        max: 14
       }
     },
     temperature: {
@@ -58,17 +58,17 @@ const DataInterpolator = (() => {
       },
       totalCurls: {
         min: 2,
-        max: 4
+        max: 5
       }
     },
     wind: {
       variationRatio: {
         min: 0.001,
-        max: 0.0035
+        max: 0.002
       },
       amplitude:{
         min: 2,
-        max: 6
+        max: 3
       }
     },
     vehicleSpeed: {
