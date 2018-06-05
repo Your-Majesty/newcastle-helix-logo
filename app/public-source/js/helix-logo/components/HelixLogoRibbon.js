@@ -5,20 +5,20 @@ class HelixLogoRibbon {
     this.width = 16
     this.outerWidth = 16
 
-    this.height = 300
-    this.variation = 0
-    this.amplitude = 0
+    this.height = 100
+    this.variation = 0.1
+    this.amplitude = 5
 
     this.innerRadius = 0
     this.outerRadius = 500
-    this.totalCurls = 0
-    this.variationRatio = 0
+    this.totalCurls = 10
+    this.variationRatio = 0.004
     this.noiseSize = 280.5
     this.index = index
 
     this.offset = 0
 
-    this.variator = .0003
+    this.variator = .0002
 
     this.isMonochrome = isMonochrome
     this.monochromeColor = monochromeColor

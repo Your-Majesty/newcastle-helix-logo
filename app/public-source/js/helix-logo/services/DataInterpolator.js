@@ -53,22 +53,22 @@ const DataInterpolator = (() => {
     },
     energy: {
       innerRadius: {
-        min: -100,
-        max: 0
+        min: -50,
+        max: 60
       },
       totalCurls: {
         min: 2,
-        max: 5
+        max: 4
       }
     },
     wind: {
       variationRatio: {
         min: 0.001,
-        max: 0.002
+        max: 0.009
       },
       amplitude:{
-        min: 2,
-        max: 3
+        min: 5,
+        max: 5
       }
     },
     vehicleSpeed: {

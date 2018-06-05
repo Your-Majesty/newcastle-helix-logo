@@ -8,7 +8,7 @@ class HelixLogoTexture {
     this.lineSeparation = 0.5
     this.lineCount = 10.
     
-    this.innerRadius = 0.
+    this.innerRadius = 20.
     this.outerRadius = 0
     this.totalCurls = 0.
     this.variationRatio = 0.0058
@@ -218,7 +218,7 @@ class HelixLogoTexture {
     this.innerRadius = values['innerRadius']
     this.amplitude = values['amplitude']
     this.totalCurls = values['totalCurls']
-    this.variationRatio = values['variationRatio']
+    // this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
     this.calculateColors(this.colorScale)
@@ -254,8 +254,8 @@ class HelixLogoTexture {
       ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius 
       ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
       ribbon.uniform.coloredDivisions.value = true
-      ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
-      ribbon.uniform.time.value = this.time
+      // ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
+      // ribbon.uniform.time.value = this.time
       ribbon.uniform.lineSpeed.value = this.lineSpeed
       ribbon.uniform.lineCount.value = Math.floor(this.lineCount)
       ribbon.uniform.breakSize.value = this.breakSize 
