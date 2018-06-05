@@ -63,7 +63,7 @@ class HelixLogoTexture {
   }
 
   init() {
-    this.createStats()
+    // this.createStats()
     this.createdElement = true
     this.analizeURL(window.location.href.split('?')[1])
     this.createScene()
@@ -235,7 +235,7 @@ class HelixLogoTexture {
   }
 
   animate() {
-    this.stats.begin()
+    // this.stats.begin()
     this.isPlaying = true
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
     this.time += .003
@@ -281,7 +281,7 @@ class HelixLogoTexture {
     // this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
     
     this.updateCurves()
-    this.stats.end()
+    // this.stats.end()
     this.renderer.render( this.scene, this.camera )
   }
 }

@@ -10,6 +10,7 @@ class HelixLogoUI {
 
     this.timelineIsActive = false
     this.sliderIsActive = false
+    this.animateIn()
 
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
@@ -40,6 +41,7 @@ class HelixLogoUI {
   animateOut() {
     this.element.style.display = 'none'
     this.anchor.animateOut()
+
     this.element.style.opacity = 0
   }
 

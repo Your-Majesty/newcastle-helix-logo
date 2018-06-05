@@ -14,7 +14,6 @@
 h5 {
   font-family: 'HelixMedium';
   @include calc-value(font-size, 18px, 36px);
-  // text-transform: capitalize;
   line-height: 1.1;
 
   .helix-theme-dark & {
