@@ -2,7 +2,7 @@ class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
     this.segments = 3000
     this.angle = 0
-    this.width = 20
+    this.width = 24
     this.height = 200
     this.variation = 0
     this.amplitude = 0
@@ -14,13 +14,14 @@ class HelixLogoRibbon {
     this.noiseSize = 280.5
     this.index = index
 
-    this.offset = this.index * this.width
     this.variator = .0003
 
     this.isMonochrome = isMonochrome
     this.monochromeColor = monochromeColor
 
+   
     this.offset = this.index * this.width
+    // this.width = this.index % 2 === 0 ? 20 : 20
    
     this.uniform = {
       time: {

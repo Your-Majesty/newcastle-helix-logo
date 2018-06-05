@@ -32,7 +32,7 @@ class HelixLogoTexture {
     this.allRibbons = []
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
-    this.totalRibbons = 12
+    this.totalRibbons = 9
 
     this.backgroundColors = [
       '#58f9ea',

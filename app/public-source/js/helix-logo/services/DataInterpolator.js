@@ -41,7 +41,7 @@ const DataInterpolator = (() => {
         max: 4
       },
       lineSeparation: {
-        min: 0.2, 
+        min: 0.3, 
         max: 0.8
       }
     },
@@ -83,7 +83,7 @@ const DataInterpolator = (() => {
     },
     vehicleCount: {
       breakFrequency: {
-        min: 10,
+        min: 20,
         max: 70
       }
     }
