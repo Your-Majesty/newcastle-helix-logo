@@ -12,6 +12,7 @@ uniform float outerRadius;
 uniform float totalCurls;
 uniform float amplitude;
 uniform float width;
+uniform float outerWidth;
 uniform float index;
 
 attribute float vertexIndex;
@@ -98,12 +99,12 @@ void main() {
   float R = (outerRadius + (vertexNoise * 150.));
   
   if (mod(vertexIndex, 2.0) == 0.0) {
-    pos.x = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
-    pos.y = ((R + width) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
+    pos.x = ((R + outerWidth) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
+    pos.y = ((R + outerWidth) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
     pos.z = ((innerRadius + width) + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(vertexNoise); 
   } else {
-    pos.x = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
-    pos.y = ((R + width) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
+    pos.x = ((R + outerWidth) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
+    pos.y = ((R + outerWidth) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
     pos.z = (innerRadius + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(-vertexNoise);
   }
 

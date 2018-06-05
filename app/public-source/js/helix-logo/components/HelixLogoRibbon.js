@@ -2,8 +2,10 @@ class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
     this.segments = 3000
     this.angle = 0
-    this.width = 24
-    this.height = 100
+    this.width = 20
+    this.outerWidth = 20
+
+    this.height = 300
     this.variation = 0
     this.amplitude = 0
 
@@ -20,13 +22,23 @@ class HelixLogoRibbon {
     this.monochromeColor = monochromeColor
 
    
-    this.offset = this.index * this.width
-    // this.width = this.index % 2 === 0 ? 20 : 20
-   
+    
+    
+    this.offset = this.index % 2 === 0 ? this.index * this.width : this.index * this.width
+    // this.width = this.index % 2 === 0 ? 20 : 10
+
     this.uniform = {
       time: {
         type: 'f',
         value: 0
+      },
+      width: {
+        type: 'f',
+        'value': parseFloat(this.width)
+      },
+      outerWidth: {
+        type: 'f',
+        'value': parseFloat(this.outerWidth)
       },
       index: {
         type: 'float',
@@ -96,10 +108,6 @@ class HelixLogoRibbon {
       childRadius: {
         type: 'f',
         value: 0.5
-      },
-      width: {
-        type: 'f',
-        'value': parseFloat(this.width)
       },
       breakSize: {
         type: 'f',
