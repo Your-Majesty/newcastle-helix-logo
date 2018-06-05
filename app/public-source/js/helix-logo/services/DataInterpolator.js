@@ -41,8 +41,8 @@ const DataInterpolator = (() => {
         max: 4
       },
       lineSeparation: {
-        min: 0.3, 
-        max: 0.8
+        min: 4, 
+        max: 20
       }
     },
     temperature: {
@@ -53,22 +53,22 @@ const DataInterpolator = (() => {
     },
     energy: {
       innerRadius: {
-        min: -60,
-        max: 60
+        min: -100,
+        max: 0
       },
       totalCurls: {
-        min: 1.8,
-        max: 2
+        min: 2,
+        max: 4
       }
     },
     wind: {
       variationRatio: {
         min: 0.001,
-        max: 0.004
+        max: 0.0035
       },
       amplitude:{
         min: 2,
-        max: 3.2
+        max: 6
       }
     },
     vehicleSpeed: {

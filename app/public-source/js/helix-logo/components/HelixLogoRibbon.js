@@ -16,17 +16,19 @@ class HelixLogoRibbon {
     this.noiseSize = 280.5
     this.index = index
 
+    this.offset = 0
+
     this.variator = .0003
 
     this.isMonochrome = isMonochrome
     this.monochromeColor = monochromeColor
-
-   
     
-    
-    this.offset = this.index % 2 === 0 ? this.index * this.width : this.index * this.width
-    // this.width = this.index % 2 === 0 ? 20 : 10
+    this.minWidth = 14
+    this.maxWidth = 4
+    this.offset = this.index % 2 === 0 ? ((this.index/2) * this.maxWidth) + ((this.index/2) * this.minWidth) : (Math.ceil(this.index/2) * this.maxWidth) + (Math.floor(this.index/2) * this.minWidth)
+    this.width = this.index % 2 === 0 ? this.maxWidth : this.minWidth
 
+    
     this.uniform = {
       time: {
         type: 'f',
@@ -143,7 +145,17 @@ class HelixLogoRibbon {
     this.createShaderMaterial()
     this.createMeshRibbon()
   }
-  
+
+
+  calculateThickness(maxValue) {
+    this.maxWidth = maxValue
+    this.offset = this.index % 2 === 0 ? ((this.index/2) * this.maxWidth) + ((this.index/2) * this.minWidth) : (Math.ceil(this.index/2) * this.maxWidth) + (Math.floor(this.index/2) * this.minWidth)
+    this.width = this.index % 2 === 0 ? this.maxWidth : this.minWidth
+    this.uniform.offset.value = this.offset
+    this.uniform.width.value = this.width
+
+  }
+
   createGeometry() {
 
     this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
@@ -177,7 +189,7 @@ class HelixLogoRibbon {
     )
 
     this.ribbonMesh.position.y = 760
-    this.ribbonMesh.position.z = -250
+    this.ribbonMesh.position.z = -190
     // this.ribbonMesh.position.x -= -100
 
 
