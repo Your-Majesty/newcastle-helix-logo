@@ -1,9 +1,9 @@
 class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
-    this.segments = 1300
+    this.segments = 2000
     this.angle = 0
-    this.width = 20
-    this.outerWidth = 20
+    this.width = 16
+    this.outerWidth = 16
 
     this.height = 300
     this.variation = 0
@@ -23,7 +23,7 @@ class HelixLogoRibbon {
     this.isMonochrome = isMonochrome
     this.monochromeColor = monochromeColor
     
-    this.minWidth = 14
+    this.minWidth = 16
     this.maxWidth = 4
     this.offset = this.index % 2 === 0 ? ((this.index/2) * this.maxWidth) + ((this.index/2) * this.minWidth) : (Math.ceil(this.index/2) * this.maxWidth) + (Math.floor(this.index/2) * this.minWidth)
     this.width = this.index % 2 === 0 ? this.maxWidth : this.minWidth
@@ -188,9 +188,8 @@ class HelixLogoRibbon {
       this.shaderMaterial
     )
 
-    this.ribbonMesh.position.y = 700
-    this.ribbonMesh.position.z = -190
-    this.ribbonMesh.position.x -= -180
+    this.ribbonMesh.position.y = 750
+    this.ribbonMesh.position.z = -250
 
 
     this.shaderMaterial.side = THREE.DoubleSide
