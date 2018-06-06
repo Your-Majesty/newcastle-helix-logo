@@ -1,4 +1,5 @@
 const RibbonColors = `
+// precision mediump float;
 precision highp float;
 
 varying vec3 vNormal;
@@ -57,6 +58,7 @@ void main(void){
   vec2 st = vUv;
   vec3 color = vec3(.0);
   float alpha = 1.0;
+  gl_FragColor.a = 0.5;
 
   vec3 colorSeparation = vec3(1.0);
 
@@ -110,6 +112,8 @@ void main(void){
     
     if (coloredDivisions) {
       colorSeparation = vec3(colorMixedLight);
+    } else {
+      colorSeparation = vec3(1.0);
     }
     
     color = mix(color, colorSeparation, rect(fract(vec2(stY)), vec2(1., .7), breakSize));

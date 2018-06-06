@@ -8,7 +8,6 @@
   @include q-is-small {
     width: 100%;
   }
-
 }
 
 .helix-logo-hint {
@@ -38,6 +37,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  display: none;
 
   @include q-is-medium-small {
     position: fixed;

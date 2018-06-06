@@ -1,5 +1,6 @@
 class HelixLogoUIDownload {
   constructor() {
+    this.button = document.querySelector('.helix-logo-download')
     this.element = document.querySelector('.helix-logo-download a')
     this.downloadAction = this.downloadAction.bind(this)
   }
@@ -10,18 +11,15 @@ class HelixLogoUIDownload {
   }
 
   setScreenShot(image) {
-
-    
     this.element.setAttribute('href', image)
   }
 
-
-  init() {
+  show() {
+    this.button.style.display = 'block'
     this.element.addEventListener('click', this.downloadAction)
   }
 
-  animateIn() {
-    
-    
+  hide() {
+    this.button.style.display = 'none'
   }
 }

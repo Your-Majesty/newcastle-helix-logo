@@ -3,6 +3,7 @@ const HelixLogoApp = (() => {
   window.addEventListener('message', function (event) {
     var result = JSON.parse(event.data) 
 
+  
     if (result.action == 'show-ui') {
       helixUI.animateIn()
     }
@@ -19,14 +20,23 @@ const HelixLogoApp = (() => {
     }
   }) 
 
+  
+  window.addEventListener('uiZoomIn', function (e) {
+    console.log('zoom in')
+    helixRibbon.zoomInCamera()
+  }, false)
+
+  window.addEventListener('uiZoomOut', function (e) {
+    console.log('zoom out')
+    helixRibbon.zoomOutCamera()
+  }, false)
 
   window.addEventListener('uiTimeline', function (e) {
     DataInterpolator.calculatePoint(DataCollector.collection[e.detail])
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
     helixUI.mapValuesTimeline(e.detail)
-  }, false);
-
-
+  }, false)
+  
   window.addEventListener('uiDownload', function (e) {
     let screenShot = helixRibbon.createShot()
     helixUI.download.setScreenShot(screenShot)
@@ -83,6 +93,9 @@ const HelixLogoApp = (() => {
     })
     
   }, 90000)
+
+
+
 
   const helixRibbon = new HelixLogoTexture()
   const helixUI = new HelixLogoUI()

@@ -1,12 +1,22 @@
 const CameraTracker = (() => {
   const controller = {}
+  controller.isZoomIn = false
+
 
   controller.zoomIn = () => {
-    console.log('Something was done.')
+    if (!controller.isZoomIn) {
+      controller.isZoomIn = true
+      controller.event = new CustomEvent('uiZoomIn', {bubbles: true})
+      window.dispatchEvent(controller.event)
+    }
   }
 
   controller.zoomOut = () => {
-    console.log('Something was done.')
+    if (controller.isZoomIn) {
+      controller.isZoomIn = false
+      controller.event = new CustomEvent('uiZoomOut', {bubbles: true})
+      window.dispatchEvent(controller.event)
+    }
   }
 
   return controller

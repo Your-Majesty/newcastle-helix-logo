@@ -4,10 +4,12 @@ class HelixLogoUI {
     this.timeline = new HelixLogoUITimeline()
     this.anchor = new HelixLogoUIAnchor()
     this.buttons = new HelixLogoUIButtons()
-    this.download = new HelixLogoUIDownload()
     this.slider = new HelixLogoUISlider()
+    this.download = new HelixLogoUIDownload()
+   
     this.overlay = new HelixLogoUIOverlay()
 
+    this.isTableExperience = true
     this.timelineIsActive = false
     this.sliderIsActive = false
     this.animateIn()
@@ -27,8 +29,17 @@ class HelixLogoUI {
   init() {
     this.buttons.createButtons()
     this.anchor.mapAnchorValue(0)
-    this.download.init()
     this.timeline.createLines()
+
+    if (this.isTableExperience) {
+      this.zoom = new HelixLogoUIScale()
+      this.video = new HelixUITabletVideo()
+      this.tabletOverlay = new HelixLogoUITabletOverlay()
+      this.download.hide()
+      this.element.classList.add('is-tablet-experience')
+    } else {
+      this.download.show()
+    }
   }
 
   animateIn() {
@@ -41,7 +52,6 @@ class HelixLogoUI {
   animateOut() {
     this.element.style.display = 'none'
     this.anchor.animateOut()
-
     this.element.style.opacity = 0
   }
 

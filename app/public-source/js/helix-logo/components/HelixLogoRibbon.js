@@ -5,13 +5,14 @@ class HelixLogoRibbon {
     this.width = 16
     this.outerWidth = 16
 
-    this.height = 100
+    this.height = 400
     this.variation = 0.1
     this.amplitude = 5
 
     this.innerRadius = 0
-    this.outerRadius = 500
-    this.totalCurls = 10
+    // this.outerRadius = 500
+    this.outerRadius = 300
+    this.totalCurls = 2
     this.variationRatio = 0.004
     this.noiseSize = 280.5
     this.index = index
@@ -27,7 +28,7 @@ class HelixLogoRibbon {
     this.maxWidth = 4
     this.offset = this.index % 2 === 0 ? ((this.index/2) * this.maxWidth) + ((this.index/2) * this.minWidth) : (Math.ceil(this.index/2) * this.maxWidth) + (Math.floor(this.index/2) * this.minWidth)
     this.width = this.index % 2 === 0 ? this.maxWidth : this.minWidth
-
+ // uniform.resolution.value.setValue ( width, height );
     
     this.uniform = {
       time: {
@@ -153,13 +154,12 @@ class HelixLogoRibbon {
     this.width = this.index % 2 === 0 ? this.maxWidth : this.minWidth
     this.uniform.offset.value = this.offset
     this.uniform.width.value = this.width
-
   }
 
   createGeometry() {
 
     this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
-    this.angle = (720 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180) 
+    this.angle = (365 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180) 
     
     this.vertexIndex = new Float32Array(this.bufferGeometry.attributes.position.count)
     this.vertexAngle = new Float32Array(this.bufferGeometry.attributes.position.count)
@@ -199,8 +199,10 @@ class HelixLogoRibbon {
     for (let i = 0; i < this.bufferGeometry.attributes.position.count; i=i+2) {
       this.vertexAngle[i] = i * this.angle
       this.vertexAngle[i+1] = i * this.angle
-      this.vertexNoise[i] = noiseArray[i]
-      this.vertexNoise[i+1] = noiseArray[i]
+      // this.vertexNoise[i] = noiseArray[i]
+      // this.vertexNoise[i+1] = noiseArray[i]      
+      this.vertexNoise[i] = 1
+      this.vertexNoise[i+1] = 1
     }
     this.bufferGeometry.attributes.position.needsUpdate = true
     this.bufferGeometry.attributes.vertexAngle.needsUpdate = true

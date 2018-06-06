@@ -63,7 +63,7 @@ class HelixLogoTexture {
   }
 
   init() {
-    // this.createStats()
+    this.createStats()
     this.createdElement = true
     this.analizeURL(window.location.href.split('?')[1])
     this.createScene()
@@ -102,9 +102,10 @@ class HelixLogoTexture {
   resize() {
     this.width = window.innerWidth,
     this.height = window.innerHeight
+    this.camera.updateProjectionMatrix()
     this.camera.aspect = window.innerWidth / window.innerHeight
     this.renderer.setSize( window.innerWidth, window.innerHeight)
-    this.camera.updateProjectionMatrix()
+ 
       
     if (this.width >= this.height) {
       this.captureCanvas.width = this.height * this.pixelRatio
@@ -115,6 +116,16 @@ class HelixLogoTexture {
     }
   }
 
+  zoomInCamera() {
+    TweenLite.to(this.camera.position, 0.6, {z: 1000, y:-240, ease: Sine.easeOut})
+    TweenLite.to(this.camera.rotation, 0.6, {x: (35 * Math.PI / 180), ease: Sine.easeOut})
+  }
+
+  zoomOutCamera() {
+    TweenLite.to(this.camera.position, 0.6, {z: 0, y:0, ease: Sine.easeOut})
+    TweenLite.to(this.camera.rotation, 0.6, {x: (50 * Math.PI / 180), ease: Sine.easeOut})
+  }
+
   createStats() {
     this.stats = new Stats()
     this.stats.showPanel( 0 )
@@ -122,13 +133,13 @@ class HelixLogoTexture {
   }
 
   createScene() {
-    this.renderer = new THREE.WebGLRenderer({alpha: true, antialias: true, devicePixelRatio:1, preserveDrawingBuffer: true} )
+    this.renderer = new THREE.WebGLRenderer({alpha: true, antialias: true, preserveDrawingBuffer: true} )
     this.renderer.setSize( this.width, this.height )
     this.pixelRatio = window.devicePixelRatio
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 780 )
+    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 2100 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
   }
@@ -234,7 +245,7 @@ class HelixLogoTexture {
   }
 
   animate() {
-    // this.stats.begin()
+    this.stats.begin()
     this.isPlaying = true
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
     this.time += .003
@@ -252,7 +263,7 @@ class HelixLogoTexture {
 
     this.allRibbons.forEach((ribbon) => {
       ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius 
-      ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
+      ribbon.uniform.totalCurls.value = this.totalCurls
       ribbon.uniform.coloredDivisions.value = true
       // ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
       // ribbon.uniform.time.value = this.time
@@ -270,7 +281,7 @@ class HelixLogoTexture {
     // // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
     // this.ribbon.variationRatio = this.ribbon.variationRatio
     // this.ribbon.noiseSize = this.noiseSize
-    this.variator +=  this.variationRatio
+    // this.variator +=  this.variationRatio
 
     // console.log(this.variator)
 
@@ -282,7 +293,7 @@ class HelixLogoTexture {
     // this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
     
     this.updateCurves()
-    // this.stats.end()
+    this.stats.end()
     this.renderer.render( this.scene, this.camera )
   }
 }

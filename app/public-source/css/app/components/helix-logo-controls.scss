@@ -260,12 +260,8 @@
   bottom: 0;
   margin: auto;
 
-  // display: none;
+  display: none;
   cursor: pointer;
-
-  @include q-is-medium {
-    // top: -30%;
-  }
 }
 
 .helix-logo-ui-scale-button {

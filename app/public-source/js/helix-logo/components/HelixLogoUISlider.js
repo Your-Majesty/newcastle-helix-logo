@@ -62,6 +62,7 @@ class HelixLogoUISlider {
   }
 
   animateIn() {
+    console.log('animate')
     this.element.style.display = 'block'
     TweenLite.to(this.element, 0.2, {y: '0%', delay: 0.3})
     this.animate()
