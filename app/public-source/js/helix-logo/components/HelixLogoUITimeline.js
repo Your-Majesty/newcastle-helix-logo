@@ -123,13 +123,20 @@ class HelixLogoUITimeline {
     this.isPlaying = false
     this.percentageDragged = (ev.deltaX / this.linesWrapper.offsetWidth) * 100
     this.totalDrag = this.currentPercentage + this.percentageDragged
-
-    if (Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion)) !== this.indexTimeline) {
-      if ((Math.abs(this.totalDrag) >= this.minPercentage) && (Math.abs(this.totalDrag) <= this.maxPercentage)) {
-        this.indexTimeline = Math.abs((Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion))) - this.totalCollection)
-        TimelineCollector.updateIndex(this.indexTimeline)
-      }
+    
+    if (this.totalDrag <= -this.maxPercentage) {
+      this.totalDrag = -this.maxPercentage
+    } else if (this.totalDrag >= -this.minPercentage) {
+      this.totalDrag = -this.minPercentage
     }
+
+
+      if (Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion)) !== this.indexTimeline) {
+        if ((Math.abs(this.totalDrag) >= this.minPercentage) && (Math.abs(this.totalDrag) <= this.maxPercentage)) {
+          this.indexTimeline = Math.abs((Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion))) - this.totalCollection)
+          TimelineCollector.updateIndex(this.indexTimeline)
+        }
+      }
     
     if (ev.isFinal) {
       this.currentPercentage = this.currentPercentage + this.percentageDragged

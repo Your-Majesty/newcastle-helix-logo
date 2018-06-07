@@ -38,16 +38,17 @@ class HelixLogoUISlider {
         this.totalDrag = this.maxPercentage
         this.currentPercentage = this.maxPercentage
         this.percentageDragged = 0
+        SliderCollector.updateValues((100 - (50 + this.totalDrag))/ 100) 
       } else if(this.totalDrag >= this.minPercentage) {
         this.totalDrag = this.minPercentage
         this.currentPercentage = this.minPercentage
         this.percentageDragged = 0
+        SliderCollector.updateValues((100 - (50 + this.totalDrag))/ 100) 
       } else {
         this.percentageDragged = (ev.deltaX / this.slide.offsetWidth) * 100
         this.totalDrag = this.currentPercentage + this.percentageDragged
         SliderCollector.updateValues((100 - (50 + this.totalDrag))/ 100) 
       }
-
     if (ev.isFinal) {
       this.currentPercentage = this.currentPercentage + this.percentageDragged
       
