@@ -2,8 +2,8 @@ class HelixLogoRibbon {
   constructor(colorA, colorB, isMonochrome, monochromeColor, index) {
     this.segments = 1000
     this.angle = 0
-    this.width = 1
-    this.outerWidth = 10
+    this.width = 16
+    this.outerWidth = 16
 
     this.height = 400
     this.variation = 0.1
@@ -24,8 +24,8 @@ class HelixLogoRibbon {
     this.isMonochrome = isMonochrome
     this.monochromeColor = monochromeColor
     
-    this.minWidth = 1
-    this.maxWidth = 1
+    this.minWidth = 16
+    this.maxWidth = 16
     this.offset = this.index % 2 === 0 ? ((this.index/2) * this.maxWidth) + ((this.index/2) * this.minWidth) : (Math.ceil(this.index/2) * this.maxWidth) + (Math.floor(this.index/2) * this.minWidth)
     this.width = this.index % 2 === 0 ? this.maxWidth : this.minWidth
  // uniform.resolution.value.setValue ( width, height );
@@ -199,10 +199,10 @@ class HelixLogoRibbon {
     for (let i = 0; i < this.bufferGeometry.attributes.position.count; i=i+2) {
       this.vertexAngle[i] = i * this.angle
       this.vertexAngle[i+1] = i * this.angle
-      this.vertexNoise[i] = noiseArray[i]
-      this.vertexNoise[i+1] = noiseArray[i]      
-      // this.vertexNoise[i] = 1
-      // this.vertexNoise[i+1] = 1
+      // this.vertexNoise[i] = noiseArray[i]
+      // this.vertexNoise[i+1] = noiseArray[i]      
+      this.vertexNoise[i] = 1
+      this.vertexNoise[i+1] = 1
     }
     this.bufferGeometry.attributes.position.needsUpdate = true
     this.bufferGeometry.attributes.vertexAngle.needsUpdate = true

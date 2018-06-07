@@ -9,9 +9,6 @@ class HelixLogoUIScale {
 
     this.buttonPlus.addEventListener('click', this.zoomIn)
     this.buttonMinus.addEventListener('click', this.zoomOut)
-
-    this.element.style.display = 'inline-block'
-
   }
   
   zoomIn() {

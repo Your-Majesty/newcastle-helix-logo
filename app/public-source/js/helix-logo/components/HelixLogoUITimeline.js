@@ -34,7 +34,7 @@ class HelixLogoUITimeline {
   animateIn() {
     this.playButton.addEventListener('click', this.playTimeline)
     this.element.style.display = 'block'
-    TweenLite.to(this.element, 0.5, {x:'-50%', y: '0%',  ease: Sine.easeOut, onComplete: () => {
+    TweenLite.to(this.element, 0.4, {x:'-50%', y: '0%',  ease: Sine.easeOut, onComplete: () => {
       this.isActive = true
     }})
     this.animate()
@@ -48,9 +48,8 @@ class HelixLogoUITimeline {
       this.isActive = false
     }})
     this.pause()
-
   }
-  
+
   createLines() {
     this.totalCollection = DataCollector.collection.length - 1
     for (var i = 0; i < (this.totalCollection + 1) * 3; i++) {
@@ -65,7 +64,7 @@ class HelixLogoUITimeline {
     for (limit of DataCollector.limits){
       if (limit.name == 'energy') {
         DataCollector.collection.forEach((dataPoint, index) => {
-          this.lines[index + this.totalCollection].style.transform = `translateY(${DataInterpolator.linearInterpolation(limit.min, limit.max, DataCollector.collection[index].energy, 99, 0)}%)`
+          TweenLite.to(this.lines[index + this.totalCollection], 0.8 * Math.random(), {y:`${DataInterpolator.linearInterpolation(limit.min, limit.max, DataCollector.collection[index].energy, 99, 0)}%`, delay: 0.7 * Math.random(), ease: Circ.easeOut})
         })
       }
     }

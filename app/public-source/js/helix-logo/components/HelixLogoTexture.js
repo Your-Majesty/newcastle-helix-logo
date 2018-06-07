@@ -32,7 +32,7 @@ class HelixLogoTexture {
     this.allRibbons = []
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
-    this.totalRibbons = 10
+    this.totalRibbons = 9
 
     this.backgroundColors = [
       '#58f9ea',
@@ -142,6 +142,7 @@ class HelixLogoTexture {
     this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 2100 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
+    this.camera.position.y = 100
   }
 
   createRibbons() {

@@ -3,6 +3,7 @@ class HelixLogoUIOverlay {
     this.isOpen = false
     this.button = document.querySelector('.helix-logo-anchor__lear-more')
     this.element = document.querySelector('.helix-logo-ui-overlay')
+    this.background = document.querySelector('.helix-logo-ui-overlay-background')
     this.text = document.querySelector('.helix-logo-ui-overlay-wrapper p')
     this.closeButton = document.querySelector('.helix-logo-ui-overlay button')
 
@@ -45,14 +46,21 @@ class HelixLogoUIOverlay {
 
   openModal() {
     this.isOpen = true
-    this.button.style.opacity = 0.3
     this.element.style.display = 'block'
+    this.button.style.opacity = 0.3
+    TweenLite.to(this.background, 0.3, {opacity: 0.9, scale:1, ease: Circ.easeOut})
+    TweenLite.to(this.closeButton, 0.3, {y: 0, opacity:1, ease: Circ.easeOut})
+    TweenLite.to(this.text, 0.3, {y: 0, opacity:1, ease: Circ.easeOut, delay:0.2})
   }
 
   closeModal() {
     this.isOpen = false
     this.button.style.opacity = 1
-    this.element.style.display = 'none'
+    TweenLite.to(this.closeButton, 0.3, {y: '30px', opacity:0, ease: Circ.easeOut})
+    TweenLite.to(this.text, 0.3, {y: '10px', opacity:0, ease: Circ.easeOut})
+    TweenLite.to(this.background, 0.2, {opacity: 0, scale:0.9, ease: Circ.easeOut, onComplete: () => {
+      this.element.style.display = 'none'
+    }})
   }
   
   setInfo(currentSensor) {

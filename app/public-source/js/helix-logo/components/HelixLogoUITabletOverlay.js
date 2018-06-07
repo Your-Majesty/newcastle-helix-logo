@@ -7,6 +7,7 @@ class HelixLogoUITabletOverlay {
     this.buttonClose = document.querySelector('.helix-logo-ui-tablet__close')
     this.buttonMoreInfo = document.querySelector('.helix-logo-infoscreen-button')
     this.buttonMoreInfoWrapper = document.querySelector('.helix-logo-info__button')
+    this.scaleButtons = document.querySelector('.helix-logo-ui-scale-buttons')
 
     this.buttonsWrapper = document.querySelector('.helix-logo-ui-share')
     this.overlayWrapper = document.querySelector('.helix-logo-ui-tablet__overlay__wrapper')
@@ -35,9 +36,14 @@ class HelixLogoUITabletOverlay {
   }
 
   close() {
+
+    this.event = new CustomEvent('uiTabletOverlayClosed', {bubbles: true})
+    this.overlay.dispatchEvent(this.event)
+
     document.querySelector('body').classList.remove('tablet-overlay')
     this.buttonMoreInfoWrapper.style.display = 'inline-block'
     this.buttonClose.style.display = 'none'
+    this.scaleButtons.style.display = 'block'
     this.buttonsWrapper.style.display = 'block'
     this.currentView.style.display = 'none'
     TweenLite.to(this.currentView, 0.2, {opacity: 0})
@@ -45,6 +51,7 @@ class HelixLogoUITabletOverlay {
       this.overlay.style.display = 'none'
       this.overlayWrapper.style.display = 'none'
     }})
+
   }
 
   showNewsletter() {
@@ -65,6 +72,12 @@ class HelixLogoUITabletOverlay {
   }
 
   open() {
+
+    let openEvent = new CustomEvent('uiTabletOverlayOpen', {bubbles: true})
+    this.overlay.dispatchEvent(openEvent)
+
+
+    this.scaleButtons.style.display = 'none'
     document.querySelector('body').classList.add('tablet-overlay')
     this.buttonMoreInfoWrapper.style.display = 'none'
     this.overlay.style.display = 'block'

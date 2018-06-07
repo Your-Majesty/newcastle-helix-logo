@@ -28,12 +28,15 @@
 }
 
 .helix-logo-anchor__info__wrapper {
+  will-change: transform;
   display: inline-block;
   position: relative;
   float: right;
   width: 50%;
   left: 20px;
-   @include calc-value(top, -4px, -10px);
+  transform: translateY(20px);
+  @include calc-value(top, -4px, -10px);
+  opacity: 0;
 }
 
 .helix-logo-reset {
@@ -52,10 +55,20 @@
   cursor: pointer;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 20px);
   top: -52px;
   z-index: 2;
   border: 1px solid rgba(0,0,0,0.2);
+  opacity: 0;
+
+  &:hover, &:active {
+    background-color: rgba(0,0,0,0.04);
+    transition: all 200ms cubic-bezier(0.000, 0.000, 0.580, 1.000);
+
+    .helix-theme-dark & {
+      background-color: rgba(255,255,255,0.4);
+    }
+  }
 
   .helix-theme-dark & {
     color: white;
@@ -95,18 +108,51 @@
     border-radius: 50%;
     float: left;
     cursor: pointer;
+    overflow: hidden;
+    transform: scale(1);
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: all 200ms cubic-bezier(0.000, 0.000, 0.580, 1.000);
+
+    .helix-theme-dark & {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height:100%;
+      background-color: black;
+      top:0;
+      left: 0;
+      border-radius: 50%;
+      opacity:0;
+      transform: scale(0.2);
+      transition: all 200ms cubic-bezier(0.000, 0.000, 0.580, 1.000);
+
+      .helix-theme-dark & {
+        background-color:white;
+      }
+    }
 
     svg {
       position: relative;
       left: 1px;
-    }
-    
-    .helix-theme-dark & {
-      background-color: rgba(255, 255, 255, 0.3);
-      border: 0;
-    }
 
-
+      g g {
+        .helix-theme-dark & {
+          fill:white;
+        }
+      }
+    }
+  
+    &:hover, &:active {
+      &:before {
+        opacity:0.2;
+        transform: scale(1);
+        transition: all 100ms cubic-bezier(0.000, 0.000, 0.580, 1.000);
+      }
+    }
   }
 
   p {
@@ -142,7 +188,7 @@
  
   z-index: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 130%);
   bottom: 0;
   // transform: translate(-50%, 100%);
 }

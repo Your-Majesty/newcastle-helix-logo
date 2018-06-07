@@ -8,10 +8,16 @@ class HelixLogoUI {
     this.download = new HelixLogoUIDownload()
    
     this.overlay = new HelixLogoUIOverlay()
-
-    this.isTableExperience = true
+    this.isTableExperience = false
     this.timelineIsActive = false
     this.sliderIsActive = false
+
+    this.element.style.display = 'block'
+    this.element.style.opacity = 1
+
+    this.animateIn = this.animateIn.bind(this)
+    this.animateOut = this.animateOut.bind(this)
+
     this.animateIn()
 
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
@@ -35,24 +41,36 @@ class HelixLogoUI {
       this.zoom = new HelixLogoUIScale()
       this.video = new HelixUITabletVideo()
       this.tabletOverlay = new HelixLogoUITabletOverlay()
-      this.download.hide()
       this.element.classList.add('is-tablet-experience')
+      this.download.hide()
+      this.tabletOverlay.overlay.addEventListener('uiTabletOverlayClosed', this.animateIn)
+      this.tabletOverlay.overlay.addEventListener('uiTabletOverlayOpen', this.animateOut)
+      this.isOnline()
     } else {
       this.download.show()
     }
   }
 
+  isOnline() {
+    setInterval(() => {
+      if(!navigator.onLine) {
+        this.tabletOverlay.buttonNewsletter.style.display = 'none'
+      } else {
+        this.tabletOverlay.buttonNewsletter.style.display = 'inline-block'
+      }
+    }, 200)
+  }
+
   animateIn() {
-    this.element.style.display = 'block'
-    this.element.style.opacity = 1
     this.anchor.animateIn()
     this.showTimeline()
+    this.buttons.animateIn()
   }
 
   animateOut() {
-    this.element.style.display = 'none'
     this.anchor.animateOut()
-    this.element.style.opacity = 0
+    this.buttons.animateOut()
+    this.timeline.animateOut()
   }
 
   showSliders() {

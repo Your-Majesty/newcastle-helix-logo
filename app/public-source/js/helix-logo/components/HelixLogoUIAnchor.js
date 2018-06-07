@@ -3,6 +3,7 @@ class HelixLogoUIAnchor {
     this.anchor = document.querySelector('.helix-logo-anchor')
     this.day = this.anchor.querySelector('.helix-logo-day')
     this.time = this.anchor.querySelector('.helix-logo-time')
+    this.infoWrapper = this.anchor.querySelector('.helix-logo-anchor__info__wrapper')
     this.infoElement = this.anchor.querySelector('.helix-logo-anchor__info')
     this.lineElement = this.anchor.querySelector('.helix-logo-anchor__line')
     this.resetButton = this.anchor.querySelector('.helix-logo-reset')
@@ -13,11 +14,15 @@ class HelixLogoUIAnchor {
 
   animateIn() {
     this.anchor.style.display = 'block'
-    TweenLite.to(this.anchor, 0.3, {y: '0%', ease: Sine.easeOut})
+    TweenLite.to(this.anchor, 0.4, {y: '0%', ease: Circ.easeOut, force3D:true, onComplete: () => {
+      TweenLite.to(this.infoWrapper, 0.4, {opacity: 1, y:0, ease: Circ.easeOut, delay: 0.1})
+    }})
+    
   }
 
   animateOut() {
-    TweenLite.to(this.anchor, 0.5, {y: '130%', onComplete: () => {
+    TweenLite.set(this.infoWrapper, {opacity: 0, y:'20px', ease: Circ.easeOut})
+    TweenLite.to(this.anchor, 0.3, {y: '130%', onComplete: () => {
       this.anchor.style.display = 'none'
     }})
   }
@@ -25,7 +30,6 @@ class HelixLogoUIAnchor {
   playButtonAction(shouldShow) {
     if (shouldShow) {
       this.playButton.style.display = 'inline-block'
-
     } else {
       this.playButton.style.display = 'none'
     }
@@ -34,9 +38,12 @@ class HelixLogoUIAnchor {
   resetButtonAction(shouldShow) {
     if (shouldShow) {
       this.resetButton.style.display = 'block'
+      TweenLite.to(this.resetButton, 0.25, {opacity:1, y:0, ease: Circ.easeOut, delay:0.2})
       this.resetButton.addEventListener('click', this.resetAction)
     } else {
-      this.resetButton.style.display = 'none'
+      TweenLite.set(this.resetButton, {opacity:0, y:'20px', onComplete: () => {
+        this.resetButton.style.display = 'none'
+      }})
       this.resetButton.removeEventListener('click', this.resetAction)
     }
   }
@@ -53,7 +60,11 @@ class HelixLogoUIAnchor {
   mapSensorValue(currentSensor) {
     DataInterpolator.sensors.forEach((sensor) => {
       if (sensor.id == currentSensor.name) {
-        this.time.innerHTML = `${currentSensor.value} ${sensor.units}`
+        if (currentSensor.value > 0) {
+          this.time.innerHTML = `${currentSensor.value} ${sensor.units}`
+        } else {
+          this.time.innerHTML = ''
+        }
       }
     })
   }

@@ -20,6 +20,11 @@ const HelixLogoApp = (() => {
     }
   }) 
 
+
+  // setTimeout(() =>{ 
+  //   helixUI.animateIn()
+  // }, 400);
+
   
   window.addEventListener('uiZoomIn', function (e) {
     console.log('zoom in')
