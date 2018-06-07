@@ -41,8 +41,8 @@ const DataInterpolator = (() => {
         max: 4
       },
       lineSeparation: {
-        min: 4, 
-        max: 14
+        min: 1, 
+        max: 1
       }
     },
     temperature: {

@@ -112,9 +112,9 @@ class HelixLogoUI {
 
   updateTheme(lightTheme) {
     if (lightTheme) {
-      this.element.classList.add('helix-theme-dark') 
+      document.querySelector('body').classList.add('helix-theme-dark') 
     } else {
-      this.element.classList.remove('helix-theme-dark') 
+      document.querySelector('body').classList.remove('helix-theme-dark') 
     }
   }
 }
