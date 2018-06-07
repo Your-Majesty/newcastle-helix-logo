@@ -1,10 +1,12 @@
 class HelixLogoUITabletOverlay {
   constructor() {
+    this.logo = document.querySelector('.helix-logo-ui-tablet__logo-wrapper')
     this.buttonIntro = document.querySelector('.button-intro-logo')
     this.buttonShare = document.querySelector('.helix-logo-ui-tablet__share')
     this.buttonNewsletter = document.querySelector('.helix-logo-ui-tablet__newsletter')
     this.buttonClose = document.querySelector('.helix-logo-ui-tablet__close')
     this.buttonMoreInfo = document.querySelector('.helix-logo-infoscreen-button')
+    this.buttonMoreInfoWrapper = document.querySelector('.helix-logo-info__button')
 
     this.buttonsWrapper = document.querySelector('.helix-logo-ui-share')
     this.overlayWrapper = document.querySelector('.helix-logo-ui-tablet__overlay__wrapper')
@@ -28,9 +30,13 @@ class HelixLogoUITabletOverlay {
 
     this.currentView = this.intro
     this.overlayWrapper.style.display = 'block'
+    this.logo.style.display = 'block'
+    document.querySelector('body').classList.add('tablet-overlay')
   }
 
   close() {
+    document.querySelector('body').classList.remove('tablet-overlay')
+    this.buttonMoreInfoWrapper.style.display = 'inline-block'
     this.buttonClose.style.display = 'none'
     this.buttonsWrapper.style.display = 'block'
     this.currentView.style.display = 'none'
@@ -59,6 +65,8 @@ class HelixLogoUITabletOverlay {
   }
 
   open() {
+    document.querySelector('body').classList.add('tablet-overlay')
+    this.buttonMoreInfoWrapper.style.display = 'none'
     this.overlay.style.display = 'block'
     this.overlayWrapper.style.display = 'inline-block'
     this.currentView.style.display = 'inline-block'

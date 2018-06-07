@@ -1,3 +1,39 @@
+.helix-logo-ui-tablet__logo-wrapper {
+  position: absolute;
+  width: 150px;
+  z-index: 20;
+  left: 36px;
+  top: 36px;
+  display: none;
+}
+
+.helix-logo-ui-tablet__logo {
+  width: 150px;
+  position: absolute;
+}
+
+.helix-logo-ui-tablet__logo-black {
+  display: block;
+
+  .helix-theme-dark & {
+    display: none;
+  }
+  .tablet-overlay & {
+    display: none;
+  }
+}
+
+.helix-logo-ui-tablet__logo-white {
+  display: none;
+
+  .helix-theme-dark & {
+    display: block;
+  }
+  .tablet-overlay & {
+    display: block;
+  }
+}
+
 .helix-logo-ui-tablet__overlay__wrapper {
   position: fixed;
   top: 0;
