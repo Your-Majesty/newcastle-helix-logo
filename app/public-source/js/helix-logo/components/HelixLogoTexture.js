@@ -32,7 +32,7 @@ class HelixLogoTexture {
     this.allRibbons = []
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
-    this.totalRibbons = 12
+    this.totalRibbons = 11
 
     this.backgroundColors = [
       '#58f9ea',
@@ -50,7 +50,7 @@ class HelixLogoTexture {
     
     this.gradientColors = [
       // Teal
-      new THREE.Color("rgb(51, 255, 204)"),
+      new THREE.Color("rgb(79, 248, 231)"),
       // Blue
       new THREE.Color("rgb(0, 51, 255)"),
       // Indigo
@@ -139,7 +139,7 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 900 )
+    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 850 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
   }

@@ -37,12 +37,12 @@ const DataInterpolator = (() => {
   controller.limits = {
     humidity: {
       lineCount: {
-        min: 2, 
-        max: 12
+        min: 1, 
+        max: 10
       },
       lineSeparation: {
-        min: 6, 
-        max: 20
+        min: 4, 
+        max: 16
       }
     },
     temperature: {
@@ -58,7 +58,7 @@ const DataInterpolator = (() => {
       },
       totalCurls: {
         min: 2,
-        max: 3
+        max: 2
       }
     },
     wind: {
@@ -67,8 +67,8 @@ const DataInterpolator = (() => {
         max: 0.009
       }, 
       amplitude: {
-        min: 5,
-        max: 5
+        min: 4,
+        max: 8
       }
     },
     vehicleSpeed: {

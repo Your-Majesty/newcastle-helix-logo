@@ -8,7 +8,7 @@ class HelixLogoUI {
     this.download = new HelixLogoUIDownload()
    
     this.overlay = new HelixLogoUIOverlay()
-    this.isTableExperience = false
+    this.isTableExperience = true
     this.timelineIsActive = false
     this.sliderIsActive = false
 
@@ -17,8 +17,9 @@ class HelixLogoUI {
 
     this.animateIn = this.animateIn.bind(this)
     this.animateOut = this.animateOut.bind(this)
+    this.animateOverlayOut = this.animateOverlayOut.bind(this)
 
-    this.animateIn()
+    // this.animateIn()
 
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
@@ -43,7 +44,7 @@ class HelixLogoUI {
       this.tabletOverlay = new HelixLogoUITabletOverlay()
       this.element.classList.add('is-tablet-experience')
       this.download.hide()
-      this.tabletOverlay.overlay.addEventListener('uiTabletOverlayClosed', this.animateIn)
+      this.tabletOverlay.overlay.addEventListener('uiTabletOverlayClosed', this.animateOverlayOut)
       this.tabletOverlay.overlay.addEventListener('uiTabletOverlayOpen', this.animateOut)
       this.isOnline()
     } else {
@@ -61,15 +62,32 @@ class HelixLogoUI {
     }, 200)
   }
 
+  animateOverlayOut() {
+    if (this.sliderIsActive) {
+      this.anchor.animateIn()
+      this.showSliders()
+      this.buttons.animateIn()
+
+    } else {
+      this.anchor.animateIn()
+      this.showTimeline()
+      this.buttons.animateIn()
+
+    }
+
+  }
+
   animateIn() {
     this.anchor.animateIn()
     this.showTimeline()
     this.buttons.animateIn()
   }
 
+
   animateOut() {
     this.anchor.animateOut()
     this.buttons.animateOut()
+    this.slider.animateOut()
     this.timeline.animateOut()
   }
 
@@ -111,6 +129,8 @@ class HelixLogoUI {
     this.timeline.animateOut()
     this.timelineIsActive = false
   }
+  
+
 
   mapValuesTimeline(index) {
     SliderCollector.getCurrentValues(index)

@@ -1,7 +1,7 @@
 const HelixLogoApp = (() => {
   
   window.addEventListener('message', function (event) {
-    if (event) {
+    if (event.data) {
       var result = JSON.parse(event.data) 
       if (result.action == 'show-ui') {
         helixUI.animateIn()
@@ -87,6 +87,8 @@ const HelixLogoApp = (() => {
       if (TimelineCollector.currentIndex == 0 && !helixUI.sliderIsActive) {
         helixUI.mapValues(TimelineCollector.currentIndex)
         helixTimeline.calculateTimeline()
+        helixUI.mapValuesSlider()
+        DataInterpolator.calculateSlider(SliderCollector.sensors)
         DataInterpolator.calculatePoint(DataCollector.collection[0])
         helixRibbon.updateValues(DataInterpolator.calculatedPoint)
       }
