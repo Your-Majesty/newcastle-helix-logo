@@ -200,11 +200,17 @@ class HelixLogoTexture {
       UiColorTracker.setUIColor(this.gradientGuide)
 
 
+      console.log(this.gradientGuide)
+
       this.allRibbons.forEach((ribbon) => {
         ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
         ribbon.uniform.colorLastA.value = this.gradientColors[this.lastGradientGuide]
         ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
         ribbon.uniform.colorLastB.value = this.gradientColors[this.lastGradientGuide + 1]
+        ribbon.uniform.colorCurrentIndex.value = this.gradientGuide !== 1 ? false : true
+        
+        // console.log()
+
       })
     }
 
@@ -226,8 +232,7 @@ class HelixLogoTexture {
     this.innerRadius = values['innerRadius']
     this.totalCurls = Math.floor(values['totalCurls'])
     this.amplitude = values['amplitude']
-    // console.log(this.totalCurls)
-    // this.variationRatio = values['variationRatio']
+    this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
     this.calculateColors(this.colorScale)

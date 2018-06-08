@@ -17,6 +17,7 @@ uniform vec3 colorB;
 uniform vec3 colorLastB;
 
 uniform float colorTiming;
+uniform bool colorCurrentIndex;
 
 uniform float lineSpeed;
 uniform float lineBreakSeparation;
@@ -111,7 +112,13 @@ void main(void){
     stY = tile(stY, 1., breakFrequency);
     
     if (coloredDivisions) {
-      colorSeparation = vec3(colorMixedLight);
+      if (colorCurrentIndex) {
+        colorSeparation = vec3(colorMixedDark);
+      } else {
+        colorSeparation = vec3(colorMixedLight);
+      }
+
+     
     } else {
       colorSeparation = vec3(1.0);
     }

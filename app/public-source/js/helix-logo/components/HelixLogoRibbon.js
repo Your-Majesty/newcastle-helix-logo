@@ -78,6 +78,10 @@ class HelixLogoRibbon {
         type: 'f',
         'value': 1.
       },
+      colorCurrentIndex: {
+        type: 'bool',
+        'value': false
+      },
       colorIsDark: {
         type: 'bool',
         value: false,
