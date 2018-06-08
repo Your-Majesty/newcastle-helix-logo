@@ -63,7 +63,7 @@ class HelixLogoTexture {
   }
 
   init() {
-    this.createStats()
+    // this.createStats()
     this.createdElement = true
     this.analizeURL(window.location.href.split('?')[1])
     this.createScene()
@@ -245,7 +245,7 @@ class HelixLogoTexture {
   }
 
   animate() {
-    this.stats.begin()
+    // this.stats.begin()
     this.isPlaying = true
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
     this.time += .003
@@ -277,7 +277,7 @@ class HelixLogoTexture {
 
     this.variator +=  this.variationRatio
     this.updateCurves()
-    this.stats.end()
+    // this.stats.end()
     this.renderer.render( this.scene, this.camera )
   }
 }

@@ -11,7 +11,7 @@ class HelixLogoRibbon {
 
     this.innerRadius = 50.7
     this.outerRadius = 500
-    this.totalCurls = 10
+    this.totalCurls = 2
     this.variationRatio = 0.004
     this.noiseSize = 280.5
     this.index = index

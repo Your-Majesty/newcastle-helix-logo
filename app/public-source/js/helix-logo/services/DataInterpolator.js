@@ -84,7 +84,7 @@ const DataInterpolator = (() => {
     vehicleCount: {
       breakFrequency: {
         min: 20,
-        max: 170
+        max: 70
       }
     }
   }
