@@ -20,12 +20,6 @@ const HelixLogoApp = (() => {
     }
   }) 
 
-
-  // setTimeout(() =>{ 
-  //   helixUI.animateIn()
-  // }, 400);
-
-  
   window.addEventListener('uiZoomIn', function (e) {
     console.log('zoom in')
     helixRibbon.zoomInCamera()
@@ -58,6 +52,8 @@ const HelixLogoApp = (() => {
   window.addEventListener('uiSliderUpdated', function (e) {
     helixUI.mapValuesSlider()
     DataInterpolator.calculateSlider(SliderCollector.sensors)
+  
+
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
   })
 
@@ -78,7 +74,6 @@ const HelixLogoApp = (() => {
     helixUI.mapValues(TimelineCollector.currentIndex)
     helixTimeline.calculateTimeline()
     DataInterpolator.calculatePoint(DataCollector.collection[0])
-
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
 
   }, () => {
@@ -89,7 +84,7 @@ const HelixLogoApp = (() => {
 
   setInterval(() => {
     DataCollector.getData().then(() => {
-      if (TimelineCollector.currentIndex == 0) {
+      if (TimelineCollector.currentIndex == 0 && !helixUI.sliderIsActive) {
         helixUI.mapValues(TimelineCollector.currentIndex)
         helixTimeline.calculateTimeline()
         DataInterpolator.calculatePoint(DataCollector.collection[0])
@@ -98,9 +93,6 @@ const HelixLogoApp = (() => {
     })
     
   }, 90000)
-
-
-
 
   const helixRibbon = new HelixLogoTexture()
   const helixUI = new HelixLogoUI()

@@ -9,10 +9,10 @@ class HelixLogoTexture {
     this.lineCount = 10.
     
     this.innerRadius = 20.
-    this.outerRadius = 0
-    this.totalCurls = 0.
+    this.outerRadius = 65
+    this.totalCurls = 2.
     this.variationRatio = 0.0058
-    this.variator = 0.05
+    this.variator = 0.1
     this.noiseSize = 180.5
     this.breakSize = 0.3
     this.breakFrequency = 10.0
@@ -32,7 +32,7 @@ class HelixLogoTexture {
     this.allRibbons = []
     this.noiseArray = []
     this.perlin = new ClassicalNoise()
-    this.totalRibbons = 9
+    this.totalRibbons = 12
 
     this.backgroundColors = [
       '#58f9ea',
@@ -90,7 +90,7 @@ class HelixLogoTexture {
     window.removeEventListener('resize', this.resize, false)
     if (this.animationFrame) {
       // this.isPlaying = false
-      // window.cancelAnimationFrame(this.animationFrame)
+      window.cancelAnimationFrame(this.animationFrame)
     }
   }
 
@@ -139,10 +139,9 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 2100 )
+    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 900 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
-    this.camera.position.y = 100
   }
 
   createRibbons() {
@@ -191,7 +190,6 @@ class HelixLogoTexture {
   calculateColors(temperatureAverage) {
     let colorSegments = 1.1 / (this.gradientColors.length - 1) 
     if (this.gradientGuide !== Math.floor(temperatureAverage / colorSegments)) {
-      
       this.animateColor = true
       this.colorTiming = 0
 
@@ -211,7 +209,6 @@ class HelixLogoTexture {
     }
 
     if (!this.isMonochrome) {
-      // this.element.style.backgroundColor = this.backgroundColors[this.gradientGuide]
       if (this.colorBackground) {
         this.element.style.backgroundColor = this.backgroundColors[this.gradientGuide]
       } else {
@@ -223,17 +220,19 @@ class HelixLogoTexture {
   }
 
   updateValues(values) {
-    this.lineCount = Math.floor(values['lineCount'])
     this.lineSpeed = values['lineSpeed']
     this.lineSeparation = values['lineSeparation']
     this.colorScale = values['colorScale']
     this.innerRadius = values['innerRadius']
+    this.totalCurls = Math.floor(values['totalCurls'])
     this.amplitude = values['amplitude']
-    this.totalCurls = values['totalCurls']
+    // console.log(this.totalCurls)
     // this.variationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
     this.calculateColors(this.colorScale)
+
+
 
     if (!this.isPlaying) {
       this.updateCurves()
@@ -264,35 +263,19 @@ class HelixLogoTexture {
 
     this.allRibbons.forEach((ribbon) => {
       ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius 
-      ribbon.uniform.totalCurls.value = this.totalCurls
-      ribbon.uniform.coloredDivisions.value = true
-      // ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
-      // ribbon.uniform.time.value = this.time
-      ribbon.uniform.lineSpeed.value = this.lineSpeed
-      ribbon.uniform.lineCount.value = Math.floor(this.lineCount)
-      ribbon.uniform.breakSize.value = this.breakSize 
-      ribbon.uniform.breakFrequency.value = this.breakFrequency
+      ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
-      ribbon.uniform.amplitude.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
-    
+      ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
+      ribbon.uniform.time.value = this.time
+      ribbon.uniform.lineSpeed.value = this.lineSpeed
+      ribbon.uniform.breakSize.value = this.breakSize 
+      ribbon.uniform.breakFrequency.value = (1. - 0.1) * ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
+      ribbon.uniform.coloredDivisions.value = this.coloredDivisions
+      ribbon.uniform.amplitude.value = this.amplitude
       ribbon.calculateThickness(this.lineSeparation)
     })
 
-    // this.ribbon.totalCurls = (1. - 0.1) * this.ribbon.totalCurls + 0.1 * this.totalCurls; 
-    // // this.ribbon.variationRatio = (1. - 0.1) * this.ribbon.variationRatio + 0.1 * this.variationRatio
-    // this.ribbon.variationRatio = this.ribbon.variationRatio
-    // this.ribbon.noiseSize = this.noiseSize
-    // this.variator +=  this.variationRatio
-
-    // console.log(this.variator)
-
-    
-    // this.ribbon.uniform.lineSpeed.value = this.lineSpeed
-    // this.ribbon.uniform.lineBreakSeparation.value =  this.lineSeparation
-    // this.ribbon.uniform.lineCount.value = (1. - 0.1) * this.ribbon.uniform.lineCount.value + 0.1 * this.lineCount
-    // this.ribbon.uniform.breakSize.value = this.breakSize; 
-    // this.ribbon.uniform.breakFrequency.value = (1. - 0.1) * this.ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
-    
+    this.variator +=  this.variationRatio
     this.updateCurves()
     this.stats.end()
     this.renderer.render( this.scene, this.camera )

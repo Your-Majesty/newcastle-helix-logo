@@ -18,6 +18,12 @@ const TemperatureAnalizer = (() => {
     })
     
     let lastYearTemperature = lastHours[0]
+    if (lastYearTemperature > 0) {
+      lastYearTemperature = lastHours[0]
+    } else {
+      lastYearTemperature = 20
+    }
+
     if (lastYearTemperature > temperature) {
       return temperature / (lastYearTemperature * 2)
     } else {

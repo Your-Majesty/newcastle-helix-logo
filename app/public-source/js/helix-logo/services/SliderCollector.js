@@ -38,6 +38,7 @@ const SliderCollector = (() => {
   }
 
   controller.getCurrentSensor = () => {
+    console.log(controller.currentSensor)
     return {name: controller.currentSensor, value:parseFloat(controller.sensors[`${controller.currentSensor}`].value).toFixed( 2 )}
   }
 

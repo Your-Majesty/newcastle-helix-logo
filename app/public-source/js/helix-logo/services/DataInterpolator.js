@@ -38,11 +38,11 @@ const DataInterpolator = (() => {
     humidity: {
       lineCount: {
         min: 2, 
-        max: 4
+        max: 12
       },
       lineSeparation: {
-        min: 1, 
-        max: 1
+        min: 6, 
+        max: 20
       }
     },
     temperature: {
@@ -54,27 +54,27 @@ const DataInterpolator = (() => {
     energy: {
       innerRadius: {
         min: -50,
-        max: 20
+        max: 50
       },
       totalCurls: {
-        min: 1,
-        max: 2
+        min: 2,
+        max: 3
       }
     },
     wind: {
       variationRatio: {
         min: 0.001,
         max: 0.009
-      },
-      amplitude:{
-        min: 1,
-        max: 1
+      }, 
+      amplitude: {
+        min: 5,
+        max: 5
       }
     },
     vehicleSpeed: {
       lineSpeed: {
         min: 0.05,
-        max: 0.08
+        max: 0.1
       },
       breakSize: {
         min: 0.1,
@@ -84,7 +84,7 @@ const DataInterpolator = (() => {
     vehicleCount: {
       breakFrequency: {
         min: 20,
-        max: 70
+        max: 170
       }
     }
   }
@@ -98,7 +98,8 @@ const DataInterpolator = (() => {
     variationRatio: 0,
     lineSpeed: 0,
     breakSize: 0,
-    breakFrequency: 0
+    breakFrequency: 0,
+    amplitude: 0
   }
 
   controller.calculatePoint = (dataPoint) => {
