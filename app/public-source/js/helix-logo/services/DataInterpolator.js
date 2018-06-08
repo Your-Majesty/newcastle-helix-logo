@@ -63,7 +63,7 @@ const DataInterpolator = (() => {
     },
     wind: {
       variationRatio: {
-        min: 0.001,
+        min: 0.002,
         max: 0.009
       }, 
       amplitude: {
@@ -113,7 +113,7 @@ const DataInterpolator = (() => {
           controller.calculatedPoint[key] = controller.linearInterpolation(
             property.min, 
             property.max,
-            dataPoint[property.name],
+            dataPoint[property.name] !== null ? dataPoint[property.name] : 0,
             controller.limits[property.name][key].min,
             controller.limits[property.name][key].max
           )

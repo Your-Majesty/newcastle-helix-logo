@@ -36,8 +36,10 @@ class HelixLogoUIButtons {
   }
 
   resetButtons() {
-    this.currentButton.classList.remove('active')
-    this.currentButton = null
+    if (this.currentButton) {
+      this.currentButton.classList.remove('active')
+      this.currentButton = null
+    }
   }
 
   selectButton(button) {

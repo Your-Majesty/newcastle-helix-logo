@@ -43,7 +43,7 @@ module.exports = (() => {
 
     sensorLimits.forEach(function (m) {
       m.min = Math.min(...m.data)
-      m.max = Math.max(...m.data)
+      m.max = Math.max(...m.data) == 0 ? 1 : Math.max(...m.data) 
       delete m['data']
     })
     

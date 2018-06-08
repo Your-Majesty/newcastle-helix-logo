@@ -68,6 +68,9 @@ class HelixLogoUITabletOverlay {
 
   showInfo() {
     this.currentView = this.intro
+    this.event = new CustomEvent('uiResetPressed', {bubbles: true})
+    window.dispatchEvent(this.event)
+
     this.open()
   }
 

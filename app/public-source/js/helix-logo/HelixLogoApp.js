@@ -1,7 +1,12 @@
 const HelixLogoApp = (() => {
   
   window.addEventListener('message', function (event) {
+
+    console.log(event.data)
+
     if (event.data) {
+
+
       var result = JSON.parse(event.data) 
       if (result.action == 'show-ui') {
         helixUI.animateIn()
@@ -63,7 +68,6 @@ const HelixLogoApp = (() => {
     DataInterpolator.calculatePoint(DataCollector.collection[0])
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
   })
-
 
   DataCollector.getData().then(() => {
     if (!helixRibbon.createdElement) {

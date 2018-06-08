@@ -130,8 +130,6 @@ class HelixLogoUI {
     this.timelineIsActive = false
   }
   
-
-
   mapValuesTimeline(index) {
     SliderCollector.getCurrentValues(index)
     this.buttons.mapButtonsValues(index)
