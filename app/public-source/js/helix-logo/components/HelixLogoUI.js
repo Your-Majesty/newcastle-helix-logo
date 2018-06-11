@@ -19,6 +19,8 @@ class HelixLogoUI {
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
 
+
+
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
         this.showSliders()
@@ -36,7 +38,7 @@ class HelixLogoUI {
     this.anchor.mapAnchorValue(0)
     this.timeline.createLines()
 
-    if (this.isTableExperience) {
+    if (isTabletExperience) {
       this.zoom = new HelixLogoUIScale()
       this.video = new HelixUITabletVideo()
       this.tabletOverlay = new HelixLogoUITabletOverlay()

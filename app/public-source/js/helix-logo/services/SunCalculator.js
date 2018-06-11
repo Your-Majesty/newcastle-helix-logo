@@ -12,11 +12,11 @@ const SunCalculator = (() => {
     let sunrise = times.sunrise
     
     if (parseInt(hours) >= sunset.getHours() || (parseInt(hours) <= sunrise.getHours())) {
-      if (parseInt(minutes) >= sunset.getMinutes() || parseInt(minutes) <= sunrise.getMinutes()) {
+      // if (parseInt(minutes) >= sunset.getMinutes() || parseInt(minutes) <= sunrise.getMinutes()) {
         controller.darkTheme = true
-      } else {
-        controller.darkTheme = false
-      }
+      // } else {
+      //   controller.darkTheme = false
+      // }
      } else {
       controller.darkTheme = false
     }

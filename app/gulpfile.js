@@ -69,4 +69,23 @@ gulp.task('watch', ['default'], () => {
   })
 })
 
+gulp.task('generate-service-worker', function(callback) {
+  var swPrecache = require('sw-precache');
+  var rootDir = 'public';
+
+  swPrecache.write(`${rootDir}/service-worker.js`, {
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,mp4,json}'],
+    stripPrefix: rootDir,
+
+    runtimeCaching: [{
+      urlPattern: /\/api\/data/,
+      handler: 'networkFirst'
+    }, 
+    {
+      urlPattern: /\/app/,
+      handler: 'networkFirst'
+    }]
+  }, callback);
+});
+
 gulp.task('default', ['static', 'js', 'css'])

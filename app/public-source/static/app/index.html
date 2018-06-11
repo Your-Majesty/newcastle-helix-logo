@@ -7,6 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="manifest" href="/manifest.json">
         <link rel="apple-touch-icon" href="icon.png">
         <!-- Place favicon.ico in the root directory -->
         <link rel="stylesheet" href="/css/helix-logo.css">
@@ -15,6 +16,15 @@
         <!--[if lte IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
+        <div class="helix-logo-ui-tablet__logo-wrapper">
+          <img class="helix-logo-ui-tablet__logo helix-logo-ui-tablet__logo-white" src="latest/logo-white.png"></img>
+          <img class="helix-logo-ui-tablet__logo helix-logo-ui-tablet__logo-black" src="latest/logo-black.png"></img>
+        </div>
+
+        <div class="helix-logo-ui-tablet helix-logo-ui-share">
+          <button class="helix-logo-ui-tablet__newsletter">Newsletter</button>
+          <button class="helix-logo-ui-tablet__share">Share</button>
+        </div>
         <!-- div.helix-logo-ui -->
         <div class="helix-logo-element"></div>
         <!-- This are the elements of the ui -->
@@ -156,11 +166,80 @@
                     </g>
                 </svg>
               </button>
+            <div class="helix-logo-ui-tablet__overlay"></div>
+            <div class="helix-logo-ui-tablet__video__wrapper">
+              <button class="close-button">
+                <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)">
+                            <g id="Group-7" transform="translate(1608.000000, 485.000000)">
+                                <g id="Group-3" transform="translate(13.000000, 13.000000)">
+                                    <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
+                                    <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+              </button>              
+              <div class="helix-logo-ui-tablet__video">
+                <video src="https://klaer.rottefella.no/img/heroVideo.mp4"></video>
+              </div>
+            </div>
+            <div class="helix-logo-ui-tablet__wrapper">
+              <div class="helix-logo-tablet__intro">
+                <div class="helix-logo-tablet-column helix-logo-tablet-first">
+                  <h3>A live picture of <br> Newcastle, right now. 
+                  <br>Captured in our logo</h3>
+                  <p>We’ve placed almost 500 sensors throughout Newcastle. And our unique generative logo is shaped by that live data, so it’s ever changing picture of life in our city.</p>
+                  <button class="button-tablet button-intro-logo">
+                    <p>See our data-driven logo</p>
+                    <svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="01-desktop" transform="translate(-868.000000, -628.000000)" fill="#ffffff">
+                              <g id="Group-4" transform="translate(855.000000, 617.000000)">
+                                  <polygon id="Triangle-Copy-3" transform="translate(16.000000, 15.500000) rotate(-270.000000) translate(-16.000000, -15.500000) " points="16 13 20 18 12 18"></polygon>
+                              </g>
+                          </g>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="helix-logo-tablet-column helix-logo-tablet-second">
+                  <h3>Newcastle Helix is <br> coming to help us all live better lives. Easier. Healthier. Smarter. Longer</h3>
+                  <p>A landmark 24-acre hybrid city quarter in the centre of Newcastle, built for international tech and science businesses, the local community and residents.</p>
+                  <button class="button-tablet button-intro-video">
+                    <p>Watch our film</p>
+                    <svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="#ffffff" fill-rule="evenodd">
+                          <g id="01-desktop" transform="translate(-868.000000, -628.000000)" fill="#ffffff">
+                              <g id="Group-4" transform="translate(855.000000, 617.000000)">
+                                  <polygon id="Triangle-Copy-3" transform="translate(16.000000, 15.500000) rotate(-270.000000) translate(-16.000000, -15.500000) " points="16 13 20 18 12 18"></polygon>
+                              </g>
+                          </g>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="helix-logo-tablet__share">
+                <h4>To share the experience and to save your artwork, please visit:</h4>
+                <h2>newcastlehelix.com/logo</h2>
+              </div>
+              <div class="helix-logo-tablet__newsletter">
+                <h4>Stay up to date with the latest news:</h4>
+                <form action="">
+                  <input type="email" required placeholder="Your email"><button>sign up</button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
+        <script src="/register-service-worker.js"></script>
         <script>
+          // Add this to OBJ
           window.heroLogoURL = ''
-          window.isTabletExperience = false
+          window.isTabletExperience = true
 
         </script>
         <script src="js/helix-logo.js"></script>
