@@ -201,8 +201,7 @@ class HelixLogoRibbon {
       this.vertexAngle[i+1] = i * this.angle
       this.vertexNoise[i] = noiseArray[i]
       this.vertexNoise[i+1] = noiseArray[i]      
-      // this.vertexNoise[i] = 1
-      // this.vertexNoise[i+1] = 1
+    
     }
     this.bufferGeometry.attributes.position.needsUpdate = true
     this.bufferGeometry.attributes.vertexAngle.needsUpdate = true

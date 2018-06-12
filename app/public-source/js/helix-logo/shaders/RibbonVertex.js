@@ -96,7 +96,8 @@ void main() {
   vNormal = normal;
   vec3 pos = position;
 
-  float R = (outerRadius + (vertexNoise * 150.));
+  float R = outerRadius;
+  // float R = (outerRadius + (vertexNoise * 150.));
   
   if (mod(vertexIndex, 2.0) == 0.0) {
     pos.x = ((R + outerWidth) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);

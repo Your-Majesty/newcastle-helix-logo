@@ -19,6 +19,9 @@ class HelixLogoUI {
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
 
+    if (!isTabletExperience) {
+      this.animateIn()
+    }
 
 
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
@@ -42,6 +45,7 @@ class HelixLogoUI {
       this.zoom = new HelixLogoUIScale()
       this.video = new HelixUITabletVideo()
       this.tabletOverlay = new HelixLogoUITabletOverlay()
+      this.newletter = new HelixLogoUINewsletter()
       this.element.classList.add('is-tablet-experience')
       this.download.hide()
       this.tabletOverlay.overlay.addEventListener('uiTabletOverlayClosed', this.animateOverlayOut)
@@ -67,14 +71,11 @@ class HelixLogoUI {
       this.anchor.animateIn()
       this.showSliders()
       this.buttons.animateIn()
-
     } else {
       this.anchor.animateIn()
       this.showTimeline()
       this.buttons.animateIn()
-
     }
-
   }
 
   animateIn() {
@@ -82,7 +83,6 @@ class HelixLogoUI {
     this.showTimeline()
     this.buttons.animateIn()
   }
-
 
   animateOut() {
     this.anchor.animateOut()

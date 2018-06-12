@@ -317,12 +317,15 @@
   background-color: rgba(0, 0, 0, 0.1);
   overflow: hidden;
 
+  .helix-theme-dark & {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
   &:after {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    // background-color: red;
   } 
 
   svg {
@@ -332,6 +335,12 @@
     margin: auto;
     top: 0;
     bottom: 0;
+
+    path {
+      .helix-theme-dark & {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
   }
 }
 
@@ -424,6 +433,11 @@
     letter-spacing: 0.5px;
     background-color: rgba(0, 0, 0, 0.1);
     border: 0;
+
+
+    .helix-theme-dark & {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
 
     &:active {
       .helix-ui-color-blue & {

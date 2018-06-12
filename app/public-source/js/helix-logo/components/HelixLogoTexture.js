@@ -117,13 +117,20 @@ class HelixLogoTexture {
   }
 
   zoomInCamera() {
-    TweenLite.to(this.camera.position, 0.6, {z: 1000, y:-240, ease: Sine.easeOut})
-    TweenLite.to(this.camera.rotation, 0.6, {x: (35 * Math.PI / 180), ease: Sine.easeOut})
+    this.camera.far = 2900
+    this.camera.updateProjectionMatrix()
+    TweenLite.to(this.camera.position, 1.6, {z: 1200, y:-350, ease: Back.easeOut})
+    TweenLite.to(this.camera.rotation, 1.6, {x: (35 * Math.PI / 180), ease: Back.easeOut})
   }
 
   zoomOutCamera() {
-    TweenLite.to(this.camera.position, 0.6, {z: 0, y:0, ease: Sine.easeOut})
-    TweenLite.to(this.camera.rotation, 0.6, {x: (50 * Math.PI / 180), ease: Sine.easeOut})
+    TweenLite.to(this.camera.position, .6, {z: 0, y:0, ease: Quad.easeOut, onComplete: () => {
+      this.camera.far = 850
+      this.camera.updateProjectionMatrix()  
+    }})
+    TweenLite.to(this.camera.rotation, .8, {x: (50 * Math.PI / 180), ease: Quad.easeOut, onComplete: () => {
+     
+    }})
   }
 
   createStats() {
