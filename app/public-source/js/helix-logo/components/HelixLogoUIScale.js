@@ -7,17 +7,22 @@ class HelixLogoUIScale {
     this.zoomIn = this.zoomIn.bind(this)
     this.zoomOut = this.zoomOut.bind(this)
 
+    // this.isZoomed
+    this.buttonPlus.style.opacity = 0.2
     this.buttonPlus.addEventListener('click', this.zoomOut)
     this.buttonMinus.addEventListener('click', this.zoomIn)
   }
   
   zoomIn() {
     CameraTracker.zoomIn()
-    // this.buttonMinus.style.opacity = 0.5
+    this.buttonMinus.style.opacity = 0.2
+    this.buttonPlus.style.opacity = 1
 
   }
 
   zoomOut() {
+    this.buttonMinus.style.opacity = 1
+    this.buttonPlus.style.opacity = 0.2
     CameraTracker.zoomOut()
   }
 

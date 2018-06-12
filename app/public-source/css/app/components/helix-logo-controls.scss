@@ -363,12 +363,24 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
   }
+
+  svg path {
+    .helix-theme-dark & {
+      fill:white;
+    }
+  }
 }
 
 .helix-logo-ui-scale-less {
 
   top: 50%;
   border-radius:  0 0 50% 50%;
+
+  svg g g {
+    .helix-theme-dark & {
+      fill: white;
+    }
+  }
 
   .helix-theme-dark & {
     background-color: rgba(255, 255, 255, 0.1);
