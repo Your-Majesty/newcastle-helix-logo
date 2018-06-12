@@ -17,7 +17,7 @@ class HelixLogoUITimeline {
 
     this.isDragging = false
 
-
+    this.counterLess = 0
     this.minPercentage = 32.5
     this.maxPercentage = 65.3
     this.percentageConversion = 95 / 33
@@ -104,12 +104,17 @@ class HelixLogoUITimeline {
     this.linesWrapper.style.transform =  `translateX(${this.totalDrag}%)`
   
     if (this.isPlaying && this.indexTimeline > 0) {
-      this.time += 0.001
+      this.time += 0.08
 
-      this.indexTimeline =  this.indexTimeline > 0 ? this.indexTimeline - 1 : 0
+      if (this.time >= 1) {
+
+        this.time = 0
+        this.indexTimeline =  this.indexTimeline > 0 ? this.indexTimeline - 1 : 0
+
+      }
+
       this.totalDrag = -(((Math.abs(this.indexTimeline - this.totalCollection)) / this.percentageConversion) + this.minPercentage)
       this.currentPercentage = this.totalDrag
-      
       TimelineCollector.updateIndex(this.indexTimeline)
 
     } else {
