@@ -1,5 +1,6 @@
 const HelixLogoApp = (() => {
   
+  const controller = {}
   window.addEventListener('message', function (event) {
 
     if (event.data) {
