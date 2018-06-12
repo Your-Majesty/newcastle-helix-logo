@@ -12,6 +12,8 @@ class HelixLogoTexture {
     this.outerRadius = 65
     this.totalCurls = 2.
     this.variationRatio = 0.0058
+    this.newVariationRatio = 0.0058
+
     this.variator = 0.1
     this.noiseSize = 180.5
     this.breakSize = 0.3
@@ -163,8 +165,8 @@ class HelixLogoTexture {
   calculateRibbonsNoise() {
     this.noiseArray = []
     for (var i = 0; i < this.totalRibbonVertices; i++) {
-      // this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.9), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
-      this.noiseArray.push(0.5)
+      this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.9), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
+      // this.noiseArray.push(0.5)
     }
     this.allRibbons.forEach((ribbon) => {
       ribbon.drawGeometry(this.noiseArray)
@@ -240,7 +242,7 @@ class HelixLogoTexture {
     this.innerRadius = values['innerRadius']
     this.totalCurls = Math.floor(values['totalCurls'])
     this.amplitude = values['amplitude']
-    this.variationRatio = values['variationRatio']
+    this.newVariationRatio = values['variationRatio']
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
     this.calculateColors(this.colorScale)
@@ -248,14 +250,12 @@ class HelixLogoTexture {
 
 
     if (!this.isPlaying) {
-      this.updateCurves()
+      this.calculateRibbonsNoise()
       this.renderer.render( this.scene, this.camera )
     }
   }
   
-  updateCurves() {
-    this.calculateRibbonsNoise()
-  }
+
 
   animate() {
     // this.stats.begin()
@@ -277,7 +277,6 @@ class HelixLogoTexture {
       ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius 
       ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
-      ribbon.variationRatio = (1. - 0.1) * ribbon.variationRatio + 0.1 * this.variationRatio
       ribbon.uniform.time.value = this.time
       ribbon.uniform.lineSpeed.value = this.lineSpeed
       ribbon.uniform.breakSize.value = this.breakSize 
@@ -287,8 +286,10 @@ class HelixLogoTexture {
       ribbon.calculateThickness(this.lineSeparation)
     })
 
+    // this.variationRatio = (1. - 0.1) * this.variationRatio + 0.03 * this.newVariationRatio
+
     this.variator +=  this.variationRatio
-    this.updateCurves()
+    this.calculateRibbonsNoise()
     // this.stats.end()
     this.renderer.render( this.scene, this.camera )
   }
