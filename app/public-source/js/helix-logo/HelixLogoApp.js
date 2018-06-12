@@ -51,6 +51,7 @@ const HelixLogoApp = (() => {
     if (!helixRibbon.isMonochrome) {
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
+
       helixUI.updateTheme(e.detail)
     }
   })
@@ -97,8 +98,6 @@ const HelixLogoApp = (() => {
   controller.updateLogoData = () => {
     helixUI.mapValues(TimelineCollector.currentIndex)
     helixTimeline.calculateTimeline()
-    helixUI.mapValuesSlider()
-    DataInterpolator.calculateSlider(SliderCollector.sensors)
     DataInterpolator.calculatePoint(DataCollector.collection[0])
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
   }

@@ -163,11 +163,14 @@ class HelixLogoTexture {
   calculateRibbonsNoise() {
     this.noiseArray = []
     for (var i = 0; i < this.totalRibbonVertices; i++) {
-      this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.9), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
+      // this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.9), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
+      this.noiseArray.push(0.5)
     }
     this.allRibbons.forEach((ribbon) => {
       ribbon.drawGeometry(this.noiseArray)
     })
+
+    // console.log('test')
   }
 
   createCaptureCanvas() {
@@ -196,6 +199,7 @@ class HelixLogoTexture {
 
   calculateColors(temperatureAverage) {
     let colorSegments = 1.1 / (this.gradientColors.length - 1) 
+
     if (this.gradientGuide !== Math.floor(temperatureAverage / colorSegments)) {
       this.animateColor = true
       this.colorTiming = 0
@@ -203,11 +207,11 @@ class HelixLogoTexture {
       this.lastGradientGuide = this.gradientGuide
       this.gradientGuide = Math.floor(temperatureAverage / colorSegments)
 
-      UiColorTracker.currentColor = this.lastGradientGuide
+      UiColorTracker.currentColor = this.gradientGuide
+      UiColorTracker.lastColor = this.lastGradientGuide
       UiColorTracker.setUIColor(this.gradientGuide)
 
-
-      console.log(this.gradientGuide)
+      // console.log(this.gradientGuide)
 
       this.allRibbons.forEach((ribbon) => {
         ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
@@ -215,9 +219,6 @@ class HelixLogoTexture {
         ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
         ribbon.uniform.colorLastB.value = this.gradientColors[this.lastGradientGuide + 1]
         ribbon.uniform.colorCurrentIndex.value = this.gradientGuide !== 1 ? false : true
-        
-        // console.log()
-
       })
     }
 
@@ -272,7 +273,6 @@ class HelixLogoTexture {
       }
     }
    
-
     this.allRibbons.forEach((ribbon) => {
       ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius 
       ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls

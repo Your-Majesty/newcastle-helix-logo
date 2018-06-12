@@ -1,5 +1,4 @@
 class HelixLogoUISlider {
-  
   constructor() {
     this.element = document.querySelector('.helix-logo-slider')
     this.slide = document.querySelector('.helix-logo__slide')
@@ -56,8 +55,6 @@ class HelixLogoUISlider {
   }
 
   setPercentage(sensor) {
-    console.log(SliderCollector.sensors[`${sensor}`].percentage)
-
     let percentage = 100 - (SliderCollector.sensors[`${sensor}`].percentage * 100) - 50
     this.totalDrag = percentage
     this.currentPercentage = percentage

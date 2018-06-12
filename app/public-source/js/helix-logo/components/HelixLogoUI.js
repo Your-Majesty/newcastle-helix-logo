@@ -19,6 +19,8 @@ class HelixLogoUI {
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
 
+    this.animateIn()
+
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
         this.showSliders()
@@ -102,7 +104,7 @@ class HelixLogoUI {
     this.overlay.deactivate()
     this.overlay.closeModal()
     this.buttons.resetButtons()
-    this.mapValues(TimelineCollector.currentIndex)
+    this.mapValues(0)
   }
 
   hideSliders() {
@@ -142,6 +144,8 @@ class HelixLogoUI {
   }
 
   updateTheme(lightTheme) {
+    console.log(UiColorTracker.currentColor)
+
     if (lightTheme) {
       document.querySelector('body').classList.add('helix-theme-dark') 
     } else {

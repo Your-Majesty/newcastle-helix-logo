@@ -166,9 +166,15 @@ class HelixLogoRibbon {
     this.vertexIndex = new Float32Array(this.bufferGeometry.attributes.position.count)
     this.vertexAngle = new Float32Array(this.bufferGeometry.attributes.position.count)
     this.vertexNoise = new Float32Array(this.bufferGeometry.attributes.position.count)
+    this.vertexLastNoise = new Float32Array(this.bufferGeometry.attributes.position.count)
     
     for (let v = 0; v < this.bufferGeometry.attributes.position.count; v++) {
       this.vertexIndex[v] = v
+    }
+
+    for (let i = 0; i < this.bufferGeometry.attributes.position.count; i=i+2) {
+      this.vertexAngle[i] = i * this.angle
+      this.vertexAngle[i+1] = i * this.angle  
     }
 
     this.bufferGeometry.addAttribute( 'vertexIndex', new THREE.BufferAttribute( this.vertexIndex, 1 ) )
@@ -197,15 +203,12 @@ class HelixLogoRibbon {
 
   drawGeometry(noiseArray) {
     for (let i = 0; i < this.bufferGeometry.attributes.position.count; i=i+2) {
-      this.vertexAngle[i] = i * this.angle
-      this.vertexAngle[i+1] = i * this.angle
       this.vertexNoise[i] = noiseArray[i]
-      this.vertexNoise[i+1] = noiseArray[i]      
-    
+      this.vertexNoise[i+1] = noiseArray[i]   
     }
+
     this.bufferGeometry.attributes.position.needsUpdate = true
     this.bufferGeometry.attributes.vertexAngle.needsUpdate = true
     this.bufferGeometry.attributes.vertexNoise.needsUpdate = true
-  
   }
 }

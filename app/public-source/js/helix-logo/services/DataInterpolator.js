@@ -126,13 +126,17 @@ const DataInterpolator = (() => {
     for (let property of DataCollector.limits) {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {
-       controller.calculatedPoint[key] = controller.linearInterpolation(
+        if (key == 'colorScale') {
+          // controller.calculatedPoint[key] = TemperatureAnalizer.calculateDate(dataPoint.timestamp, dataPoint['temperature'])
+        } else {
+          controller.calculatedPoint[key] = controller.linearInterpolation(
           property.min, 
           property.max,
           sliderPoint[property.name].value,
           controller.limits[property.name][key].min,
           controller.limits[property.name][key].max
-        )
+          )
+        } 
       }
     }
   }

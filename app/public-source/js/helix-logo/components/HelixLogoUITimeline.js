@@ -3,7 +3,7 @@ class HelixLogoUITimeline {
     this.element = document.querySelector('.helix-logo-timeline')
     this.linesWrapper = document.querySelector('.helix-logo-timeline__lines')
     this.isActive = false  
-
+    
     this.moveTimeline = this.moveTimeline.bind(this)
 
     this.totalCollection = 0
@@ -12,6 +12,11 @@ class HelixLogoUITimeline {
     this.currentPercentage = -65.3
     this.percentageDragged = 0
     this.totalDrag = -65.3
+    this.friction = 0.85
+    this.bounce = 0.2
+
+    this.isDragging = false
+
 
     this.minPercentage = 32.5
     this.maxPercentage = 65.3
@@ -106,6 +111,7 @@ class HelixLogoUITimeline {
       this.currentPercentage = this.totalDrag
       
       TimelineCollector.updateIndex(this.indexTimeline)
+
     } else {
       this.isPlaying = false
     }
@@ -121,22 +127,26 @@ class HelixLogoUITimeline {
 
   moveTimeline(ev) {
     this.isPlaying = false
+
     this.percentageDragged = (ev.deltaX / this.linesWrapper.offsetWidth) * 100
-    this.totalDrag = this.currentPercentage + this.percentageDragged
+
+    console.log(this.percentageDragged * ev.velocityX)
+    this.totalDrag = (this.currentPercentage + this.percentageDragged)
     
+    
+
     if (this.totalDrag <= -this.maxPercentage) {
       this.totalDrag = -this.maxPercentage
     } else if (this.totalDrag >= -this.minPercentage) {
       this.totalDrag = -this.minPercentage
     }
 
-
-      if (Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion)) !== this.indexTimeline) {
-        if ((Math.abs(this.totalDrag) >= this.minPercentage) && (Math.abs(this.totalDrag) <= this.maxPercentage)) {
-          this.indexTimeline = Math.abs((Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion))) - this.totalCollection)
-          TimelineCollector.updateIndex(this.indexTimeline)
-        }
+    if (Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion)) !== this.indexTimeline) {
+      if ((Math.abs(this.totalDrag) >= this.minPercentage) && (Math.abs(this.totalDrag) <= this.maxPercentage)) {
+        this.indexTimeline = Math.abs((Math.abs(Math.ceil((Math.abs(this.totalDrag) - this.minPercentage) * this.percentageConversion))) - this.totalCollection)
+        TimelineCollector.updateIndex(this.indexTimeline)
       }
+    }
     
     if (ev.isFinal) {
       this.currentPercentage = this.currentPercentage + this.percentageDragged
