@@ -57,12 +57,16 @@ class HelixLogoUITabletOverlay {
   showNewsletter() {
     this.buttonClose.style.display = 'block'
     this.currentView = this.newsletter
+    this.event = new CustomEvent('uiResetPressed', {bubbles: true})
+    window.dispatchEvent(this.event)
     this.open()
   }
 
   showShare() {
     this.buttonClose.style.display = 'block'
     this.currentView = this.share
+    this.event = new CustomEvent('uiResetPressed', {bubbles: true})
+    window.dispatchEvent(this.event)
     this.open()
   }
 
@@ -78,8 +82,6 @@ class HelixLogoUITabletOverlay {
 
     let openEvent = new CustomEvent('uiTabletOverlayOpen', {bubbles: true})
     this.overlay.dispatchEvent(openEvent)
-
-
     this.scaleButtons.style.display = 'none'
     document.querySelector('body').classList.add('tablet-overlay')
     this.buttonMoreInfoWrapper.style.display = 'none'
