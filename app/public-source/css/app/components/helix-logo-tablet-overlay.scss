@@ -85,16 +85,18 @@
   margin-right: 8%;
 }
 
-.helix-logo-tablet-second {
-  margin-top: -4.5%;
-}
-
 .helix-logo-tablet-column {
   h3 {
-    font-size: 30px;
-    line-height: 1.2;
+    font-size: 23px;
+    line-height: 1.6;
     font-family: 'HelixSemiBold';
-    color: white;
+    color: black;
+    
+    span {
+      padding: 4px 10px 8px 7px;
+      background-color: white;
+    }
+
   } 
 
   p {
