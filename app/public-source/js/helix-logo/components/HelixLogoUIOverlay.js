@@ -14,20 +14,19 @@ class HelixLogoUIOverlay {
     this.closeButton.addEventListener('click', this.closeModal)
     this.sensorExplanations = {
       humidity: {
-        copy: 'Humidity Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'This represents the relative humidity across Newcastle right now. It controls thickness of the lines in our logo.'
       },
       temperature: {
-        copy: 'Temperature Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'This represents the current air temperature across Newcastle. It changes the colour of our logo.'
       },
       energy: {
-        copy: 'Energy Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
-        
+        copy: 'This tracks the energy consumption of key buildings at Newcastle Helix. It dictates the number and degree of the curves in our logo.'
       },
       wind: {
-        copy: 'Wind Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'This shows wind speed across Newcastle this very second. It speeds up and slows down the flow of our logo.'
       },
       vehicleSpeed: {
-        copy: 'Vehicle Speed Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'This shows the average speed on arterial roads through Newcastle city centre right now. The faster the average speed, the greater number of line breaks in our logo.'
       },
       vehicleCount: {
         copy: 'Vehicle Count Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
