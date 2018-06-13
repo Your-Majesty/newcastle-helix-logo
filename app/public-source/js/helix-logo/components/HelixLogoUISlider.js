@@ -34,7 +34,6 @@ class HelixLogoUISlider {
   moveSlider(ev) {
       this.percentageDragged = (ev.deltaX / this.slide.offsetWidth) * 100
       this.totalDrag = this.currentPercentage + this.percentageDragged
-      
       if (this.totalDrag <= this.maxPercentage) {
         this.totalDrag = this.maxPercentage
         this.currentPercentage = this.maxPercentage
@@ -65,7 +64,7 @@ class HelixLogoUISlider {
 
   animateIn() {
     this.element.style.display = 'block'
-    TweenLite.to(this.element, 0.2, {y: '0%', delay: 0.3, ease: Circ.easeOut})
+    TweenLite.to(this.element, 0.2, {y: '0%', delay: 0.5, ease: Circ.easeOut})
     this.animate()
   }
 

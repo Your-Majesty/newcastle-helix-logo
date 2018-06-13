@@ -214,8 +214,6 @@ class HelixLogoTexture {
       UiColorTracker.lastColor = this.lastGradientGuide
       UiColorTracker.setUIColor(this.gradientGuide)
 
-      // console.log(this.gradientGuide)
-
       this.allRibbons.forEach((ribbon) => {
         ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
         ribbon.uniform.colorLastA.value = this.gradientColors[this.lastGradientGuide]
