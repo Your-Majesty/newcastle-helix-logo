@@ -1,11 +1,6 @@
 const HelixLogoApp = (() => {
   
   const controller = {}
-
-  let test = window.matchMedia("(orientation: landscape)")
-
-  console.log(test)
-
   window.addEventListener('message', function (event) {
 
     if (event.data) {
@@ -31,6 +26,13 @@ const HelixLogoApp = (() => {
     }
   }) 
 
+  if (!isTabletExperience) {
+    DeviceTracker.orientation()
+    window.addEventListener('orientationchange', function (e) {
+      DeviceTracker.orientation()
+    })
+  }
+  
   window.addEventListener('uiZoomIn', function (e) {
     console.log('zoom in')
     helixRibbon.zoomInCamera()
