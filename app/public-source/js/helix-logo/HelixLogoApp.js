@@ -1,6 +1,11 @@
 const HelixLogoApp = (() => {
   
   const controller = {}
+
+  let test = window.matchMedia("(orientation: landscape)")
+
+  console.log(test)
+
   window.addEventListener('message', function (event) {
 
     if (event.data) {

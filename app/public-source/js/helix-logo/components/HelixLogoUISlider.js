@@ -10,6 +10,7 @@ class HelixLogoUISlider {
     this.currentPercentage = 0
     this.percentageDragged = 0
     this.totalDrag = 0
+    this.lastTotalDrag = 0
 
     this.minPercentage = 50
     this.maxPercentage = -50
@@ -25,8 +26,9 @@ class HelixLogoUISlider {
 
   animate() {
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
-    this.slide.style.transform =  `translateX(${this.totalDrag}%)`
-    this.color.style.transform =  `translateX(${-(50 + this.totalDrag)}%)`
+    this.lastTotalDrag += (this.totalDrag - this.lastTotalDrag) * 0.1
+    this.slide.style.transform =  `translateX(${this.lastTotalDrag}%)`
+    this.color.style.transform =  `translateX(${-(50 + this.lastTotalDrag)}%)`
   }
 
   moveSlider(ev) {

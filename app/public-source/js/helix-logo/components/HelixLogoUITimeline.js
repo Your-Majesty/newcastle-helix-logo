@@ -12,8 +12,7 @@ class HelixLogoUITimeline {
     this.currentPercentage = -65.3
     this.percentageDragged = 0
     this.totalDrag = -65.3
-    this.friction = 0.85
-    this.bounce = 0.2
+    this.lastTotalDrag = -65.3
 
     this.isDragging = false
 
@@ -88,7 +87,7 @@ class HelixLogoUITimeline {
 
     setTimeout(() => {
       this.isPlaying = true
-    }, 500)
+    }, 1200)
   }
 
   playTimeLine() {
@@ -101,24 +100,25 @@ class HelixLogoUITimeline {
 
   animate() {
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
-    this.linesWrapper.style.transform =  `translateX(${this.totalDrag}%)`
-  
     if (this.isPlaying && this.indexTimeline > 0) {
       this.time += 0.15
 
       if (this.time >= 1) {
-
         this.time = 0
         this.indexTimeline =  this.indexTimeline > 0 ? this.indexTimeline - 1 : 0
-
       }
 
       this.totalDrag = -(((Math.abs(this.indexTimeline - this.totalCollection)) / this.percentageConversion) + this.minPercentage)
       this.currentPercentage = this.totalDrag
+
       TimelineCollector.updateIndex(this.indexTimeline)
+      this.lastTotalDrag += (this.totalDrag - this.lastTotalDrag) * 0.02
+      this.linesWrapper.style.transform =  `translateX(${this.lastTotalDrag}%)`
 
     } else {
       this.isPlaying = false
+      this.lastTotalDrag += (this.totalDrag - this.lastTotalDrag) * 0.1
+      this.linesWrapper.style.transform =  `translateX(${this.lastTotalDrag}%)`
     }
   }
 
@@ -132,14 +132,9 @@ class HelixLogoUITimeline {
 
   moveTimeline(ev) {
     this.isPlaying = false
-
     this.percentageDragged = (ev.deltaX / this.linesWrapper.offsetWidth) * 100
-
-    console.log(this.percentageDragged * ev.velocityX)
     this.totalDrag = (this.currentPercentage + this.percentageDragged)
     
-    
-
     if (this.totalDrag <= -this.maxPercentage) {
       this.totalDrag = -this.maxPercentage
     } else if (this.totalDrag >= -this.minPercentage) {

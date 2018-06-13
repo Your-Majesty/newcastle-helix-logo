@@ -144,8 +144,6 @@ class HelixLogoUI {
   }
 
   updateTheme(lightTheme) {
-    console.log(UiColorTracker.currentColor)
-
     if (lightTheme) {
       document.querySelector('body').classList.add('helix-theme-dark') 
     } else {

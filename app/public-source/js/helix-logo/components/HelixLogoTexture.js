@@ -149,7 +149,7 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 3850 )
+    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 850 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
   }
@@ -247,9 +247,6 @@ class HelixLogoTexture {
     this.breakSize = values['breakSize']
     this.breakFrequency = values['breakFrequency']
     this.calculateColors(this.colorScale)
-
-
-
     if (!this.isPlaying) {
       this.calculateRibbonsNoise()
       this.renderer.render( this.scene, this.camera )

@@ -45,14 +45,21 @@ module.exports = (() => {
           .extract({left: 0, top: 0, width: capture.width / 4, height: capture.height })
           .toBuffer()
           
-         await sharp(logoElement)
+          await sharp(logoElement)
             .resize(82, 82)
             .sharpen(2.0)
             .toFile(`${__dirname}/../tmp/${capture.name}-86-86.png`)
 
-        await sharp(colorBackground)
+          await sharp(colorBackground)
             .overlayWith(`${__dirname}/../tmp/${capture.name}-86-86.png`, { left: 170, top: 0 } )
             .toFile(`${__dirname}/../public/latest/${capture.name}-${option}.png`)
+
+          if (option == 'color') {
+            await sharp(logoElement)
+              .resize(32, 32)
+              .sharpen(2.0)
+              .toFile(`${__dirname}/../public/latest/favicon-32-32.png`)
+          }
 
         } else {
           sharp(logoCapture)
