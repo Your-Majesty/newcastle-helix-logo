@@ -104,7 +104,7 @@ class HelixLogoUITimeline {
     this.linesWrapper.style.transform =  `translateX(${this.totalDrag}%)`
   
     if (this.isPlaying && this.indexTimeline > 0) {
-      this.time += 0.08
+      this.time += 0.15
 
       if (this.time >= 1) {
 

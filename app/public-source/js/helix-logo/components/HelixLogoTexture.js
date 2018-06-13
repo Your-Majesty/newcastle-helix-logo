@@ -26,7 +26,8 @@ class HelixLogoTexture {
     this.isMonochrome = false
     this.gradientGuide = 0
     this.colorTiming = 0
-    
+    this.amplitude = 0.5
+
     this.animationFrame = null
     this.isPlaying = false
     this.resize = this.resize.bind(this)
@@ -148,7 +149,7 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 850 )
+    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 3850 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
   }
@@ -274,19 +275,19 @@ class HelixLogoTexture {
     }
    
     this.allRibbons.forEach((ribbon) => {
-      ribbon.uniform.innerRadius.value = (1. - 0.1) * ribbon.uniform.innerRadius.value + 0.1 * this.innerRadius 
-      ribbon.uniform.totalCurls.value = (1. - 0.1) * ribbon.uniform.totalCurls.value + 0.1 * this.totalCurls
+      ribbon.uniform.innerRadius.value += (this.innerRadius - ribbon.uniform.innerRadius.value) * 0.05
+      ribbon.uniform.totalCurls.value += (this.totalCurls - ribbon.uniform.totalCurls.value) * 0.05
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
       ribbon.uniform.time.value = this.time
       ribbon.uniform.lineSpeed.value = this.lineSpeed
       ribbon.uniform.breakSize.value = this.breakSize 
-      ribbon.uniform.breakFrequency.value = (1. - 0.1) * ribbon.uniform.breakFrequency.value + 0.1 * this.breakFrequency 
+      ribbon.uniform.breakFrequency.value += (this.breakFrequency - ribbon.uniform.breakFrequency.value) * 0.05
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
-      ribbon.uniform.amplitude.value = this.amplitude
+      ribbon.uniform.amplitude.value += (this.amplitude - ribbon.uniform.amplitude.value) * 0.05
       ribbon.calculateThickness(this.lineSeparation)
     })
 
-    // this.variationRatio = (1. - 0.1) * this.variationRatio + 0.03 * this.newVariationRatio
+    this.variationRatio += (this.newVariationRatio - this.variationRatio) * 0.05
 
     this.variator +=  this.variationRatio
     this.calculateRibbonsNoise()

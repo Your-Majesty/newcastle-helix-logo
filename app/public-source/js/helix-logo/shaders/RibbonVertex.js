@@ -98,15 +98,14 @@ void main() {
 
   float R = outerRadius;
 
-
   if (mod(vertexIndex, 2.0) == 0.0) {
-    pos.x = ((R + outerWidth) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
-    pos.y = ((R + outerWidth) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
-    pos.z = ((innerRadius + width) + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(vertexNoise); 
+    pos.x += ((((R + outerWidth) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle)) - pos.x) * 0.1;
+    pos.y += ((((R + outerWidth) + (((innerRadius + width) + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle)) - pos.y) * 0.1;
+    pos.z += ((((innerRadius + width) + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(vertexNoise)) - pos.z) * 0.1; 
   } else {
-    pos.x = ((R + outerWidth) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle);
-    pos.y = ((R + outerWidth) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle);
-    pos.z = (innerRadius + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(-vertexNoise);
+    pos.x += ((((R + outerWidth) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * cos(vertexAngle)) - pos.x) * 0.1;
+    pos.y += ((((R + outerWidth) + ((innerRadius + offset) * cos(totalCurls * vertexAngle))) * sin(vertexAngle)) - pos.y) * 0.1;
+    pos.z += ((((innerRadius + offset) * sin(totalCurls * vertexAngle) * (amplitude * sin(vertexNoise)) + cos(-vertexNoise)) - pos.z) * 0.1;
   }
 
 
