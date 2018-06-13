@@ -119,7 +119,7 @@ class HelixLogoUITimeline {
 
     } else {
       this.isPlaying = false
-      this.lastTotalDrag += (this.totalDrag - this.lastTotalDrag) * 0.1
+      this.lastTotalDrag += (this.totalDrag - this.lastTotalDrag) * 0.09
       this.linesWrapper.style.transform =  `translateX(${this.lastTotalDrag}%)`
     }
   }

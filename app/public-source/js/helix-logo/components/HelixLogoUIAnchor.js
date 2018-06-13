@@ -10,6 +10,8 @@ class HelixLogoUIAnchor {
     this.dayString = 'Today' 
     this.resetAction = this.resetAction.bind(this)
     this.playButton = this.anchor.querySelector('.helix-logo-anchor__play')
+
+    this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octuber', 'November', 'December']
   }
 
   animateIn() {
@@ -70,6 +72,8 @@ class HelixLogoUIAnchor {
   }
 
   mapAnchorValue(value) {
+  
+
     let day = new Date(DataCollector.collection[value].timestamp.split('T')[0])
     let dayToday = new Date()
     let hours = DataCollector.collection[value].timestamp.split('T')[1].split(':')[0]
@@ -84,7 +88,7 @@ class HelixLogoUIAnchor {
     } else if (diffDays == 1) {
       daysAgoValue = 'Yesterday'
     } else {
-      daysAgoValue = `+${diffDays} days ago`
+      daysAgoValue = `${DataCollector.collection[value].timestamp.split('-')[2].split('T')[0]} ${this.months[day.getMonth()]}`
     }
 
     if (daysAgoValue !== this.dayString) {
