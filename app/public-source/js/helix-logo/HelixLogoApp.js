@@ -34,12 +34,10 @@ const HelixLogoApp = (() => {
   }
   
   window.addEventListener('uiZoomIn', function (e) {
-    console.log('zoom in')
     helixRibbon.zoomInCamera()
   }, false)
 
   window.addEventListener('uiZoomOut', function (e) {
-    console.log('zoom out')
     helixRibbon.zoomOutCamera()
   }, false)
 
