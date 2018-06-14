@@ -183,10 +183,10 @@ class HelixLogoTexture {
 
   createCaptureCanvas() {
     this.watermarkDark = new Image()
-    this.watermarkDark.src = 'http://helix-logo.internal.ym-ams.net/images/newCastleLogoDark.png'
+    this.watermarkDark.src = '/images/newCastleLogoDark.png'
   
     this.watermarkLight = new Image()
-    this.watermarkLight.src = 'http://helix-logo.internal.ym-ams.net/images/newCastleLogoWhite.png'
+    this.watermarkLight.src = '/images/newCastleLogoWhite.png'
     this.captureCanvas = document.createElement('canvas')
     this.element.appendChild(this.captureCanvas)
     this.captureContext = this.captureCanvas.getContext('2d')

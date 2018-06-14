@@ -15,7 +15,8 @@
   ],
   "start_url": "/app",
   "background_color": "#ffffff",
-  "display": "standalone",
+  "display": "fullscreen",
   "scope": "/app",
+  "orientation": "landscape",
   "theme_color": "#ffffff"
 }
