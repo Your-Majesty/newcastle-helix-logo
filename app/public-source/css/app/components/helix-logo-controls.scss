@@ -265,6 +265,7 @@
   height: 100%;
   overflow:hidden;
   clip-path: polygon(100% 0, 100% 100%, 50% 100%, 0 100%);
+  -webkit-clip-path: polygon(100% 0, 100% 100%, 50% 100%, 0 100%);
 
   &:before {
     content: '';

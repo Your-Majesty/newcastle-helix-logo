@@ -69,7 +69,7 @@ class HelixLogoUITimeline {
     for (limit of DataCollector.limits){
       if (limit.name == 'energy') {
         DataCollector.collection.forEach((dataPoint, index) => {
-          TweenLite.to(this.lines[index + this.totalCollection], 0.8 * Math.random(), {y:`${DataInterpolator.linearInterpolation(limit.min, limit.max, DataCollector.collection[index].energy, 99, 0)}%`, delay: 1.2 * Math.random(), ease: Circ.easeOut})
+          TweenLite.to(this.lines[index + this.totalCollection], 0.5 * Math.random(), {y:`${DataInterpolator.linearInterpolation(limit.min, limit.max, DataCollector.collection[index].energy, 99, 0)}%`, delay: 2. * Math.random(), ease: Circ.easeOut})
         })
       }
     }
