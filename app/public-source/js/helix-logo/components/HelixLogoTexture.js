@@ -185,10 +185,12 @@ class HelixLogoTexture {
 
   createCaptureCanvas() {
     this.watermarkDark = new Image()
-    this.watermarkDark.src = `${DataCollector.siteUrl}/images/newCastleLogoDark.png`
+    this.watermarkDark.src = `http://helix-logo.internal.ym-ams.net/images/newCastleLogoDark.png`
+    // this.watermarkDark.src = `${DataCollector.siteUrl}/images/newCastleLogoDark.png`
 
     this.watermarkLight = new Image()
-    this.watermarkLight.src = `${DataCollector.siteUrl}/images/newCastleLogoWhite.png`
+    this.watermarkLight.src = 'http://helix-logo.internal.ym-ams.net/images/newCastleLogoWhite.png'
+    // this.watermarkLight.src = `${DataCollector.siteUrl}/images/newCastleLogoWhite.png`
     this.captureCanvas = document.createElement('canvas')
     this.element.appendChild(this.captureCanvas)
     this.captureContext = this.captureCanvas.getContext('2d')
@@ -204,6 +206,9 @@ class HelixLogoTexture {
       this.captureContext.drawImage(this.renderer.domElement, 0, 0)
     }
     this.captureContext.drawImage(this.watermark, (this.captureCanvas.width / 2) - 170, (this.captureCanvas.height / 2) - 100)
+    
+    
+
     return this.captureCanvas.toDataURL('image/jpg', .9)
   }
 

@@ -49,6 +49,9 @@ const HelixLogoApp = (() => {
   
   window.addEventListener('uiDownload', function (e) {
     let screenShot = helixRibbon.createShot()
+    
+    console.log(screenShot)
+
     helixUI.download.setScreenShot(screenShot)
   })
 
