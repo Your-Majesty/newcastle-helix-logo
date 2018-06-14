@@ -1,7 +1,6 @@
 module.exports = (() => {
 
   const BaseController = require('./BaseController')
-
   const dataCache = require('../lib/data-cache')
 
   class APIController extends BaseController {
@@ -11,12 +10,12 @@ module.exports = (() => {
 
     async getData (ctx) {
       var data = dataCache.cache
-      //var limits = dataCache.limits
+      var limits = dataCache.limits
 
       return this.success(ctx, {
         siteUrl: process.env.HELIX_SITE,
         data,
-        //limits
+        limits
       })
     }
   }

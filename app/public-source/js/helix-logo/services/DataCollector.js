@@ -12,9 +12,9 @@ const DataCollector = (() => {
         xhr.onload = (data) => {
         if (xhr.status === 200) {
           let collection = JSON.parse(xhr.response)
-          console.log('got data')
-          controller.limits = collection.limits
-          controller.collection = collection.data
+          controller.limits = collection.data.limits
+          controller.collection = collection.data.data
+          controller.siteUrl = collection.data.siteUrl
           resolve({
             success: true
           })

@@ -22,7 +22,7 @@ module.exports = (() => {
     var data = await SensorState.find().sort({
     timestamp: 'desc'}).limit(96)
 
-    
+
     for (dataPoint of data) {
       sensors.push({
         timestamp: dataPoint.timestamp,

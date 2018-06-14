@@ -11,7 +11,7 @@ module.exports = (() => {
     console.log('DataHarvester::harvest()', process.env.HELIX_DATA_ENDPOINT)
     var data = await fetch(process.env.HELIX_DATA_ENDPOINT)
     var dataJson = await data.json()
-    
+  
     for (timePoint of dataJson.timeseries) {
       let hour = timePoint.timestamp.split('T')[1]
       let minutes = hour.split(':')[1]

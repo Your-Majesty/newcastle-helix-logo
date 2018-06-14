@@ -11,7 +11,8 @@ class HelixLogoUINewsletter {
 
   postMail(e) {
     if (e.preventDefault) e.preventDefault()
-    fetch(heroLogoURL + '/api/newsletter-signup', {
+
+    fetch(DataCollector.siteUrl + '/api/newsletter-signup', {
       method: 'post',
       headers: {
         'content-type': 'application/json'
