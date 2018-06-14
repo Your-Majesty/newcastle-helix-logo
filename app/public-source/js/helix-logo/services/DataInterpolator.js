@@ -9,7 +9,7 @@ const DataInterpolator = (() => {
       unitsFull: 'percentage relative humidity'
     },
     {
-      name: 'temp.',
+      name: 'temp',
       id: 'temperature',
       units: '°C',
       unitsFull: 'degrees celsius'
