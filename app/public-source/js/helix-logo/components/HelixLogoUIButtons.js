@@ -26,7 +26,10 @@ class HelixLogoUIButtons {
   }
 
   animateIn() {
-    TweenLite.to(this.buttonElement, 0.5, {y: '0%', ease: Circ.easeOut, force3D:true, delay: 0.3})
+    TweenLite.to(this.buttonElement, 0.5, {y: '0%', ease: Circ.easeOut, delay: 0.3, onComplete:  ()  => {
+      this.buttonElement.style.transform = `initial`
+      console.log('UI animated In')
+    }})
   
   }
 
