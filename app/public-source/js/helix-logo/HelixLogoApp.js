@@ -1,6 +1,8 @@
 const HelixLogoApp = (() => {
   
   const controller = {}
+  controller.currentTime = null
+
   window.addEventListener('message', function (event) {
 
     if (event.data) {
@@ -50,17 +52,24 @@ const HelixLogoApp = (() => {
   window.addEventListener('uiDownload', function (e) {
     let screenShot = helixRibbon.createShot()
     
-    console.log(screenShot)
-
     helixUI.download.setScreenShot(screenShot)
   })
 
   window.addEventListener('sunCalculator', function (e) {
+
+
     if (!helixRibbon.isMonochrome) {
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
 
-      helixUI.updateTheme(e.detail)
+      if (controller.currentTime !== e.detail) {
+        controller.currentTime = e.detail
+        let time = {
+          time: e.detail ? 'night' : 'day'
+        }
+        window.parent.postMessage(JSON.stringify(time), '*')
+        helixUI.updateTheme(e.detail)
+      }
     }
   })
   
