@@ -179,8 +179,6 @@ class HelixLogoTexture {
     this.allRibbons.forEach((ribbon) => {
       ribbon.drawGeometry(this.noiseArray)
     })
-
-    // console.log('test')
   }
 
   createCaptureCanvas() {
