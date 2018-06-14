@@ -20,14 +20,14 @@ class HelixUITabletVideo {
     this.video.play()
     this.closeButton.style.display = 'block'
     this.videoWrapper.style.display = 'block'
-    TweenLite.to(this.videoScale, 0.45, {scale: 1, opacity: 1, ease: Circ.easeOut})
+    TweenLite.to(this.videoWrapper, 0.45, {scale: 1, opacity: 1, ease: Circ.easeOut})
   }
   
   animateVideoOut() {
     this.video.pause()
     this.video.currentTime = 0
     this.closeButton.style.display = 'none'
-    TweenLite.to(this.videoScale, 0.2, {scale: 0.9, opacity: 0, ease: Circ.easeOut, onComplete:() => {
+    TweenLite.to(this.videoWrapper, 0.2, {scale: 0.95, opacity: 0, ease: Circ.easeOut, onComplete:() => {
       this.videoWrapper.style.display = 'none'
     }})
   }
