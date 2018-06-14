@@ -28,12 +28,16 @@ class HelixLogoUIButtons {
   animateIn() {
     TweenLite.to(this.buttonElement, 0.5, {y: '0%', ease: Circ.easeOut, delay: 0.3, onComplete:  ()  => {
       this.buttonElement.style.transform = `initial`
-      console.log('UI animated In')
+      if (!isTabletExperience) {
+        document.querySelector('.helix-logo-download').style.opacity = 1
+        console.log('UI animated In')
+      }
     }})
   
   }
 
   animateOut() {
+
     TweenLite.to(this.buttonElement, 0.1, {y: '100%', ease: Circ.easeOut})
   
   }
