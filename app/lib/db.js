@@ -2,7 +2,7 @@ module.exports = (() => {
 
   var mongoose = require('mongoose')
 
-  mongoose.connect('mongodb://db/helix-logo')
+  mongoose.connect(process.env.MONGO)
   mongoose.Promise = Promise
 
   return mongoose
