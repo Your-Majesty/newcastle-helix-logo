@@ -56,7 +56,7 @@ module.exports = (() => {
 
           if (option == 'color') {
             await sharp(logoElement)
-              .resize(32, 32)
+              .resize(128, 128)
               .sharpen(2.0)
               .toFile(`${__dirname}/../public/latest/favicon-32-32.png`)
           }

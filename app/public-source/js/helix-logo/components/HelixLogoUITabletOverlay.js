@@ -39,7 +39,6 @@ class HelixLogoUITabletOverlay {
 
     this.event = new CustomEvent('uiTabletOverlayClosed', {bubbles: true})
     this.overlay.dispatchEvent(this.event)
-
     document.querySelector('body').classList.remove('tablet-overlay')
     this.buttonMoreInfoWrapper.style.display = 'inline-block'
     this.buttonClose.style.display = 'none'
@@ -74,7 +73,6 @@ class HelixLogoUITabletOverlay {
     this.currentView = this.intro
     this.event = new CustomEvent('uiResetPressed', {bubbles: true})
     window.dispatchEvent(this.event)
-
     this.open()
   }
 

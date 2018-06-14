@@ -103,7 +103,7 @@ class HelixLogoUITimeline {
   animate() {
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
     if (this.isPlaying && this.indexTimeline > 0) {
-      this.time += 0.15
+      this.time += 0.07
 
       if (this.time >= 1) {
         this.time = 0

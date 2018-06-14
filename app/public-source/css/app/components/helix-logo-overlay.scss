@@ -32,10 +32,16 @@
 
     button {
       border: 2px solid rgba(0, 0, 0, 0.1)!important;
+      .is-tablet-experience & {
+        border: 2px solid rgba(255, 255, 255, 0.4)!important;
+      }
     }  
 
     svg rect {
       fill: black !important;
+      .is-tablet-experience & {
+        fill: white !important;
+      }
     }
   }
 }
@@ -50,7 +56,7 @@
   transform: scale(0.9);
 
   .is-tablet-experience & {
-    opacity: 0.85
+    opacity: 0.85;
     background-color: $helix-blue;
   }
 
@@ -69,11 +75,16 @@
 
     .is-tablet-experience & {
       color: white !important;
+      font-size: 25px;
     }
   }
 
   @include q-is-x-large {
     max-width: 310px;
+
+    .is-tablet-experience & {
+      max-width: 420px;
+    }
   }
 
   @include q-is-large {

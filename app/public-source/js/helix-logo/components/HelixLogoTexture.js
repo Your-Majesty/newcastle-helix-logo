@@ -34,6 +34,7 @@ class HelixLogoTexture {
 
     this.allRibbons = []
     this.noiseArray = []
+    this.perspective = 39
     this.perlin = new ClassicalNoise()
     this.totalRibbons = 11
 
@@ -117,6 +118,8 @@ class HelixLogoTexture {
       this.captureCanvas.width = this.width * this.pixelRatio
       this.captureCanvas.height = this.width * this.pixelRatio
     }
+    this.camera.fov = DeviceTracker.isMobile() ? 65 : 39
+    this.camera.updateProjectionMatrix()
   }
 
   zoomInCamera() {
@@ -149,7 +152,11 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera( 39, window.innerWidth / window.innerHeight, 1, 850 )
+    
+
+    let perspective = DeviceTracker.isMobile() ? 65 : 39
+
+    this.camera = new THREE.PerspectiveCamera(perspective, window.innerWidth / window.innerHeight, 1, 850 )
     this.camera.lookAt(0,0,0) 
     this.camera.rotation.x = 50 * Math.PI / 180
   }

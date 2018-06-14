@@ -50,6 +50,10 @@ class HelixLogoUIOverlay {
     TweenLite.to(this.background, 0.3, {opacity: 0.9, scale:1, ease: Circ.easeOut})
     TweenLite.to(this.closeButton, 0.3, {y: 0, opacity:1, ease: Circ.easeOut})
     TweenLite.to(this.text, 0.3, {y: 0, opacity:1, ease: Circ.easeOut, delay:0.2})
+    
+    if (isTabletExperience) {
+      document.querySelector('body').classList.add('tablet-overlay')
+    }
   }
 
   closeModal() {
@@ -60,6 +64,10 @@ class HelixLogoUIOverlay {
     TweenLite.to(this.background, 0.2, {opacity: 0, scale:0.9, ease: Circ.easeOut, onComplete: () => {
       this.element.style.display = 'none'
     }})
+
+    if (isTabletExperience) {
+      document.querySelector('body').classList.remove('tablet-overlay')
+    }
   }
   
   setInfo(currentSensor) {

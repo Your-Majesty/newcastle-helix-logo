@@ -10,11 +10,11 @@ const HelixLogoApp = (() => {
       }
       
       if (result.action == 'hide-ui') {
-        helixUI.animateOut()
         helixUI.resetValues()
         helixTimeline.calculateTimeline()
         DataInterpolator.calculatePoint(DataCollector.collection[0])
         helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+        helixUI.animateOut()
       }
       
       if (result.action == 'start-rendering') {
