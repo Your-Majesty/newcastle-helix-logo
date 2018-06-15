@@ -28,14 +28,20 @@ class HelixLogoUITabletOverlay {
     this.buttonShare.addEventListener('click', this.showShare)
     this.buttonClose.addEventListener('click', this.close)
     this.buttonMoreInfo.addEventListener('click', this.showInfo)
+    this.overlay.addEventListener('click', this.close)
 
     this.currentView = this.intro
     this.overlayWrapper.style.display = 'block'
     this.logo.style.display = 'block'
     document.querySelector('body').classList.add('tablet-overlay')
+
+
   }
 
   close() {
+    if (this.currentView === this.intro) {
+      this.overlay.removeEventListener('click', this.close)
+    }
 
     this.event = new CustomEvent('uiTabletOverlayClosed', {bubbles: true})
     this.overlay.dispatchEvent(this.event)
@@ -45,6 +51,8 @@ class HelixLogoUITabletOverlay {
     this.scaleButtons.style.display = 'block'
     this.buttonsWrapper.style.display = 'block'
     this.currentView.style.display = 'none'
+
+
     TweenLite.to(this.currentView, 0.2, {opacity: 0})
     TweenLite.to(this.overlay, 0.2, {scale: 0.95, opacity: 0, ease: Circ.easeOut, onComplete:() => {
       this.overlay.style.display = 'none'
@@ -89,6 +97,10 @@ class HelixLogoUITabletOverlay {
     this.buttonsWrapper.style.display = 'none'
     TweenLite.to(this.currentView, 0.2, {opacity: 1, delay: 0.2})
     TweenLite.to(this.overlay, 0.25, {scale: 1, opacity: 0.9, ease: Circ.easeOut})
+
+    if (this.currentView == this.intro) {
+        this.overlay.addEventListener('click', this.close)
+    }
   }
 
 } 

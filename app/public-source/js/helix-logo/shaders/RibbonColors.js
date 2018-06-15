@@ -105,7 +105,6 @@ void main(void){
   }
 
   color += mix(colorMixedDark, colorMixedLight, fract(d));
-
   if (mod(index, 2.0) == 0.0) {
     vec2 stY = vUv;
     stY.y = fract((stY.y - offsetLines) + (time * lineSpeed));
@@ -117,8 +116,6 @@ void main(void){
       } else {
         colorSeparation = vec3(colorMixedLight);
       }
-
-     
     } else {
       colorSeparation = vec3(1.0);
     }
