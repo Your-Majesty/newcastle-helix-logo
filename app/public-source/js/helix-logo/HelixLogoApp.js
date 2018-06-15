@@ -57,8 +57,6 @@ const HelixLogoApp = (() => {
   })
 
   window.addEventListener('sunCalculator', function (e) {
-
-
     if (!helixRibbon.isMonochrome) {
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
@@ -76,6 +74,9 @@ const HelixLogoApp = (() => {
   
   window.addEventListener('uiSliderUpdated', function (e) {
     helixUI.mapValuesSlider()
+
+
+
     DataInterpolator.calculateSlider(SliderCollector.sensors)
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
   })
