@@ -16,6 +16,8 @@ class HelixLogoUITabletOverlay {
     this.share = document.querySelector('.helix-logo-tablet__share')
     this.newsletter = document.querySelector('.helix-logo-tablet__newsletter')
     this.intro = document.querySelector('.helix-logo-tablet__intro')
+
+    this.newsletterInput = document.querySelector('.helix-logo-tablet__newsletter input')
     
     this.close = this.close.bind(this)
     this.open = this.open.bind(this)
@@ -35,6 +37,8 @@ class HelixLogoUITabletOverlay {
     this.logo.style.display = 'block'
     document.querySelector('body').classList.add('tablet-overlay')
 
+    window.addEventListener('newsletterSignUp', this.close)
+
 
   }
 
@@ -42,7 +46,6 @@ class HelixLogoUITabletOverlay {
     if (this.currentView === this.intro) {
       this.overlay.removeEventListener('click', this.close)
     }
-
     this.event = new CustomEvent('uiTabletOverlayClosed', {bubbles: true})
     this.overlay.dispatchEvent(this.event)
     document.querySelector('body').classList.remove('tablet-overlay')
@@ -51,14 +54,12 @@ class HelixLogoUITabletOverlay {
     this.scaleButtons.style.display = 'block'
     this.buttonsWrapper.style.display = 'block'
     this.currentView.style.display = 'none'
-
-
+    this.newsletterInput.value = ''
     TweenLite.to(this.currentView, 0.2, {opacity: 0})
     TweenLite.to(this.overlay, 0.2, {scale: 0.95, opacity: 0, ease: Circ.easeOut, onComplete:() => {
       this.overlay.style.display = 'none'
       this.overlayWrapper.style.display = 'none'
     }})
-
   }
 
   showNewsletter() {

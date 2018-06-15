@@ -19,7 +19,9 @@ class HelixLogoUINewsletter {
         email: this.input.value
       })
     }).then(response => response.json()).then((json) => {
-      console.log(json)
+      this.input.value = ''
+      this.event = new CustomEvent('newsletterSignUp', {bubbles: true})
+      window.dispatchEvent(this.event)
     })
   }
 }
