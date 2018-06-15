@@ -15,6 +15,8 @@ class HelixLogoUI {
     this.element.style.display = 'block'
     this.element.style.opacity = 1
 
+    this.currentIndex = 0
+
     this.animateIn = this.animateIn.bind(this)
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
@@ -128,12 +130,15 @@ class HelixLogoUI {
   }
   
   mapValuesTimeline(index) {
-    SliderCollector.getCurrentValues(index)
+    this.currentIndex = index
     this.buttons.mapButtonsValues(index)
     this.anchor.mapAnchorValue(index)
+    
   }
 
   mapValuesSlider() {
+
+  
     this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
     this.buttons.mapButtonsSliderValues(SliderCollector.getCurrentSensor())
   }

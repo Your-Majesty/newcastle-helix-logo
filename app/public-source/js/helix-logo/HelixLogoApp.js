@@ -47,6 +47,7 @@ const HelixLogoApp = (() => {
     DataInterpolator.calculatePoint(DataCollector.collection[e.detail])
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
     helixUI.mapValuesTimeline(e.detail)
+    SliderCollector.getCurrentValues(e.detail)
   }, false)
   
   window.addEventListener('uiDownload', function (e) {
@@ -96,6 +97,7 @@ const HelixLogoApp = (() => {
     helixTimeline.calculateTimeline()
     DataInterpolator.calculatePoint(DataCollector.collection[0])
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+    SliderCollector.getCurrentValues(0)
 
   }, () => {
     if (!helixRibbon.createdElement) {

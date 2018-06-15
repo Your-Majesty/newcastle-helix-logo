@@ -1,6 +1,8 @@
 const DataInterpolator = (() => {
 
   const controller = {}
+
+  controller.temperature = 0
   controller.sensors = [
     {
       name: 'humidity',
@@ -109,6 +111,7 @@ const DataInterpolator = (() => {
       for (let key in propertyLimits) {
         if (key == 'colorScale') {
           controller.calculatedPoint[key] = TemperatureAnalizer.calculateDate(dataPoint.timestamp, dataPoint['temperature'])
+          controller.temperature = controller.calculatedPoint[key]
         } else {
           controller.calculatedPoint[key] = controller.linearInterpolation(
             property.min, 
@@ -123,10 +126,16 @@ const DataInterpolator = (() => {
   }
 
   controller.calculateSlider = (sliderPoint) => {
+
+    console.log(controller.temperature)
+
     for (let property of DataCollector.limits) {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {
         
+        if (key == 'colorScale') {
+          controller.calculatedPoint['colorScale'] = sliderPoint['temperature'].percentage
+        } else {
           controller.calculatedPoint[key] = controller.linearInterpolation(
           property.min, 
           property.max,
@@ -134,7 +143,8 @@ const DataInterpolator = (() => {
           controller.limits[property.name][key].min,
           controller.limits[property.name][key].max
           )
-        
+
+        }
       }
     }
   }
