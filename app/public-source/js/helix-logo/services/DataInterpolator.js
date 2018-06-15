@@ -126,9 +126,6 @@ const DataInterpolator = (() => {
   }
 
   controller.calculateSlider = (sliderPoint) => {
-
-    console.log(controller.temperature)
-
     for (let property of DataCollector.limits) {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {
