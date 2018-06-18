@@ -3,6 +3,24 @@
 const spawn = require('child_process').spawn
 const argv = process.argv
 
+const servers = {
+  internal: [
+    { user: 'gatekeeper', host: '192.168.1.95' }
+  ],
+  staging: [
+    { host: '209.97.138.182' }
+  ],
+  production: [
+    { host: '178.128.168.20' }
+  ]
+}
+
+async function pause(time) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time)
+  })
+}
+
 console.log(`
  __   _ _______ _  _  _ _______ _______ _______ _______        _______
  | \\  | |______ |  |  | |       |_____| |______    |    |      |______
@@ -24,31 +42,101 @@ Available commands:
   deploy:<environment>
       Deploy to an environment
 
+If you have issues deploying, try running
+  ./tools ssh:prepare
+
+This will set up your first-run ssh settings to allow SSH Agent Forwarding
+(https://developer.github.com/v3/guides/using-ssh-agent-forwarding/).
+Only run this command ONCE. It adds settings to your ~/.ssh/config.
+
 `.trim())
 
   return
 }
 
+if (argv[2] == 'ssh:prepare') {
+  var serversKeysArray = Object.keys(servers)
+  var serversValuesArray = Object.values(servers)
+
+  spawn(`
+    ${serversKeysArray.map((k, i) => `
+      echo "Adding SSH Agent Forwarding for '${k}'..." &&
+
+      ${serversValuesArray[i].map(s => `
+        echo "Host ${s.host}\n  ForwardAgent yes" >> ~/.ssh/config &&
+      `).join('')}
+    `).join('')}
+
+    echo 'done!';
+  `, {
+    shell: true,
+    stdio: 'inherit'
+  })
+}
+
 if (argv[2].indexOf('deploy') > -1) {
   var target = argv[2].split(':')
 
-  if (target[1] == 'staging') {
-    spawn(`
-      ssh gatekeeper@192.168.1.95 "
-        cd /var/www/newcastle-helix-logo;
-        git fetch --all;
-        git reset --hard origin/develop;
+  var gitMethod = `
+    git fetch --all;
+    git pull;
+  `
 
-        docker-compose exec web bash -c '
-          npm install &&
-          gulp &&
-          pm2 reload all;
-        '
-      "
-    `, {
-      shell: true,
-      stdio: 'inherit'
-    })
+  if (target[2] && target[2] == 'tag') {
+    var tag = argv[3]
+
+    gitMethod = `
+      git fetch --all;
+      git reset --hard ${tag};
+    `
+  }
+
+  if (servers[target[1]]) {
+    (async() => {
+      console.log(`Deploying to ${target[1]}.`)
+      console.log(`To cancel, press CTRL+C now.`)
+      console.log()
+      await pause(500)
+      console.log(`Deploying in: 3 seconds`)
+      await pause(1000)
+      console.log(`Deploying in: 2 seconds`)
+      await pause(1000)
+      console.log(`Deploying in: 1 second!`)
+      await pause(1000)
+
+      console.log()
+      console.log(`Continuing...`)
+      console.log()
+
+      spawn(`
+        ssh-add;
+
+        ${servers[target[1]].map(s => `
+          echo 'Connecting to ${s.host}...';
+          echo '';
+
+          ssh ${s.user || 'root'}@${s.host} "
+            cd /var/www/newcastle-helix;
+            rm -r app/package-lock.json;
+
+            echo '';
+            echo 'Running git commands...';
+            echo '';
+
+            ${gitMethod}
+
+            docker-compose exec web bash -c '
+              npm install &&
+              gulp &&
+              pm2 reload all;
+            '
+          ";
+        `).join('')}
+      `, {
+        shell: true,
+        stdio: 'inherit'
+      })
+    })()
   } else {
     console.log('No target supplied, or deploy target not found.')
   }
