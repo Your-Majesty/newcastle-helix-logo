@@ -116,7 +116,7 @@ if (argv[2].indexOf('deploy') > -1) {
           echo '';
 
           ssh ${s.user || 'root'}@${s.host} "
-            cd /var/www/newcastle-helix;
+            cd /var/www/newcastle-helix-logo;
             rm -r app/package-lock.json;
 
             echo '';
