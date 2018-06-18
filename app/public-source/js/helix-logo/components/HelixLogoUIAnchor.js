@@ -51,6 +51,8 @@ class HelixLogoUIAnchor {
   }
 
   resetAction() {
+
+    TrackingService.track('dataViz-resetButton', 'click', 'resetAction')
     this.event = new CustomEvent('uiResetPressed', {bubbles: true})
     window.dispatchEvent(this.event)
   }

@@ -6,6 +6,7 @@ class HelixLogoUIDownload {
   }
 
   downloadAction() {
+    TrackingService.track('dataViz-downloadButton', 'click')
     this.event = new CustomEvent('uiDownload', {bubbles: true})
     this.element.dispatchEvent(this.event)
   }

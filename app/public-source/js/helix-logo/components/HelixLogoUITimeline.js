@@ -93,6 +93,7 @@ class HelixLogoUITimeline {
   }
 
   playTimeLine() {
+    TrackingService.track('dataViz-playButton', 'click', 'playTimelineAction')
     if (this.indexTimeline == 0) {
       this.rewindTimeline()
     } else {
@@ -151,6 +152,7 @@ class HelixLogoUITimeline {
     }
     
     if (ev.isFinal) {
+      TrackingService.track('dataViz-timeline', 'drag')
       this.currentPercentage = this.currentPercentage + this.percentageDragged
       if (Math.abs(this.currentPercentage) <= this.minPercentage) {
         this.totalDrag = -this.minPercentage

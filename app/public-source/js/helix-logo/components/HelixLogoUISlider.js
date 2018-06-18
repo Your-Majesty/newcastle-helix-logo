@@ -50,6 +50,7 @@ class HelixLogoUISlider {
         SliderCollector.updateValues((100 - (50 + this.totalDrag))/ 100) 
       }
     if (ev.isFinal) {
+      TrackingService.track('dataViz-slider', 'drag')
       this.currentPercentage = this.currentPercentage + this.percentageDragged
       
     }

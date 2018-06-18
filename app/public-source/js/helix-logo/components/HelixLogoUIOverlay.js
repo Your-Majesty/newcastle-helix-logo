@@ -51,6 +51,8 @@ class HelixLogoUIOverlay {
     TweenLite.to(this.closeButton, 0.3, {y: 0, opacity:1, ease: Circ.easeOut})
     TweenLite.to(this.text, 0.3, {y: 0, opacity:1, ease: Circ.easeOut, delay:0.2})
     
+    TrackingService.track('dataViz-moreInfo', 'click')
+
     if (isTabletExperience) {
       document.querySelector('body').classList.add('tablet-overlay')
     }
@@ -71,6 +73,7 @@ class HelixLogoUIOverlay {
   }
   
   setInfo(currentSensor) {
-   this.text.innerHTML = this.sensorExplanations[`${currentSensor}`].copy
+    
+    this.text.innerHTML = this.sensorExplanations[`${currentSensor}`].copy
   }
 }

@@ -27,6 +27,7 @@ class HelixLogoScienceOverlay {
   }
 
   openModal() {
+    TrackingService.track('dataViz-questionButton', 'click')
     this.isOpen = true
     this.element.style.display = 'block'
     this.button.style.opacity = 0.3

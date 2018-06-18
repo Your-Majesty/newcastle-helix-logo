@@ -57,6 +57,8 @@ class HelixLogoUIButtons {
       button.classList.add('active')
       this.currentButton = button
       this.currentSensor = this.currentButton.getAttribute('data-sensor')
+
+      TrackingService.track('dataViz-sensorButton', 'click', `${this.currentSensor}`)
       
       this.event = new CustomEvent('uiButtonPressed', {bubbles: true, detail:this.currentSensor})
       this.buttons.dispatchEvent(this.event)
