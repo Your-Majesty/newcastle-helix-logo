@@ -1,4 +1,4 @@
-.helix-logo-ui-overlay {
+.helix-logo-ui-overlay, .helix-logo-ui-overlay__scienceCentral {
   position: fixed;
   right: 10%;
   bottom: 30%;
@@ -20,7 +20,7 @@
     top: 0;
     bottom: 0;
 
-      .helix-logo-ui-overlay-background {
+      .helix-logo-ui-overlay-background, .helix-logo-ui-overlay-background__scienceCentral {
         display: block;
       }
 
@@ -46,7 +46,7 @@
   }
 }
 
-.helix-logo-ui-overlay-background {
+.helix-logo-ui-overlay-background, .helix-logo-ui-overlay-background__scienceCentral {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -62,7 +62,7 @@
 
 }
 
-.helix-logo-ui-overlay-wrapper {
+.helix-logo-ui-overlay-wrapper, .helix-logo-ui-overlay-wrapper__scienceCentral {
   max-width: 400px;
 
   p {

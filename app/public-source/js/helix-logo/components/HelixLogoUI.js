@@ -6,6 +6,8 @@ class HelixLogoUI {
     this.buttons = new HelixLogoUIButtons()
     this.slider = new HelixLogoUISlider()
     this.download = new HelixLogoUIDownload()
+
+    this.scienceCentralOverlay = new HelixLogoScienceOverlay()
    
     this.overlay = new HelixLogoUIOverlay()
     this.isTableExperience = false
@@ -21,6 +23,8 @@ class HelixLogoUI {
     this.animateIn = this.animateIn.bind(this)
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
+
+    this.animateIn()
 
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
