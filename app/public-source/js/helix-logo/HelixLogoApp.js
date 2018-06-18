@@ -83,6 +83,7 @@ const HelixLogoApp = (() => {
     helixTimeline.calculateTimeline()
     DataInterpolator.calculatePoint(DataCollector.collection[0])
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
+    SliderCollector.getCurrentValues(0)
   })
 
   DataCollector.getData().then(() => {
