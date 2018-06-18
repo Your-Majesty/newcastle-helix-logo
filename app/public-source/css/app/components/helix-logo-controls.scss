@@ -441,8 +441,12 @@
     border: 0;
 
     svg {
-      position: relative;
-      top: 1px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: auto;
+      right: 0;
+      bottom: 0;
     }
 
     .helix-theme-dark & {
