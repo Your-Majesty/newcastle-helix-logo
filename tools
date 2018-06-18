@@ -78,16 +78,16 @@ if (argv[2].indexOf('deploy') > -1) {
   var target = argv[2].split(':')
 
   var gitMethod = `
-    git fetch --all;
-    git pull;
+    git fetch --all &&
+    git pull &&
   `
 
   if (target[2] && target[2] == 'tag') {
     var tag = argv[3]
 
     gitMethod = `
-      git fetch --all;
-      git reset --hard ${tag};
+      git fetch --all &&
+      git reset --hard ${tag} &&
     `
   }
 
