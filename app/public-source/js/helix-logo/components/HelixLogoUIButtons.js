@@ -17,7 +17,7 @@ class HelixLogoUIButtons {
         </div>
       `).join('')}
     `
-    this.buttonCollection = this.buttons.querySelectorAll('.helix-logo-button')
+    this.buttonCollection = [].slice.call(this.buttons.querySelectorAll('.helix-logo-button'))
     this.buttonCollection.forEach((button) => {
       button.addEventListener('click', () => {
         this.selectButton(button)

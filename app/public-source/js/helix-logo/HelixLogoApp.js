@@ -74,9 +74,6 @@ const HelixLogoApp = (() => {
   
   window.addEventListener('uiSliderUpdated', function (e) {
     helixUI.mapValuesSlider()
-
-
-
     DataInterpolator.calculateSlider(SliderCollector.sensors)
     helixRibbon.updateValues(DataInterpolator.calculatedPoint)
   })

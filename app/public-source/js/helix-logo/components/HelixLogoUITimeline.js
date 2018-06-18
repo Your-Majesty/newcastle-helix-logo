@@ -62,7 +62,7 @@ class HelixLogoUITimeline {
       line.classList.add('helix-logo-timeline__line')
       this.linesWrapper.appendChild(line)
     }
-    this.lines = this.linesWrapper.querySelectorAll('.helix-logo-timeline__line')
+    this.lines = [].slice.call(this.linesWrapper.querySelectorAll('.helix-logo-timeline__line'))
   }
 
   mapValues() {
