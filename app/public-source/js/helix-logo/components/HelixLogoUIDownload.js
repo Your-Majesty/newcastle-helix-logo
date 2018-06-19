@@ -1,7 +1,7 @@
 class HelixLogoUIDownload {
   constructor() {
     this.button = document.querySelector('.helix-logo-download')
-    this.element = document.querySelector('.helix-logo-download a')
+    this.element = document.querySelector('.helix-logo-download button')
     this.downloadAction = this.downloadAction.bind(this)
   }
 
