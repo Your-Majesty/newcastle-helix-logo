@@ -34,13 +34,20 @@ console.log(`
   |_____ |_____| |_____| |_____|
 `)
 
-if (argv[2] == 'help') {
+if (argv[2] == 'help' || !argv[2]) {
   console.log(`
 
 Available commands:
 
-  deploy:<environment>
-      Deploy to an environment
+  deploy:<environment> [<tag/branch>]
+    Deploy to an environment
+
+    Examples:
+      Pull latest:    ./tools deploy:staging
+      Deploy 1.0.4:   ./tools deploy:production 1.0.4
+
+  ssh:prepare
+    Prepare local machine for deployment.
 
 If you have issues deploying, try running
   ./tools ssh:prepare
@@ -94,7 +101,11 @@ if (argv[2].indexOf('deploy') > -1) {
 
   if (servers[target[1]]) {
     (async() => {
-      console.log(`Deploying to ${target[1]}.`)
+      console.log(`Deploying to`)
+      console.log()
+      console.log(`  ${target[1].toUpperCase()} `)
+      console.log()
+      console.log()
       console.log(`To cancel, press CTRL+C now.`)
       console.log()
       await pause(500)
