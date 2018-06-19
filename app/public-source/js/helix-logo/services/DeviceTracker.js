@@ -8,16 +8,12 @@ const DeviceTracker = (() => {
   }
 
   controller.mobileAlert = document.querySelector('.helix-logo-ui-overlay__mobile')
-
   controller.orientation = () => {
     if (controller.isMobile()) {
-      switch(window.orientation) {  
-        case 90:
-          controller.mobileAlert.style.display = 'block'
-          break; 
-        default:
-          controller.mobileAlert.style.display = 'none'
-          break; 
+      if ((window.orientation == 90) || (window.orientation == -90))  {
+        controller.mobileAlert.style.display = 'block'
+      } else {
+        controller.mobileAlert.style.display = 'none'
       }
     }
   }
