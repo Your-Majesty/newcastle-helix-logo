@@ -129,6 +129,7 @@ if (argv[2].indexOf('deploy') > -1) {
             docker-compose exec web bash -c '
               npm install &&
               gulp &&
+              gulp generate-service-worker &&
               pm2 reload all;
             '
           ";
