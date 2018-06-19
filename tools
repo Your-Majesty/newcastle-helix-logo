@@ -82,11 +82,12 @@ if (argv[2].indexOf('deploy') > -1) {
     git pull &&
   `
 
-  if (target[2] && target[2] == 'tag') {
+  if (argv[3]) {
     var tag = argv[3]
 
     gitMethod = `
       git fetch --all &&
+      echo 'Resetting to tag ${tag}';
       git reset --hard ${tag} &&
     `
   }
@@ -128,6 +129,7 @@ if (argv[2].indexOf('deploy') > -1) {
             docker-compose exec web bash -c '
               npm install &&
               gulp &&
+              gulp generate-service-worker &&
               pm2 reload all;
             '
           ";
