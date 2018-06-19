@@ -3,6 +3,8 @@ class HelixLogoUIDownload {
     this.button = document.querySelector('.helix-logo-download')
     this.element = document.querySelector('.helix-logo-download button')
     this.downloadAction = this.downloadAction.bind(this)
+
+    this.element.addEventListener('click', this.downloadAction)
   }
 
   downloadAction() {
@@ -11,13 +13,8 @@ class HelixLogoUIDownload {
     this.element.dispatchEvent(this.event)
   }
 
-  setScreenShot(image) {
-    this.element.setAttribute('href', image)
-  }
-
   show() {
     this.button.style.display = 'block'
-    this.element.addEventListener('click', this.downloadAction)
   }
 
   hide() {
