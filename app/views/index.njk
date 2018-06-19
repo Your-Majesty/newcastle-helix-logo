@@ -5,9 +5,21 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>HELIX LOGO</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+
         <link rel="apple-touch-icon" href="icon.png">
         <!-- Place favicon.ico in the root directory -->
         <link rel="stylesheet" href="/css/helix-logo.css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <style>
+            @media all and (-ms-high-contrast:none)
+             {
+             .helix-logo-timeline__lines { flex-wrap: wrap;
+               left: 44%; } /* IE10 */
+             *::-ms-backdrop, .helix-logo-timeline__lines { flex-wrap: wrap;
+               left: 44%; } /* IE11 */
+             }
+          </style>
+
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ env.GOOGLE_ANALYTICS_ID }}"></script>
         <script>
           {% if gdpr[2] != '1' %}
