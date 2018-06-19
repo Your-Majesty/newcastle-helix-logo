@@ -1,16 +1,16 @@
 const HelixLogoApp = (() => {
-  
+
   const controller = {}
   controller.currentTime = null
 
   window.addEventListener('message', function (event) {
 
     if (event.data) {
-      var result = JSON.parse(event.data) 
+      var result = JSON.parse(event.data)
       if (result.action == 'show-ui') {
         helixUI.animateIn()
       }
-      
+
       if (result.action == 'hide-ui') {
         helixUI.resetValues()
         helixTimeline.calculateTimeline()
@@ -18,7 +18,7 @@ const HelixLogoApp = (() => {
         helixRibbon.updateValues(DataInterpolator.calculatedPoint)
         helixUI.animateOut()
       }
-      
+
       if (result.action == 'start-rendering') {
         helixRibbon.play()
       }
@@ -26,7 +26,7 @@ const HelixLogoApp = (() => {
         helixRibbon.pause()
       }
     }
-  }) 
+  })
 
   if (!isTabletExperience) {
     DeviceTracker.orientation()
@@ -34,7 +34,7 @@ const HelixLogoApp = (() => {
       DeviceTracker.orientation()
     })
   }
-  
+
   window.addEventListener('uiZoomIn', function (e) {
     helixRibbon.zoomInCamera()
   }, false)
@@ -49,11 +49,27 @@ const HelixLogoApp = (() => {
     helixUI.mapValuesTimeline(e.detail)
     SliderCollector.getCurrentValues(e.detail)
   }, false)
-  
+
   window.addEventListener('uiDownload', function (e) {
     let screenShot = helixRibbon.createShot()
-    
-    helixUI.download.setScreenShot(screenShot)
+
+    // If we are in Internet Explorer, make a blob and use msSaveBlob
+    if (navigator.msSaveBlob) {
+      // Make a blob
+      var binary = atob(screenShot.split(',')[1])
+      var arr = [];
+      for (var i = 0; i < binary.length; i++) arr.push(binary.charCodeAt(i));
+      var blob = new Blob([new Uint8Array(arr)], {type: 'image/jpg'});
+      navigator.msSaveBlob(blob, 'newcastle-helix-logo-export.jpg')
+      return
+    }
+
+    // Trigger click on a new link
+    var a = document.createElement('a')
+    a.download = 'newcastle-helix-logo-export.jpg'
+    a.href = screenShot
+    a.target = '_blank' // for ios devices
+    a.click()
   })
 
   window.addEventListener('sunCalculator', function (e) {
@@ -71,7 +87,7 @@ const HelixLogoApp = (() => {
       }
     }
   })
-  
+
   window.addEventListener('uiSliderUpdated', function (e) {
     helixUI.mapValuesSlider()
     DataInterpolator.calculateSlider(SliderCollector.sensors)
@@ -110,7 +126,7 @@ const HelixLogoApp = (() => {
         controller.updateLogoData()
       }
     })
-    
+
   }, 90000)
 
   controller.updateLogoData = () => {
@@ -123,7 +139,8 @@ const HelixLogoApp = (() => {
   const helixRibbon = new HelixLogoTexture()
   const helixUI = new HelixLogoUI()
   const helixTimeline = new HelixLogoTimeline()
-  
+
+  controller.helixUI = helixUI
+
   return controller
 })()
-

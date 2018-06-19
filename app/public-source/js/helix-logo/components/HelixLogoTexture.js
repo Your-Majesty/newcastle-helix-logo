@@ -7,7 +7,7 @@ class HelixLogoTexture {
     this.lineSpeed = 0.1
     this.lineSeparation = 0.5
     this.lineCount = 10.
-    
+
     this.innerRadius = 20.
     this.outerRadius = 65
     this.totalCurls = 2.
@@ -51,7 +51,7 @@ class HelixLogoTexture {
       true,
       false
     ]
-    
+
     this.gradientColors = [
       // Teal
       new THREE.Color("rgb(79, 248, 231)"),
@@ -72,7 +72,7 @@ class HelixLogoTexture {
     this.analizeURL(window.location.href.split('?')[1])
     this.createScene()
     this.createRibbons()
-    this.createCaptureCanvas() 
+    this.createCaptureCanvas()
     this.resize()
     this.play()
   }
@@ -109,8 +109,8 @@ class HelixLogoTexture {
     this.camera.updateProjectionMatrix()
     this.camera.aspect = window.innerWidth / window.innerHeight
     this.renderer.setSize( window.innerWidth, window.innerHeight)
- 
-      
+
+
     if (this.width >= this.height) {
       this.captureCanvas.width = this.height * this.pixelRatio
       this.captureCanvas.height = this.height * this.pixelRatio
@@ -132,10 +132,10 @@ class HelixLogoTexture {
   zoomOutCamera() {
     TweenLite.to(this.camera.position, .6, {z: 0, y:0, ease: Quad.easeOut, onComplete: () => {
       this.camera.far = 850
-      this.camera.updateProjectionMatrix()  
+      this.camera.updateProjectionMatrix()
     }})
     TweenLite.to(this.camera.rotation, .8, {x: (50 * Math.PI / 180), ease: Quad.easeOut, onComplete: () => {
-     
+
     }})
   }
 
@@ -152,19 +152,19 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-    
+
 
     let perspective = DeviceTracker.isMobile() ? 65 : 39
 
     this.camera = new THREE.PerspectiveCamera(perspective, window.innerWidth / window.innerHeight, 1, 850 )
-    this.camera.lookAt(0,0,0) 
+    this.camera.lookAt(0,0,0)
     this.camera.rotation.x = 50 * Math.PI / 180
   }
 
   createRibbons() {
     for (var i = 0; i < this.totalRibbons; i++) {
       let ribbon = new HelixLogoRibbon(this.gradientColors[3], this.gradientColors[4], this.isMonochrome, this.monochromeColor, i)
-      this.allRibbons.push(ribbon)  
+      this.allRibbons.push(ribbon)
       this.scene.add(ribbon.ribbonMesh)
     }
     this.totalRibbonVertices = this.allRibbons[0].bufferGeometry.attributes.position.count/2
@@ -184,14 +184,14 @@ class HelixLogoTexture {
   createCaptureCanvas() {
     this.watermarkDark = new Image()
     this.watermarkDark.src = '/images/newCastleLogoDark.png'
-  
+
     this.watermarkLight = new Image()
     this.watermarkLight.src = '/images/newCastleLogoWhite.png'
     this.captureCanvas = document.createElement('canvas')
     this.element.appendChild(this.captureCanvas)
     this.captureContext = this.captureCanvas.getContext('2d')
-  }  
-  
+  }
+
   createShot() {
     this.watermark = SunCalculator.darkTheme ? this.watermarkLight : this.watermarkDark
     this.captureContext.fillStyle = this.colorBackground ? this.backgroundColors[this.gradientGuide] : 'white'
@@ -203,13 +203,11 @@ class HelixLogoTexture {
     }
     this.captureContext.drawImage(this.watermark, (this.captureCanvas.width / 2) - 170, (this.captureCanvas.height / 2) - 100)
     
-    
-
     return this.captureCanvas.toDataURL('image/jpg', .9)
   }
 
   calculateColors(temperatureAverage) {
-    let colorSegments = 1.1 / (this.gradientColors.length - 1) 
+    let colorSegments = 1.1 / (this.gradientColors.length - 1)
 
     if (this.gradientGuide !== Math.floor(temperatureAverage / colorSegments)) {
       this.animateColor = true
@@ -258,7 +256,7 @@ class HelixLogoTexture {
       this.renderer.render( this.scene, this.camera )
     }
   }
-  
+
 
 
   animate() {
@@ -276,14 +274,14 @@ class HelixLogoTexture {
         this.animateColor = false
       }
     }
-   
+
     this.allRibbons.forEach((ribbon) => {
       ribbon.uniform.innerRadius.value += (this.innerRadius - ribbon.uniform.innerRadius.value) * 0.05
       ribbon.uniform.totalCurls.value += (this.totalCurls - ribbon.uniform.totalCurls.value) * 0.05
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
       ribbon.uniform.time.value = this.time
       ribbon.uniform.lineSpeed.value = this.lineSpeed
-      ribbon.uniform.breakSize.value = this.breakSize 
+      ribbon.uniform.breakSize.value = this.breakSize
       ribbon.uniform.breakFrequency.value += (this.breakFrequency - ribbon.uniform.breakFrequency.value) * 0.05
       ribbon.uniform.coloredDivisions.value = this.coloredDivisions
       ribbon.uniform.amplitude.value += (this.amplitude - ribbon.uniform.amplitude.value) * 0.05
