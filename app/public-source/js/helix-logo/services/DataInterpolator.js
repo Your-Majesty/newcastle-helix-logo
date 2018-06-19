@@ -106,7 +106,8 @@ const DataInterpolator = (() => {
 
   controller.calculatePoint = (dataPoint) => {
     SunCalculator.calculateDay(dataPoint.timestamp)
-    for (let property of DataCollector.limits) {
+
+    DataCollector.limits.forEach((property) => {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {
         if (key == 'colorScale') {
@@ -122,11 +123,11 @@ const DataInterpolator = (() => {
           )
         }
       }
-    }
+    })
   }
 
   controller.calculateSlider = (sliderPoint) => {
-    for (let property of DataCollector.limits) {
+    DataCollector.limits.forEach((property) => {
       let propertyLimits = controller.limits[property.name]
       for (let key in propertyLimits) {
         
@@ -143,7 +144,8 @@ const DataInterpolator = (() => {
 
         }
       }
-    }
+
+    })
   }
 
   controller.linearInterpolation = (minLimit, maxLimit, currentValue, logoValueMin, logoValueMax) => {

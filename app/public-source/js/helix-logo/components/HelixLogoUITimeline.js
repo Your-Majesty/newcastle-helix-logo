@@ -66,13 +66,13 @@ class HelixLogoUITimeline {
   }
 
   mapValues() {
-    for (limit of DataCollector.limits){
-      if (limit.name == 'energy') {
+    DataCollector.limits.forEach((limit) => {
+       if (limit.name == 'energy') {
         DataCollector.collection.forEach((dataPoint, index) => {
           TweenLite.to(this.lines[index + this.totalCollection], 0.5 * Math.random(), {y:`${DataInterpolator.linearInterpolation(limit.min, limit.max, DataCollector.collection[index].energy, 99, 0)}%`, delay: 1.4 * Math.random(), ease: Circ.easeOut})
         })
       }
-    }
+    })
   }
 
   reset() {
