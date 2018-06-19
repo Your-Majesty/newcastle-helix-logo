@@ -85,6 +85,10 @@ gulp.task('generate-service-worker', function(callback) {
     {
       urlPattern: /\/latest\/*/,
       handler: 'networkFirst'
+    },
+    {
+      urlPattern: /\/app/,
+      handler: 'networkFirst'
     }
     ]
   }, callback);
