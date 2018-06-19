@@ -68,6 +68,7 @@ const HelixLogoApp = (() => {
     var a = document.createElement('a')
     a.download = 'newcastle-helix-logo-export.jpg'
     a.href = screenShot
+    a.target = '_blank' // for ios devices
     a.click()
   })
 
