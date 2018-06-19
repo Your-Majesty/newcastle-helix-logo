@@ -46,8 +46,7 @@ const SliderCollector = (() => {
     let sensorValue = DataCollector.collection[dataPointIndex]
     let sensors = controller.sensors
 
-
-    for (let property of DataCollector.limits) {
+    DataCollector.limits.forEach((property) => {
       if (property.name == 'temperature') {
         controller.sensors[`${property.name}`].value = sensorValue[`${property.name}`]
         controller.sensors[`${property.name}`].percentage = DataInterpolator.calculatedPoint.colorScale
@@ -57,7 +56,8 @@ const SliderCollector = (() => {
         controller.sensors[`${property.name}`].percentage = (sensorValue[`${property.name}`] - property.min) / (property.max - property.min)
 
       }
-    }
+         
+    })
   }
 
   controller.updateValues = (percentage) => {
