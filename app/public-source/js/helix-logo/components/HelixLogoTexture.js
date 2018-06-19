@@ -11,8 +11,8 @@ class HelixLogoTexture {
     this.innerRadius = 20.
     this.outerRadius = 65
     this.totalCurls = 2.
-    this.variationRatio = 0.0058
-    this.newVariationRatio = 0.0058
+    this.variationRatio = 0.003
+    this.newVariationRatio = 0.003
 
     this.variator = 0.1
     this.noiseSize = 180.5
@@ -290,7 +290,7 @@ class HelixLogoTexture {
       ribbon.calculateThickness(this.lineSeparation)
     })
 
-    this.variationRatio += (this.newVariationRatio - this.variationRatio) * 0.05
+    this.variationRatio += (this.newVariationRatio - this.variationRatio) * 0.08
 
     this.variator +=  this.variationRatio
     this.calculateRibbonsNoise()

@@ -10,11 +10,12 @@ class HelixLogoUINewsletter {
   postMail(e) {
     if (e.preventDefault) e.preventDefault()
     fetch(DataCollector.siteUrl + '/api/newsletter-signup', {
-      method: 'post',
-      cors: true,
+      method: 'POST',
+      mode: 'no-cors',
       credentials: 'include',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         email: this.input.value
