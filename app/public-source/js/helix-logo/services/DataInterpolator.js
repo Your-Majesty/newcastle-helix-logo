@@ -66,11 +66,11 @@ const DataInterpolator = (() => {
     wind: {
       variationRatio: {
         min: 0.002,
-        max: 0.007
+        max: 0.004
       }, 
       amplitude: {
         min: 4,
-        max: 8
+        max: 6
       }
     },
     vehicleSpeed: {

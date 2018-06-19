@@ -172,7 +172,7 @@ class HelixLogoTexture {
 
   calculateRibbonsNoise() {
     this.noiseArray = []
-    for (var i = 0; i < this.totalRibbonVertices; i++) {
+    for (var i = 0; i < this.totalRibbonVertices * 2; i++) {
       this.noiseArray.push(this.perlin.noise(i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.9), i * this.variationRatio * Math.cos(this.noiseSize) * Math.sin(0.3), i * this.variationRatio + this.variator * Math.sin(0.3) * Math.cos(0.2) * 6.6))
       // this.noiseArray.push(0.5)
     }

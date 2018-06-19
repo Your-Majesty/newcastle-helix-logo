@@ -161,8 +161,8 @@ class HelixLogoRibbon {
   createGeometry() {
 
     this.bufferGeometry = new THREE.PlaneBufferGeometry( this.width, this.height, 1, this.segments);
-    this.angle = (721 / ((this.bufferGeometry.attributes.position.count))) * (Math.PI / 180) 
-    
+    this.angle = (361 / (this.bufferGeometry.attributes.position.count)) * Math.PI / 180
+   
     this.vertexIndex = new Float32Array(this.bufferGeometry.attributes.position.count)
     this.vertexAngle = new Float32Array(this.bufferGeometry.attributes.position.count)
     this.vertexNoise = new Float32Array(this.bufferGeometry.attributes.position.count)
