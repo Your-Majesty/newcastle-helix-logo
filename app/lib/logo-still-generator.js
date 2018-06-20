@@ -49,7 +49,6 @@ module.exports = (() => {
             .resize(82, 82)
             .sharpen(2.0)
             .toFile(`${__dirname}/../tmp/${capture.name}-86-86.png`)
-
           await sharp(colorBackground)
             .overlayWith(`${__dirname}/../tmp/${capture.name}-86-86.png`, { left: 170, top: 0 } )
             .toFile(`${__dirname}/../public/latest/${capture.name}-${option}.png`)
@@ -60,7 +59,6 @@ module.exports = (() => {
               .sharpen(2.0)
               .toFile(`${__dirname}/../public/latest/favicon.png`)
           }
-
         } else {
           sharp(logoCapture)
           .resize(capture.width, capture.height)
@@ -69,7 +67,6 @@ module.exports = (() => {
         }
       }
     }
-
     await fs.emptyDir(`${__dirname}/../tmp/`)
   }
 

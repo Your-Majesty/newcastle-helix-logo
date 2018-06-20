@@ -131,7 +131,10 @@ void main(void){
     color = mix(color, colorSeparation, rect(fract(vec2(stY)), vec2(1., .7), breakSize));
 
     if (isMonochrome) {
-      alpha -= (color.y);  
+
+      if (monochromeColorA <= 0.9) {
+        alpha -= (color.x);  
+      }
     }
    
   }
