@@ -23,7 +23,6 @@ class HelixLogoUI {
     this.animateIn = this.animateIn.bind(this)
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
-
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
         this.showSliders()

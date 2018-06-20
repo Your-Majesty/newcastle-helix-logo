@@ -64,7 +64,15 @@ void main(void){
   vec3 colorSeparation = vec3(1.0);
 
   vec2 colorSt = st;
-  colorSt *= 18.; 
+
+  if (isMonochrome) {
+    colorSt *= 1.; 
+  } else {
+    colorSt *= 18.; 
+  }
+
+
+
   colorSt = fract(colorSt);
   float d = distance(colorSt.y, 0.5);
 
@@ -121,7 +129,13 @@ void main(void){
     }
     
     color = mix(color, colorSeparation, rect(fract(vec2(stY)), vec2(1., .7), breakSize));
+
+    if (isMonochrome) {
+      alpha -= (color.y);  
+    }
+   
   }
+
   gl_FragColor = vec4(color, alpha);
 }
 `
