@@ -5,13 +5,13 @@ const argv = process.argv
 
 const servers = {
   internal: [
-    { user: 'gatekeeper', host: '192.168.1.95' }
+    { user: 'gatekeeper', host: '192.168.1.95', path: '/var/www/newcastle-helix-logo' }
   ],
   staging: [
-    { host: '209.97.138.182' }
+    { user: 'root', host: '209.97.138.182', path: '/var/www/newcastle-helix-logo' }
   ],
   production: [
-    { host: '178.128.168.20' }
+    { user: 'root', host: '178.128.168.20', path: '/var/www/newcastle-helix-logo' }
   ]
 }
 
@@ -34,6 +34,7 @@ console.log(`
   |_____ |_____| |_____| |_____|
 `)
 
+
 if (argv[2] == 'help' || !argv[2]) {
   console.log(`
 
@@ -48,6 +49,9 @@ Available commands:
 
   ssh:prepare
     Prepare local machine for deployment.
+
+  renew-ssl:<environment>
+    Updates the SSL and distributes it amongst all the servers.
 
 If you have issues deploying, try running
   ./tools ssh:prepare
@@ -127,8 +131,8 @@ if (argv[2].indexOf('deploy') > -1) {
           echo 'Connecting to ${s.host}...';
           echo '';
 
-          ssh ${s.user || 'root'}@${s.host} "
-            cd /var/www/newcastle-helix-logo;
+          ssh ${s.user}@${s.host} "
+            cd ${s.path};
             rm -r app/package-lock.json;
 
             echo '';
@@ -140,7 +144,6 @@ if (argv[2].indexOf('deploy') > -1) {
             docker-compose exec web bash -c '
               npm install &&
               gulp &&
-              gulp generate-service-worker &&
               pm2 reload all;
             '
           ";
@@ -153,5 +156,91 @@ if (argv[2].indexOf('deploy') > -1) {
   } else {
     console.log('No target supplied, or deploy target not found.')
   }
+}
 
+if (argv[2].indexOf('renew-ssl') > -1) {
+  var target = argv[2].split(':')
+
+  if (servers[target[1]]) {
+    (async() => {
+      console.log(`Attempting to renew SSL certificate on`)
+      console.log()
+      console.log(`  ${target[1].toUpperCase()} `)
+      console.log()
+      console.log()
+      console.log(`To cancel, press CTRL+C now.`)
+      console.log()
+      await pause(500)
+      console.log(`Renewing SSL in: 3 seconds`)
+      await pause(1000)
+      console.log(`Renewing SSL in: 2 seconds`)
+      await pause(1000)
+      console.log(`Renewing SSL in: 1 second!`)
+      await pause(1000)
+
+      console.log()
+      console.log(`Continuing...`)
+      console.log()
+
+      spawn(`
+        ssh-add;
+
+        ${servers[target[1]].map((s, i) => `
+          ${i == 0 ? `
+            echo 'Skipping server at 0...';
+          ` : `
+            echo 'Shutting down server ${i}';
+
+            ssh ${s.user}@${s.host} "
+              cd /var/www/nginx-proxy &&
+              docker-compose down &&
+            " &&
+          `}
+        `).join('')}
+
+        echo;
+        echo 'Performing cert renewal on server 0...';
+        ssh ${servers[target[1]][0].user}@${servers[target[1]][0].host} "
+          echo;
+          echo 'Running letsencrypt renew...';
+          letsencrypt renew &&
+
+          echo;
+          echo 'Distributing SSL certificate amongst all servers...';
+
+          ${servers[target[1]].map((s, i) => `
+            echo;
+            ${i == 0 ? `
+              echo 'Skipping server at 0...';
+            ` : `
+              echo 'Rsyncing certs from server 0 to ${i}';
+              rsync -avz /etc/letsencrypt/live/ ${s.user}:/etc/letsencrypt/live &&
+            `}
+          `).join('')}
+        " &&
+
+        echo;
+        echo 'Restarting all servers...';
+
+        ${servers[target[1]].map((s, i) => `
+          echo;
+          echo 'Restarting server ${i}';
+
+          ssh ${s.user}@${s.host} "
+            cd /var/www/nginx-proxy &&
+            docker-compose down &&
+            docker-compose up -d;
+          ";
+        `).join('')}
+
+        echo;
+        echo ' -- Done';
+      `, {
+        shell: true,
+        stdio: 'inherit'
+      })
+    })()
+  } else {
+    console.log('No target supplied, or deploy target not found.')
+  }
 }
