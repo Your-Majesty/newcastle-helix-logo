@@ -23,6 +23,8 @@ class HelixLogoUI {
     this.animateIn = this.animateIn.bind(this)
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
+
+    this.animateIn()
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
         this.showSliders()
@@ -32,6 +34,13 @@ class HelixLogoUI {
       this.anchor.mapSensorName(e.detail)
       this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
       this.slider.setPercentage(e.detail)
+    })
+    
+    this.overlay.element.addEventListener('UIOpenedModal', (e) => {
+      this.scienceCentralOverlay.closeModal()
+    })
+    this.scienceCentralOverlay.element.addEventListener('UIOpenedModal', (e) => {
+      this.overlay.closeModal()
     })
   }
 

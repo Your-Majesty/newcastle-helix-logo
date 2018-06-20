@@ -34,6 +34,7 @@ class HelixLogoUISlider {
   moveSlider(ev) {
       this.percentageDragged = (ev.deltaX / this.slide.offsetWidth) * 100
       this.totalDrag = this.currentPercentage + this.percentageDragged
+      
       if (this.totalDrag <= this.maxPercentage) {
         this.totalDrag = this.maxPercentage
         this.currentPercentage = this.maxPercentage
@@ -49,11 +50,11 @@ class HelixLogoUISlider {
         this.totalDrag = this.currentPercentage + this.percentageDragged
         SliderCollector.updateValues((100 - (50 + this.totalDrag))/ 100) 
       }
-    if (ev.isFinal) {
-      TrackingService.track('dataViz-slider', 'drag')
-      this.currentPercentage = this.currentPercentage + this.percentageDragged
-      
-    }
+
+      if (ev.isFinal) {
+        TrackingService.track('dataViz-slider', 'drag')
+        this.currentPercentage = this.currentPercentage + this.percentageDragged
+      }
   }
 
   setPercentage(sensor) {

@@ -8,7 +8,6 @@ class HelixLogoScienceOverlay {
     this.closeButton = document.querySelector('.helix-logo-ui-overlay__scienceCentral button')
 
     this.buttonMobile = document.querySelector('.helix-logo-info-newcastle__mobile')
-
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
 
@@ -38,6 +37,9 @@ class HelixLogoScienceOverlay {
     if (isTabletExperience) {
       document.querySelector('body').classList.add('tablet-overlay')
     }
+
+    this.event = new CustomEvent('UIOpenedModal', {bubbles: true})
+    this.element.dispatchEvent(this.event)
   }
 
   closeModal() {

@@ -52,10 +52,12 @@ class HelixLogoUIOverlay {
     TweenLite.to(this.text, 0.3, {y: 0, opacity:1, ease: Circ.easeOut, delay:0.2})
     
     TrackingService.track('dataViz-moreInfo', 'click')
-
     if (isTabletExperience) {
       document.querySelector('body').classList.add('tablet-overlay')
     }
+
+    this.event = new CustomEvent('UIOpenedModal', {bubbles: true})
+    this.element.dispatchEvent(this.event)
   }
 
   closeModal() {

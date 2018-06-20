@@ -104,9 +104,17 @@
   top: 37%;
   transform: translateY(-50%);
   letter-spacing: 0.4px;
-  max-width: 310px;
+  max-width: 360px;
   line-height: 1.5;
-  width: 22%;
+  width: 34%;
+  font-size: 12px;
+  opacity: 0.5;
+
+  @include q-is-large-small {
+    max-width: 260px;
+    font-size: 11px;
+    width: 24%;
+  }
 
   @include q-is-medium-small {
     display: none;
