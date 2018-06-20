@@ -11,7 +11,6 @@ class HelixLogoUINewsletter {
     if (e.preventDefault) e.preventDefault()
     fetch(DataCollector.siteUrl + '/api/newsletter-signup', {
       method: 'POST',
-      mode: 'no-cors',
       credentials: 'include',
       headers: {
         'content-type': 'application/json',
