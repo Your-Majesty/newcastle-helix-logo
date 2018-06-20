@@ -5,13 +5,13 @@ const argv = process.argv
 
 const servers = {
   internal: [
-    { user: 'gatekeeper', host: '192.168.1.95', path: '/var/www/newcastle-helix' }
+    { user: 'gatekeeper', host: '192.168.1.95', path: '/var/www/newcastle-helix-logo' }
   ],
   staging: [
-    { user: 'root', host: '209.97.138.182', path: '/var/www/newcastle-helix' }
+    { user: 'root', host: '209.97.138.182', path: '/var/www/newcastle-helix-logo' }
   ],
   production: [
-    { user: 'root', host: '178.128.168.20', path: '/var/www/newcastle-helix' }
+    { user: 'root', host: '178.128.168.20', path: '/var/www/newcastle-helix-logo' }
   ]
 }
 
