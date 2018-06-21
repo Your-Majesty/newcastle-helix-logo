@@ -88,7 +88,7 @@ const HelixLogoApp = (() => {
 
       if ((SliderCollector.sensors['temperature'].percentage < 0.27) && (controller.currentHour == 'white' )) {
         let color = {
-          color: 'white'
+          color: 'black'
         }
         window.parent.postMessage(JSON.stringify(color), '*')
         helixUI.updateTheme(e.detail)
@@ -101,7 +101,6 @@ const HelixLogoApp = (() => {
         window.parent.postMessage(JSON.stringify(color), '*')
         helixUI.updateTheme(e.detail)
 
-        console.log(color)
       }
     }
   })
@@ -131,6 +130,7 @@ const HelixLogoApp = (() => {
         }
         window.parent.postMessage(JSON.stringify(color), '*')
         console.log(color)
+
       }
 
     }
