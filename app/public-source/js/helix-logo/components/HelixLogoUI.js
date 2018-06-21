@@ -23,6 +23,7 @@ class HelixLogoUI {
     this.animateIn = this.animateIn.bind(this)
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
+    
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
         this.showSliders()
@@ -154,10 +155,12 @@ class HelixLogoUI {
   }
 
   mapValuesSlider() {
-    
     this.updateLightTheme(SliderCollector.sensors['temperature'].percentage)
     this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
     this.buttons.mapButtonsSliderValues(SliderCollector.getCurrentSensor())
+
+    this.event = new CustomEvent('UISliderTemperature', {bubbles: true})
+    window.dispatchEvent(this.event)
   }
 
   mapValues(index) {

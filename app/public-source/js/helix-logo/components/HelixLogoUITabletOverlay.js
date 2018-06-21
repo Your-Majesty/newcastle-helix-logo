@@ -36,10 +36,7 @@ class HelixLogoUITabletOverlay {
     this.overlayWrapper.style.display = 'block'
     this.logo.style.display = 'block'
     document.querySelector('body').classList.add('tablet-overlay')
-
     window.addEventListener('newsletterSignUp', this.close)
-
-
   }
 
   close() {
