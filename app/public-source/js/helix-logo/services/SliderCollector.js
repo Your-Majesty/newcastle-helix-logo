@@ -38,7 +38,6 @@ const SliderCollector = (() => {
   }
 
   controller.getCurrentSensor = () => {
-    // console.log(controller.currentSensor)
     return {name: controller.currentSensor, value:parseFloat(controller.sensors[`${controller.currentSensor}`].value).toFixed( 2 )}
   }
 
@@ -54,9 +53,7 @@ const SliderCollector = (() => {
       } else {
         controller.sensors[`${property.name}`].value = sensorValue[`${property.name}`]
         controller.sensors[`${property.name}`].percentage = (sensorValue[`${property.name}`] - property.min) / (property.max - property.min)
-
       }
-         
     })
   }
 

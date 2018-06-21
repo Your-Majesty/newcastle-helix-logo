@@ -2,6 +2,7 @@ const HelixLogoApp = (() => {
 
   const controller = {}
   controller.currentTime = null
+  controller.newCurrentTime = null
 
   window.addEventListener('message', function (event) {
 
@@ -73,17 +74,28 @@ const HelixLogoApp = (() => {
   })
 
   window.addEventListener('sunCalculator', function (e) {
+
     if (!helixRibbon.isMonochrome) {
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
 
-      if (controller.currentTime !== e.detail) {
-        controller.currentTime = e.detail
-        let time = {
-          time: e.detail ? 'night' : 'day'
+      if (e.detail && (SliderCollector.sensors['temperature'].percentage < 0.27)) {
+        controller.newCurrentTime = 'black'
+        helixUI.updateTheme(false)
+      } else if(!e.detail) {
+        controller.newCurrentTime = 'black'
+        helixUI.updateTheme(false)
+      } else {
+        controller.newCurrentTime = 'white'
+        helixUI.updateTheme(true)
+      }
+
+      if (controller.newCurrentTime !== controller.currentTime) {
+        controller.currentTime = controller.newCurrentTime
+        let color = {
+          color: controller.newCurrentTime
         }
-        window.parent.postMessage(JSON.stringify(time), '*')
-        helixUI.updateTheme(e.detail)
+        window.parent.postMessage(JSON.stringify(color), '*')
       }
     }
   })
