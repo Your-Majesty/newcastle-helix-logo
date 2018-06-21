@@ -79,32 +79,20 @@ const HelixLogoApp = (() => {
   })
 
   window.addEventListener('sunCalculator', function (e) {
-
-
-
     if (!helixRibbon.isMonochrome) {
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
+    
 
-      controller.currentHour = e.detail ? 'night' : 'day' 
+      controller.currentHour = e.detail ? 'white' : 'black'
 
-      if (e.detail && (SliderCollector.sensors['temperature'].percentage < 0.27)) {
-        controller.newCurrentTime = 'black'
-        helixUI.updateTheme(false)
-      } else if(!e.detail) {
-        controller.newCurrentTime = 'black'
-        helixUI.updateTheme(false)
-      } else {
-        controller.newCurrentTime = 'white'
-        helixUI.updateTheme(true)
-      }
-
-      if (controller.newCurrentTime !== controller.currentTime) {
-        controller.currentTime = controller.newCurrentTime
+      if (controller.currentTime !== e.detail) {
+        controller.currentTime = e.detail
         let color = {
-          color: controller.newCurrentTime
+          color: e.detail ? 'white' : 'black'
         }
         window.parent.postMessage(JSON.stringify(color), '*')
+        helixUI.updateTheme(e.detail)
       }
     }
   })
@@ -124,14 +112,18 @@ const HelixLogoApp = (() => {
   })
 
   window.addEventListener('UISliderTemperature', function (e) {
-    if (controller.currentHour == 'night') {
+
+    if (controller.currentHour == 'white') {
+
       controller.newcurrentSliderTime = SliderCollector.sensors['temperature'].percentage < 0.27 ? 'black' : 'white'
+      
       if (controller.newcurrentSliderTime !== controller.currentSliderTime) {
         controller.currentSliderTime = controller.newcurrentSliderTime
         let color = {
-          color: controller.newCurrentTime
+          color: controller.newcurrentSliderTime
         }
-        window.parent.postMessage(JSON.stringify(color), '*')
+        console.log(color)
+        // window.parent.postMessage(JSON.stringify(color), '*')
       }
     }
    
