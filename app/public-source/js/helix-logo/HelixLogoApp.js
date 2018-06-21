@@ -122,8 +122,7 @@ const HelixLogoApp = (() => {
         let color = {
           color: controller.newcurrentSliderTime
         }
-        console.log(color)
-        // window.parent.postMessage(JSON.stringify(color), '*')
+        window.parent.postMessage(JSON.stringify(color), '*')
       }
     }
    
