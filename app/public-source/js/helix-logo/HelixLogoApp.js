@@ -9,6 +9,7 @@ const HelixLogoApp = (() => {
   controller.newcurrentSliderTime = null
 
 
+
   window.addEventListener('message', function (event) {
 
     if (event.data) {
@@ -82,10 +83,16 @@ const HelixLogoApp = (() => {
     if (!helixRibbon.isMonochrome) {
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
-    
-
+      
       controller.currentHour = e.detail ? 'white' : 'black'
 
+      if ((SliderCollector.sensors['temperature'].percentage < 0.27) && (controller.currentHour == 'white' )) {
+        let color = {
+          color: 'white'
+        }
+        window.parent.postMessage(JSON.stringify(color), '*')
+        helixUI.updateTheme(e.detail)
+      }
       if (controller.currentTime !== e.detail) {
         controller.currentTime = e.detail
         let color = {
@@ -93,6 +100,8 @@ const HelixLogoApp = (() => {
         }
         window.parent.postMessage(JSON.stringify(color), '*')
         helixUI.updateTheme(e.detail)
+
+        console.log(color)
       }
     }
   })
@@ -114,9 +123,7 @@ const HelixLogoApp = (() => {
   window.addEventListener('UISliderTemperature', function (e) {
 
     if (controller.currentHour == 'white') {
-
       controller.newcurrentSliderTime = SliderCollector.sensors['temperature'].percentage < 0.27 ? 'black' : 'white'
-      
       if (controller.newcurrentSliderTime !== controller.currentSliderTime) {
         controller.currentSliderTime = controller.newcurrentSliderTime
         let color = {
