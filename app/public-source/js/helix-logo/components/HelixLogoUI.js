@@ -8,7 +8,7 @@ class HelixLogoUI {
     this.download = new HelixLogoUIDownload()
 
     this.scienceCentralOverlay = new HelixLogoScienceOverlay()
-   
+
     this.overlay = new HelixLogoUIOverlay()
     this.isTableExperience = false
     this.timelineIsActive = false
@@ -20,11 +20,14 @@ class HelixLogoUI {
     this.currentIndex = 0
     this.theme = null
 
+    // Added this so you can develop without having to change code to show the ui
+    if (location.href.indexOf('show-ui') > -1) {
+      this.animateIn()
+    }
+
     this.animateIn = this.animateIn.bind(this)
     this.animateOut = this.animateOut.bind(this)
     this.animateOverlayOut = this.animateOverlayOut.bind(this)
-    
-    this.animateIn()
 
     this.buttons.buttons.addEventListener('uiButtonPressed', (e) => {
       if (!this.sliderIsActive) {
@@ -36,7 +39,7 @@ class HelixLogoUI {
       this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
       this.slider.setPercentage(e.detail)
     })
-    
+
     this.overlay.element.addEventListener('UIOpenedModal', (e) => {
       this.scienceCentralOverlay.closeModal()
     })
@@ -123,7 +126,7 @@ class HelixLogoUI {
     this.slider.animateOut()
     this.sliderIsActive = false
   }
-  
+
   showTimeline() {
     if (this.sliderIsActive) {
       this.anchor.resetButtonAction(false)
@@ -138,7 +141,7 @@ class HelixLogoUI {
     this.timeline.animateOut()
     this.timelineIsActive = false
   }
-  
+
   mapValuesTimeline(index) {
     this.currentIndex = index
     this.buttons.mapButtonsValues(index)
@@ -149,9 +152,9 @@ class HelixLogoUI {
   updateLightTheme(value) {
     if (this.theme) {
       if ((value < 0.27)) {
-        document.querySelector('body').classList.remove('helix-theme-dark') 
+        document.querySelector('body').classList.remove('helix-theme-dark')
       } else {
-        document.querySelector('body').classList.add('helix-theme-dark') 
+        document.querySelector('body').classList.add('helix-theme-dark')
       }
     }
   }
@@ -172,10 +175,13 @@ class HelixLogoUI {
 
   updateTheme(lightTheme) {
     this.theme = lightTheme
+
     if (lightTheme) {
-      document.querySelector('body').classList.add('helix-theme-dark') 
+      document.querySelector('body').classList.add('helix-theme-dark')
+      window.parent.postMessage(JSON.stringify({ color: 'black' }), '*')
     } else {
-      document.querySelector('body').classList.remove('helix-theme-dark') 
+      document.querySelector('body').classList.remove('helix-theme-dark')
+      window.parent.postMessage(JSON.stringify({ color: 'white' }), '*')
     }
   }
 }

@@ -1,302 +1,315 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>HELIX LOGO</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
-        <link rel="manifest" href="/manifest.json">
-        <link rel="apple-touch-icon" href="icon.png">
-        <!-- Place favicon.ico in the root directory -->
-        <link rel="stylesheet" href="/css/helix-logo.css">
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ env.GOOGLE_ANALYTICS_ID }}"></script>
-        <script>
-          {% if gdpr[2] != '1' %}
-            window['ga-disable-{{ env.GOOGLE_ANALYTICS_ID }}'] = true
-          {% endif %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>HELIX LOGO</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="/css/helix-logo.css">
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id={{ env.GOOGLE_ANALYTICS_ID }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+      gtag('config', '{{ env.GOOGLE_ANALYTICS_ID }}', {
+        'anonymize_ip': true,
+        'send_page_view': false
+      });
+    </script>
+  </head>
+  <body>
+    <!--[if lte IE 9]> <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p> <![endif]-->
+    <div class="helix-logo-ui-tablet__logo-wrapper">
+      <img class="helix-logo-ui-tablet__logo helix-logo-ui-tablet__logo-white" src="latest/logo-white.png">
+      <img class="helix-logo-ui-tablet__logo helix-logo-ui-tablet__logo-black" src="latest/logo-black.png">
+    </div>
 
-          gtag('config', '{{ env.GOOGLE_ANALYTICS_ID }}', {
-            'anonymize_ip': true,
-            'send_page_view': false
-          });
-        </script>
-    </head>
-    <body>
-        <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
-        <div class="helix-logo-ui-tablet__logo-wrapper">
-          <img class="helix-logo-ui-tablet__logo helix-logo-ui-tablet__logo-white" src="latest/logo-white.png">
-          <img class="helix-logo-ui-tablet__logo helix-logo-ui-tablet__logo-black" src="latest/logo-black.png">
+    <div class="helix-logo-ui-tablet helix-logo-ui-share">
+      <button class="helix-logo-ui-tablet__newsletter">Newsletter</button>
+      <button class="helix-logo-ui-tablet__share">Share</button>
+    </div>
+    <button class="helix-logo-infonewcastle-button helix-logo-info-newcastle__mobile">
+      <svg width="9px" height="14px" viewbox="0 0 9 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="1024-copy-19" transform="translate(-808.000000, -693.000000)" fill="#000000">
+            <path
+              d="M812.482,693.22 C814.732,693.22 816.316,694.696 816.316,696.784 C816.316,700.078 812.806,700.078 812.77,702.67 L811.474,702.67 C811.474,699.268 814.93,699.358 814.93,696.892 C814.93,695.506 813.922,694.534 812.446,694.534 C810.844,694.534 809.71,695.668 809.638,697.234 L808.324,697.09 C808.396,694.858 810.088,693.22 812.482,693.22 Z M812.176,706.18 C811.582,706.18 811.132,705.73 811.132,705.136 C811.132,704.56 811.582,704.092 812.176,704.092 C812.788,704.092 813.238,704.56 813.238,705.136 C813.238,705.73 812.788,706.18 812.176,706.18 Z"
+              id="?"></path>
+          </g>
+        </g>
+      </svg>
+    </button>
+    <!-- div.helix-logo-ui -->
+    <div class="helix-logo-element"></div>
+    <!-- This are the elements of the ui -->
+
+    <!-- the dark theme is helix-theme-dark-->
+    <div class="helix-logo-ui">
+      <div class="helix-logo-controls">
+        <div class="helix-logo-anchor">
+          <button class="helix-logo-reset">RESET</button>
+          <div class="helix-logo-anchor__line"></div>
+          <div class="helix-logo-anchor__info">
+            <div class="helix-logo-anchor__info__wrapper">
+              <h5 class="helix-logo-day"></h5>
+              <h5 class="helix-logo-time"></h5>
+              <div class="helix-logo-anchor__play">
+                <button>
+                  <svg width="6px" height="9px" viewbox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="01-desktop" transform="translate(-868.000000, -628.000000)" fill="#000000">
+                        <g id="Group-4" transform="translate(855.000000, 617.000000)">
+                          <polygon id="Triangle-Copy-3" transform="translate(16.000000, 15.500000) rotate(-270.000000) translate(-16.000000, -15.500000) " points="16 13 20 18 12 18"></polygon>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </button>
+                <p>PLAY 24H DATA</p>
+              </div>
+              <p class="helix-logo-anchor__lear-more">Click to learn more</p>
+            </div>
+          </div>
+        </div>
+        <div class="helix-logo-timeline">
+          <div class="helix-logo-timeline__lines">
+            <div class="helix-logo-timeline__line"></div>
+            <div class="helix-logo-timeline__line"></div>
+            <div class="helix-logo-timeline__line"></div>
+            <div class="helix-logo-timeline__line"></div>
+          </div>
         </div>
 
-        <div class="helix-logo-ui-tablet helix-logo-ui-share">
-          <button class="helix-logo-ui-tablet__newsletter">Newsletter</button>
-          <button class="helix-logo-ui-tablet__share">Share</button>
+        <div class="helix-logo-slider">
+          <div class="helix-logo__slide">
+            <div class="helix-logo__slide-inner"></div>
+          </div>
         </div>
-        <button class="helix-logo-infonewcastle-button helix-logo-info-newcastle__mobile">
-          <svg width="9px" height="14px" viewBox="0 0 9 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+
+      </div>
+
+      <div class="helix-logo-ui-bottom">
+        <h6 class="helix-logo-ui-hint">Tap on a data point and drag the grey slider up or down to change the speed, colour, width and the flow of our generative logo.
+          <div class="helix-logo-info-newcastle__button">
+            <button class="helix-logo-infonewcastle-button">
+              <svg width="9px" height="14px" viewbox="0 0 9 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <g id="1024-copy-19" transform="translate(-808.000000, -693.000000)" fill="#000000">
-                      <path d="M812.482,693.22 C814.732,693.22 816.316,694.696 816.316,696.784 C816.316,700.078 812.806,700.078 812.77,702.67 L811.474,702.67 C811.474,699.268 814.93,699.358 814.93,696.892 C814.93,695.506 813.922,694.534 812.446,694.534 C810.844,694.534 809.71,695.668 809.638,697.234 L808.324,697.09 C808.396,694.858 810.088,693.22 812.482,693.22 Z M812.176,706.18 C811.582,706.18 811.132,705.73 811.132,705.136 C811.132,704.56 811.582,704.092 812.176,704.092 C812.788,704.092 813.238,704.56 813.238,705.136 C813.238,705.73 812.788,706.18 812.176,706.18 Z" id="?"></path>
+                    <path
+                      d="M812.482,693.22 C814.732,693.22 816.316,694.696 816.316,696.784 C816.316,700.078 812.806,700.078 812.77,702.67 L811.474,702.67 C811.474,699.268 814.93,699.358 814.93,696.892 C814.93,695.506 813.922,694.534 812.446,694.534 C810.844,694.534 809.71,695.668 809.638,697.234 L808.324,697.09 C808.396,694.858 810.088,693.22 812.482,693.22 Z M812.176,706.18 C811.582,706.18 811.132,705.73 811.132,705.136 C811.132,704.56 811.582,704.092 812.176,704.092 C812.788,704.092 813.238,704.56 813.238,705.136 C813.238,705.73 812.788,706.18 812.176,706.18 Z"
+                      id="?"></path>
                   </g>
+                </g>
+              </svg>
+            </button>
+          </div>
+
+        </h6>
+        <div class="helix-logo-buttons"></div>
+
+        <div class="helix-logo-download">
+          <p>Download the artwork</p>
+          <button>
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 12 20" style="enable-background:new 0 0 12 20;" xml:space="preserve">
+              <g id="Page-1">
+                <g id="_x30_4-desktop-white" transform="translate(-1621.000000, -841.000000)">
+                  <g id="Group-4" transform="translate(1621.000000, 842.000000)">
+                    <g id="Group-5">
+                      <polygon id="Rectangle-23" points="1,18 11,18 11,19 1,19        "/>
+                      <polygon id="Combined-Shape" points="1,9.4 6,14.4 11,9.4 11.7,10 6,15.7 0.3,10        "/>
+                      <rect x="5.5" y="-0.5" width="1" height="15"/>
+                    </g>
+                  </g>
+                </g>
               </g>
+            </svg>
+          </button>
+        </div>
+        <div class="helix-logo-info__button">
+          <button class="helix-logo-infoscreen-button">
+            <svg width="1px" height="11px" viewbox="0 0 1 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="1024-copy-26" transform="translate(-974.000000, -690.000000)" fill="#000000">
+                <g id="Group" transform="translate(0.000000, 504.000000)">
+                  <g id="Group-3" transform="translate(974.000000, 186.000000)">
+                    <path d="M0,3 L1,3 L1,11 L0,11 L0,3 Z M0,0 L1,0 L1,1 L0,1 L0,0 Z" id="Combined-Shape"></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </button>
+          <p>INFO</p>
+        </div>
+      </div>
+
+      <div class="helix-logo-ui-scale-buttons">
+        <div class="helix-logo-ui-scale-more helix-logo-ui-scale-button">
+          <svg width="16px" height="17px" viewbox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path d="M7.39473684,9 L0,9 L0,8 L7.39473684,8 L7.39473684,0.605263158 L8.39473684,0.605263158 L8.39473684,8 L15.7894737,8 L15.7894737,9 L8.39473684,9 L8.39473684,16.3947368 L7.39473684,16.3947368 L7.39473684,9 Z" id="Combined-Shape"></path>
+          </svg>
+        </div>
+        <div class="helix-logo-ui-scale-less helix-logo-ui-scale-button">
+          <svg width="16px" height="1px" viewbox="0 0 16 1" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="1024-copy-19" transform="translate(-967.000000, -412.000000)" fill="#000000">
+                <g id="Group-7" transform="translate(944.000000, 323.000000)">
+                  <rect id="Rectangle-5-Copy" x="23" y="89" width="15.7894737" height="1"></rect>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="helix-logo-ui-overlay">
+        <div class="helix-logo-ui-overlay-background"></div>
+        <div class="helix-logo-ui-overlay-wrapper">
+          <button>
+            <svg width="12px" height="12px" viewbox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)" fill="#000000">
+                  <g id="Group-7" transform="translate(1608.000000, 485.000000)">
+                    <g id="Group-3" transform="translate(13.000000, 13.000000)">
+                      <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
+                      <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </button>
+          <p></p>
+        </div>
+      </div>
+      <div class="helix-logo-ui-overlay__scienceCentral">
+        <div class="helix-logo-ui-overlay-background__scienceCentral"></div>
+        <div class="helix-logo-ui-overlay-wrapper__scienceCentral">
+          <button>
+            <svg width="12px" height="12px" viewbox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)" fill="#000000">
+                  <g id="Group-7" transform="translate(1608.000000, 485.000000)">
+                    <g id="Group-3" transform="translate(13.000000, 13.000000)">
+                      <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
+                      <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </button>
+          <p>
+            Our live logo is powered by the Urban Observatory on Newcastle Helix,
+            which provides the largest set of publicly available real time urban
+            data in the UK. They have almost 500 sensors throughout the city
+            gathering over 50 types of data. You can create your own version of
+            the logo by playing with the different data variables.
+          </p>
+        </div>
+
+      </div>
+      <div class="helix-logo-ui-tablet__overlay__wrapper">
+        <button class="helix-logo-ui-tablet__close close-button">
+          <svg width="12px" height="12px" viewbox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)" fill="#000000">
+                <g id="Group-7" transform="translate(1608.000000, 485.000000)">
+                  <g id="Group-3" transform="translate(13.000000, 13.000000)">
+                    <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
+                    <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
+                  </g>
+                </g>
+              </g>
+            </g>
           </svg>
         </button>
-        <!-- div.helix-logo-ui -->
-        <div class="helix-logo-element"></div>
-        <!-- This are the elements of the ui -->
-
-        <!-- the dark theme is helix-theme-dark-->
-        <div class="helix-logo-ui">
-          <div class="helix-logo-controls">
-            <div class="helix-logo-anchor">
-              <button class="helix-logo-reset">RESET</button>
-              <div class="helix-logo-anchor__line"></div>
-              <div class="helix-logo-anchor__info">
-                <div class="helix-logo-anchor__info__wrapper">
-                  <h5 class="helix-logo-day"></h5>
-                  <h5 class="helix-logo-time"></h5>
-                  <div class="helix-logo-anchor__play">
-                    <button>
-                      <svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <g id="01-desktop" transform="translate(-868.000000, -628.000000)" fill="#000000">
-                              <g id="Group-4" transform="translate(855.000000, 617.000000)">
-                                  <polygon id="Triangle-Copy-3" transform="translate(16.000000, 15.500000) rotate(-270.000000) translate(-16.000000, -15.500000) " points="16 13 20 18 12 18"></polygon>
-                              </g>
-                          </g>
-                      </g>
-                    </svg>
-                    </button>
-                    <p>PLAY 24H DATA</p>
-                  </div>
-                  <p class="helix-logo-anchor__lear-more">Click to learn more</p>
-                </div>
-              </div>
-            </div>
-            <div class="helix-logo-timeline">
-              <div class="helix-logo-timeline__lines">
-                <div class="helix-logo-timeline__line"></div>
-                <div class="helix-logo-timeline__line"></div>
-                <div class="helix-logo-timeline__line"></div>
-                <div class="helix-logo-timeline__line"></div>
-              </div>
-            </div>
-
-            <div class="helix-logo-slider">
-              <div class="helix-logo__slide">
-                <div class="helix-logo__slide-inner"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="helix-logo-ui-bottom">
-            <h6 class="helix-logo-ui-hint">You can create and download your own logo right now. Simply tap on a data point and drag the grey slider up or down to change the speed, colour, width and depth of the flow.
-            <div class="helix-logo-info-newcastle__button">
-              <button class="helix-logo-infonewcastle-button">
-                <svg width="9px" height="14px" viewBox="0 0 9 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="1024-copy-19" transform="translate(-808.000000, -693.000000)" fill="#000000">
-                        <path d="M812.482,693.22 C814.732,693.22 816.316,694.696 816.316,696.784 C816.316,700.078 812.806,700.078 812.77,702.67 L811.474,702.67 C811.474,699.268 814.93,699.358 814.93,696.892 C814.93,695.506 813.922,694.534 812.446,694.534 C810.844,694.534 809.71,695.668 809.638,697.234 L808.324,697.09 C808.396,694.858 810.088,693.22 812.482,693.22 Z M812.176,706.18 C811.582,706.18 811.132,705.73 811.132,705.136 C811.132,704.56 811.582,704.092 812.176,704.092 C812.788,704.092 813.238,704.56 813.238,705.136 C813.238,705.73 812.788,706.18 812.176,706.18 Z" id="?"></path>
+        <div class="helix-logo-ui-tablet__overlay"></div>
+        <div class="helix-logo-ui-tablet__video__wrapper">
+          <button class="close-button">
+            <svg width="12px" height="12px" viewbox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)">
+                  <g id="Group-7" transform="translate(1608.000000, 485.000000)">
+                    <g id="Group-3" transform="translate(13.000000, 13.000000)">
+                      <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
+                      <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
                     </g>
+                  </g>
                 </g>
+              </g>
             </svg>
-              </button>
-            </div>
-
-
-            </h6>
-            <div class="helix-logo-buttons"></div>
-
-            <div class="helix-logo-download">
-              <p>Download the artwork</p>
-              <button>
-                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   viewBox="0 0 12 20" style="enable-background:new 0 0 12 20;" xml:space="preserve">
-                <g id="Page-1">
-                  <g id="_x30_4-desktop-white" transform="translate(-1621.000000, -841.000000)">
-                    <g id="Group-4" transform="translate(1621.000000, 842.000000)">
-                      <g id="Group-5">
-                        <polygon id="Rectangle-23" points="1,18 11,18 11,19 1,19        "/>
-                        <polygon id="Combined-Shape" points="1,9.4 6,14.4 11,9.4 11.7,10 6,15.7 0.3,10        "/>
-                        <rect x="5.5" y="-0.5" width="1" height="15"/>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                </svg>
-              </button>
-            </div>
-            <div class="helix-logo-info__button">
-              <button class="helix-logo-infoscreen-button">
-                <svg width="1px" height="11px" viewBox="0 0 1 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <g id="1024-copy-26" transform="translate(-974.000000, -690.000000)" fill="#000000">
-                        <g id="Group" transform="translate(0.000000, 504.000000)">
-                            <g id="Group-3" transform="translate(974.000000, 186.000000)">
-                                <path d="M0,3 L1,3 L1,11 L0,11 L0,3 Z M0,0 L1,0 L1,1 L0,1 L0,0 Z" id="Combined-Shape"></path>
-                            </g>
-                        </g>
-                    </g>
-                </svg>
-              </button>
-              <p>INFO</p>
-            </div>
+          </button>
+          <div class="helix-logo-ui-tablet__video">
+            <video src="video/helix-video.mp4"></video>
           </div>
-          <div class="helix-logo-ui-scale-buttons">
-            <div class="helix-logo-ui-scale-more helix-logo-ui-scale-button">
-              <svg width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                   <path d="M7.39473684,9 L0,9 L0,8 L7.39473684,8 L7.39473684,0.605263158 L8.39473684,0.605263158 L8.39473684,8 L15.7894737,8 L15.7894737,9 L8.39473684,9 L8.39473684,16.3947368 L7.39473684,16.3947368 L7.39473684,9 Z" id="Combined-Shape"></path>
-              </svg>
-            </div>
-            <div class="helix-logo-ui-scale-less helix-logo-ui-scale-button">
-              <svg width="16px" height="1px" viewBox="0 0 16 1" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        </div>
+        <div class="helix-logo-ui-tablet__wrapper">
+          <div class="helix-logo-tablet__intro">
+            <div class="helix-logo-tablet-column helix-logo-tablet-first">
+              <h3>
+                <span>A live picture of
+                </span><br>
+                <span>Newcastle, right now.</span>
+                <br>
+                <span>Captured in our logo</span></h3>
+              <p>We’ve placed almost 500 sensors throughout Newcastle. And our unique generative logo is shaped by that live data, so it’s ever changing picture of life in our city.</p>
+              <button class="button-tablet button-intro-logo">
+                <p>CREATE YOUR OWN DATA-DRIVEN LOGO</p>
+                <svg width="6px" height="9px" viewbox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                      <g id="1024-copy-19" transform="translate(-967.000000, -412.000000)" fill="#000000">
-                          <g id="Group-7" transform="translate(944.000000, 323.000000)">
-                              <rect id="Rectangle-5-Copy" x="23" y="89" width="15.7894737" height="1"></rect>
-                          </g>
+                    <g id="01-desktop" transform="translate(-868.000000, -628.000000)" fill="#ffffff">
+                      <g id="Group-4" transform="translate(855.000000, 617.000000)">
+                        <polygon id="Triangle-Copy-3" transform="translate(16.000000, 15.500000) rotate(-270.000000) translate(-16.000000, -15.500000) " points="16 13 20 18 12 18"></polygon>
                       </g>
+                    </g>
                   </g>
-              </svg>
-            </div>
-          </div>
-          <div class="helix-logo-ui-overlay">
-            <div class="helix-logo-ui-overlay-background"></div>
-            <div class="helix-logo-ui-overlay-wrapper">
-              <button>
-                <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)" fill="#000000">
-                            <g id="Group-7" transform="translate(1608.000000, 485.000000)">
-                                <g id="Group-3" transform="translate(13.000000, 13.000000)">
-                                    <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
-                                    <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
                 </svg>
               </button>
-              <p></p>
             </div>
-          </div>
-          <div class="helix-logo-ui-overlay__scienceCentral">
-            <div class="helix-logo-ui-overlay-background__scienceCentral"></div>
-            <div class="helix-logo-ui-overlay-wrapper__scienceCentral">
-              <button>
-                <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)" fill="#000000">
-                            <g id="Group-7" transform="translate(1608.000000, 485.000000)">
-                                <g id="Group-3" transform="translate(13.000000, 13.000000)">
-                                    <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
-                                    <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
-                                </g>
-                            </g>
+            <div class="helix-logo-tablet-column helix-logo-tablet-second">
+              <h3>
+                <span>Newcastle Helix is coming
+                  <br></span><span>to help us all live better lives</span><br>
+                <span>Easier. Healthier. Smarter. Longer.</span>
+                <p>A landmark 24-acre hybrid city quarter in the centre of Newcastle, built for international tech and science businesses, the local community and residents.</p>
+                <button class="button-tablet button-intro-video">
+                  <p>WATCH THE HELIX FILM</p>
+                  <svg width="6px" height="9px" viewbox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="#ffffff" fill-rule="evenodd">
+                      <g id="01-desktop" transform="translate(-868.000000, -628.000000)" fill="#ffffff">
+                        <g id="Group-4" transform="translate(855.000000, 617.000000)">
+                          <polygon id="Triangle-Copy-3" transform="translate(16.000000, 15.500000) rotate(-270.000000) translate(-16.000000, -15.500000) " points="16 13 20 18 12 18"></polygon>
                         </g>
-                    </g>
-                </svg>
-              </button>
-              <p>Our live logo is powered by the Urban Observatory on Newcastle Helix, which provides the largest set of publicly available real time urban data in the UK. They have almost 500 sensors throughout the city gathering over 50 types of data. </p>
-            </div>
-
-          </div>
-          <div class="helix-logo-ui-tablet__overlay__wrapper">
-            <button class="helix-logo-ui-tablet__close close-button">
-                <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)" fill="#000000">
-                            <g id="Group-7" transform="translate(1608.000000, 485.000000)">
-                                <g id="Group-3" transform="translate(13.000000, 13.000000)">
-                                    <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
-                                    <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </svg>
-              </button>
-            <div class="helix-logo-ui-tablet__overlay"></div>
-            <div class="helix-logo-ui-tablet__video__wrapper">
-              <button class="close-button">
-                <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g id="04-desktop-white" transform="translate(-1621.000000, -498.000000)">
-                            <g id="Group-7" transform="translate(1608.000000, 485.000000)">
-                                <g id="Group-3" transform="translate(13.000000, 13.000000)">
-                                    <rect id="Rectangle-5" transform="translate(5.935975, 5.935975) rotate(-45.000000) translate(-5.935975, -5.935975) " x="-1.95876149" y="5.43597535" width="15.7894737" height="1"></rect>
-                                    <rect id="Rectangle-5-Copy" transform="translate(5.711305, 5.898364) rotate(46.000000) translate(-5.711305, -5.898364) " x="-2.18343188" y="5.58257475" width="15.7894737" height="1"></rect>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </svg>
-              </button>
-              <div class="helix-logo-ui-tablet__video">
-                <video src="video/helix-video.mp4"></video>
-              </div>
-            </div>
-            <div class="helix-logo-ui-tablet__wrapper">
-              <div class="helix-logo-tablet__intro">
-                <div class="helix-logo-tablet-column helix-logo-tablet-first">
-                  <h3><span>A live picture of </span><br> <span>Newcastle, right now.</span>
-                  <br><span>Captured in our logo</span></h3>
-                  <p>We’ve placed almost 500 sensors throughout Newcastle. And our unique generative logo is shaped by that live data, so it’s ever changing picture of life in our city.</p>
-                  <button class="button-tablet button-intro-logo">
-                    <p>CREATE YOUR OWN DATA-DRIVEN LOGO</p>
-                    <svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <g id="01-desktop" transform="translate(-868.000000, -628.000000)" fill="#ffffff">
-                              <g id="Group-4" transform="translate(855.000000, 617.000000)">
-                                  <polygon id="Triangle-Copy-3" transform="translate(16.000000, 15.500000) rotate(-270.000000) translate(-16.000000, -15.500000) " points="16 13 20 18 12 18"></polygon>
-                              </g>
-                          </g>
                       </g>
-                    </svg>
-                  </button>
-                </div>
-                <div class="helix-logo-tablet-column helix-logo-tablet-second">
-                  <h3><span>Newcastle Helix is coming <br></span><span>to help us all live better lives</span><br><span>Easier. Healthier. Smarter. Longer.</span>
-                  <p>A landmark 24-acre hybrid city quarter in the centre of Newcastle, built for international tech and science businesses, the local community and residents.</p>
-                  <button class="button-tablet button-intro-video">
-                    <p>WATCH THE HELIX FILM</p>
-                    <svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="#ffffff" fill-rule="evenodd">
-                          <g id="01-desktop" transform="translate(-868.000000, -628.000000)" fill="#ffffff">
-                              <g id="Group-4" transform="translate(855.000000, 617.000000)">
-                                  <polygon id="Triangle-Copy-3" transform="translate(16.000000, 15.500000) rotate(-270.000000) translate(-16.000000, -15.500000) " points="16 13 20 18 12 18"></polygon>
-                              </g>
-                          </g>
-                      </g>
-                    </svg>
-                  </button>
-                </div>
+                    </g>
+                  </svg>
+                </button>
               </div>
-              <div class="helix-logo-tablet__share">
-                <h4>To save your generative logo, visit:</h4>
-                <h2>newcastlehelix.com/logo</h2>
-              </div>
-              <div class="helix-logo-tablet__newsletter">
-                <h4>Find out what’s happening next at Newcastle Helix. </h4>
-                <p>From the latest products being created here to new restaurant openings to great events for kids.</p>
-                <form action="">
-                  <input type="email" required placeholder="Your email"><button>sign up</button>
-                </form>
-              </div>
+            </div>
+            <div class="helix-logo-tablet__share">
+              <h4>To save your generative logo, visit:</h4>
+              <h2>newcastlehelix.com/logo</h2>
+            </div>
+            <div class="helix-logo-tablet__newsletter">
+              <h4>Find out what’s happening next at Newcastle Helix.
+              </h4>
+              <p>From the latest products being created here to new restaurant openings to great events for kids.</p>
+              <form action="">
+                <input type="email" required="required" placeholder="Your email">
+                <button>sign up</button>
+              </form>
             </div>
           </div>
         </div>
-        <script src="/register-service-worker.js"></script>
-        <script>
-          window.isTabletExperience = true
-
-        </script>
-        <script src="js/helix-logo.js"></script>
-    </body>
+      </div>
+      <script src="/register-service-worker.js"></script>
+      <script>
+        window.isTabletExperience = true
+      </script>
+      <script src="js/helix-logo.js"></script>
+  </body>
 </html>

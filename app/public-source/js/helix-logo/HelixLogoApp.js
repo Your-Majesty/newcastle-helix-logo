@@ -83,7 +83,7 @@ const HelixLogoApp = (() => {
     if (!helixRibbon.isMonochrome) {
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
-      
+
       controller.currentHour = e.detail ? 'white' : 'black'
       if (e.detail && (DataInterpolator.temperature > 0.278)) {
         controller.newCurrentTime = true
@@ -92,17 +92,11 @@ const HelixLogoApp = (() => {
       } else {
         controller.newCurrentTime = false
       }
-      
+
       if (controller.currentTime !== controller.newCurrentTime) {
         controller.currentTime = controller.newCurrentTime
-        let color = {
-          color: controller.newCurrentTime ? 'white' : 'black'
-        }
-
-        console.log(color)
-        window.parent.postMessage(JSON.stringify(color), '*')
+        
         helixUI.updateTheme(controller.newCurrentTime)
-
       }
     }
   })
