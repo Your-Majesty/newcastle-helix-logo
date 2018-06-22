@@ -178,10 +178,10 @@ class HelixLogoUI {
 
     if (lightTheme) {
       document.querySelector('body').classList.add('helix-theme-dark')
-      window.parent.postMessage(JSON.stringify({ color: 'black' }), '*')
+      window.parent.postMessage(JSON.stringify({ color: 'white' }), '*')
     } else {
       document.querySelector('body').classList.remove('helix-theme-dark')
-      window.parent.postMessage(JSON.stringify({ color: 'white' }), '*')
+      window.parent.postMessage(JSON.stringify({ color: 'black' }), '*')
     }
   }
 }
