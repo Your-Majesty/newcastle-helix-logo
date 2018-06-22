@@ -87,7 +87,7 @@ const HelixLogoApp = (() => {
       controller.currentHour = e.detail ? 'white' : 'black'
       if (e.detail && (DataInterpolator.temperature > 0.27)) {
         controller.newCurrentTime = true
-      } else if (e.detail && (DataInterpolator.temperature > 0) &&(DataInterpolator.temperature < 0.27)) {
+      } else if (e.detail && (DataInterpolator.temperature > 0) &&(DataInterpolator.temperature <= 0.27)) {
         controller.newCurrentTime = false
       } else if(!e.detail) {
         controller.newCurrentTime = false
