@@ -25,6 +25,7 @@
   width: 100%;
   position: absolute;
   top: 0;
+  display: none;
 }
 
 .helix-logo-anchor__info__wrapper {
@@ -174,6 +175,8 @@
   background-color: black;
   margin: auto;
 
+  display: none;
+
   .helix-theme-dark & {
     background-color: white;
   }
@@ -183,7 +186,7 @@
 
 .helix-logo-timeline {
   position: absolute;
-  width: 100%;
+  width: 20%;
   @include calc-value(height, 60px, 110px);
  
   z-index: 0;
@@ -198,7 +201,7 @@
   
   min-width: 1px;
   position: absolute;
-  height: 100%;
+  height: 30%;
   bottom: 0;
   transform: translateX(-65.75%);
 
@@ -244,8 +247,9 @@
 .helix-logo-slider {
   position: absolute;
   width: 100%;
-  @include calc-value(height, 70px, 110px);
-  bottom: 0;
+  // @include calc-value(height, 70px, 110px);
+  height: 50px;
+  bottom: -30px;
   cursor: move;
   cursor: grab;
 
@@ -406,7 +410,7 @@
   right: 3%;
   top: 5%;
   z-index: 2;
-  display: none;
+  display: none !important;
 
   button {
     font-family: 'HelixMedium';

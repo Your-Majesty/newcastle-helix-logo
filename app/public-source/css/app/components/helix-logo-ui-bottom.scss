@@ -45,6 +45,7 @@
     right: 23px;
     top: 100px;
     opacity: 0;
+    display: none;
   }
 
   p {
@@ -109,6 +110,8 @@
   width: 34%;
   font-size: 12px;
   opacity: 0.5;
+
+  display: none;
 
   @include q-is-large-small {
     max-width: 260px;

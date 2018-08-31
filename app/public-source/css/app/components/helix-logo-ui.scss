@@ -33,15 +33,16 @@
 
 .helix-logo-ui {
   position: absolute;
-  bottom: 0;
+  bottom: -70px;
   width: 100%;
   z-index: 2;
-  display: none;
+  display: none ;
   opacity: 0;
 }
 
 .helix-logo-controls {
   width: 100%;
+      // margin-bottom: -30px;
 }
 
 h5 {

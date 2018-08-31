@@ -257,8 +257,6 @@ class HelixLogoTexture {
     }
   }
 
-
-
   animate() {
     // this.stats.begin()
     this.isPlaying = true
