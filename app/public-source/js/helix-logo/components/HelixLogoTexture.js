@@ -39,8 +39,6 @@ class HelixLogoTexture {
     this.totalRibbons = 11
 
     this.xmasActive = false
-
-
     this.normalbackgroundColor = [
       '#58f9ea',
       '#2e0862',
@@ -48,9 +46,7 @@ class HelixLogoTexture {
       '#9a0d6f'
     ]
     this.backgroundColors = this.normalbackgroundColor
-
-
-
+    
     this.xmasbackgroundColors = [
       '#850101',
       '#850101',
@@ -58,7 +54,7 @@ class HelixLogoTexture {
       '#9a0d6f'
     ]
 
-    this.colorsWeight = [
+    this.normalColorsWeigth = [
       false,
       true,
       true,
@@ -71,6 +67,8 @@ class HelixLogoTexture {
       true,
       false
     ]
+
+    this.colorsWeight = this.normalColorsWeight
 
     this.xmasgradientColors = [
       // Teal
@@ -85,7 +83,7 @@ class HelixLogoTexture {
       new THREE.Color("rgb(255, 107, 0)")
     ]
 
-    this.gradientColors = [
+    this.normalGradientColors = [
       // Teal
       new THREE.Color("rgb(79, 248, 231)"),
       // Blue
@@ -97,6 +95,9 @@ class HelixLogoTexture {
       // Orange
       new THREE.Color("rgb(255, 107, 0)")
     ]
+
+    this.gradientColors = this.normalGradientColors
+
   }
 
   init() {
@@ -118,13 +119,15 @@ class HelixLogoTexture {
       this.snow.hide()
       this.snow.running = false
       this.backgroundColors = this.normalbackgroundColor
+      this.gradientColors = this.normalGradientColors
     } else {
       this.xmasActive = true
       this.snow.running = true
       this.backgroundColors = this.xmasbackgroundColors
+      this.gradientColors = this.xmasgradientColors
     }
 
-    this.calculateColors(this.colorScale)
+    // this.calculateColors(this.colorScale)
   }
   
   analizeURL(url) {
