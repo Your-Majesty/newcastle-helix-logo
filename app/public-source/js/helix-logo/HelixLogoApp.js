@@ -47,9 +47,9 @@ const HelixLogoApp = (() => {
     helixRibbon.zoomOutCamera()
   }, false)
 
-  document.querySelector('.helix-logo-activate-snow').addEventListener('click', function(e) {
-    helixRibbon.activateXmas()
-  }, false)
+  // document.querySelector('.helix-logo-activate-snow').addEventListener('click', function(e) {
+  //   helixRibbon.activateXmas()
+  // }, false)
 
   window.addEventListener('uiTimeline', function (e) {
     DataInterpolator.calculatePoint(DataCollector.collection[e.detail])
