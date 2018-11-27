@@ -38,10 +38,23 @@ class HelixLogoTexture {
     this.perlin = new ClassicalNoise()
     this.totalRibbons = 11
 
-    this.backgroundColors = [
+    this.xmasActive = false
+
+
+    this.normalbackgroundColor = [
       '#58f9ea',
       '#2e0862',
       '#2d015b',
+      '#9a0d6f'
+    ]
+    this.backgroundColors = this.normalbackgroundColor
+
+
+
+    this.xmasbackgroundColors = [
+      '#850101',
+      '#850101',
+      '#850101',
       '#9a0d6f'
     ]
 
@@ -50,6 +63,26 @@ class HelixLogoTexture {
       true,
       true,
       false
+    ]
+
+    this.xmascolorsWeight = [
+      false,
+      true,
+      true,
+      false
+    ]
+
+    this.xmasgradientColors = [
+      // Teal
+      new THREE.Color("rgb(133, 1, 1)"),
+      // Blue
+      new THREE.Color("rgb(0, 51, 255)"),
+      // Indigo
+      new THREE.Color("rgb(51, 0, 102)"),
+      // Magenta
+      new THREE.Color("rgb(166, 10, 122)"),
+      // Orange
+      new THREE.Color("rgb(255, 107, 0)")
     ]
 
     this.gradientColors = [
@@ -74,9 +107,26 @@ class HelixLogoTexture {
     this.createRibbons()
     this.createCaptureCanvas()
     this.resize()
+
+    this.snow = new HelixLogoSnow()
     this.play()
   }
 
+  activateXmas() {
+    if (this.xmasActive) {
+      this.xmasActive = false
+      this.snow.hide()
+      this.snow.running = false
+      this.backgroundColors = this.normalbackgroundColor
+    } else {
+      this.xmasActive = true
+      this.snow.running = true
+      this.backgroundColors = this.xmasbackgroundColors
+    }
+
+    this.calculateColors(this.colorScale)
+  }
+  
   analizeURL(url) {
     if (url == 'white' || url == 'black') {
       this.isMonochrome = true
@@ -152,7 +202,6 @@ class HelixLogoTexture {
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.element.appendChild( this.renderer.domElement)
     this.scene = new THREE.Scene()
-
 
     let perspective = DeviceTracker.isMobile() ? 65 : 39
 
@@ -262,6 +311,8 @@ class HelixLogoTexture {
   animate() {
     // this.stats.begin()
     this.isPlaying = true
+
+    this.snow.render()
     this.animationFrame = requestAnimationFrame(() => { this.animate() })
     this.time += .003
     if (this.animateColor) {
@@ -283,7 +334,7 @@ class HelixLogoTexture {
       ribbon.uniform.lineSpeed.value = this.lineSpeed
       ribbon.uniform.breakSize.value = this.breakSize
       ribbon.uniform.breakFrequency.value += (this.breakFrequency - ribbon.uniform.breakFrequency.value) * 0.05
-      ribbon.uniform.coloredDivisions.value = this.coloredDivisions
+  
       ribbon.uniform.amplitude.value += (this.amplitude - ribbon.uniform.amplitude.value) * 0.05
       ribbon.calculateThickness(this.lineSeparation)
     })

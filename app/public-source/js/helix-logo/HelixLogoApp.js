@@ -8,10 +8,7 @@ const HelixLogoApp = (() => {
   controller.currentSliderTime = null
   controller.newcurrentSliderTime = null
 
-
-
   window.addEventListener('message', function (event) {
-
     if (event.data) {
       var result = JSON.parse(event.data)
       if (result.action == 'show-ui') {
@@ -48,6 +45,10 @@ const HelixLogoApp = (() => {
 
   window.addEventListener('uiZoomOut', function (e) {
     helixRibbon.zoomOutCamera()
+  }, false)
+
+  document.querySelector('.helix-logo-activate-snow').addEventListener('click', function(e) {
+    helixRibbon.activateXmas()
   }, false)
 
   window.addEventListener('uiTimeline', function (e) {
