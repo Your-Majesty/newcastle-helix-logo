@@ -43,8 +43,7 @@ class HelixLogoTexture {
       '#58f9ea',
       '#2e0862',
       '#2d015b',
-      '#58f9ea'
-
+      '#9a0d6f'
     ]
     this.backgroundColors = this.normalbackgroundColor
     
@@ -115,20 +114,16 @@ class HelixLogoTexture {
   }
 
   activateXmas() {
-    if (this.xmasActive) {
-      this.xmasActive = false
-      this.snow.hide()
-      this.snow.running = false
-      this.backgroundColors = this.normalbackgroundColor
-      this.gradientColors = this.normalGradientColors
-    } else {
-      this.xmasActive = true
-      this.snow.running = true
-      this.backgroundColors = this.xmasbackgroundColors
-      this.gradientColors = this.xmasgradientColors
-    }
+    this.xmasActive = true
+    this.snow.running = true
+    console.log('activateXmas')
+  }
 
-    // this.calculateColors(this.colorScale)
+  deactivateXmas() {
+    this.xmasActive = false
+    this.snow.hide()
+    this.snow.running = false
+    console.log('deactivateXmas')
   }
   
   analizeURL(url) {

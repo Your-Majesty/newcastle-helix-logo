@@ -6,6 +6,11 @@ class HelixLogoUIButtons {
     this.currentSensor = null
     this.currentButton = null
     this.selectButton = this.selectButton.bind(this)
+    this.sensorsNames = []
+    this.sensorsUnits = []
+    this.xmasSensorNames = []
+    this.xmasSensorUnits = []
+    this.isXmas = false
   }
 
   createButtons() {
@@ -17,11 +22,34 @@ class HelixLogoUIButtons {
         </div>
       `).join('')}
     `
+
+    DataInterpolator.sensors.map((sensor, i) => {
+      this.sensorsNames.push(sensor.name)
+      this.xmasSensorNames.push(sensor.xmasName)
+      this.sensorsUnits.push(sensor.units)
+      this.xmasSensorUnits.push(sensor.xmasUnits)
+    })
     this.buttonCollection = [].slice.call(this.buttons.querySelectorAll('.helix-logo-button'))
     this.buttonCollection.forEach((button) => {
       button.addEventListener('click', () => {
         this.selectButton(button)
       })
+    })
+  }
+
+  activateXmas() {
+    this.isXmas = true
+    this.buttonCollection.forEach((button, index) => {
+      button.querySelector('p').innerHTML = this.xmasSensorNames[index]
+      button.querySelector('.units').innerHTML = this.xmasSensorUnits[index]
+    })
+  }
+
+  deactivateXmas() {
+    this.isXmas = false
+    this.buttonCollection.forEach((button, index) => {
+      button.querySelector('p').innerHTML = this.sensorsNames[index]
+      button.querySelector('.units').innerHTML = this.sensorsUnits[index]
     })
   }
 
@@ -66,17 +94,26 @@ class HelixLogoUIButtons {
   }
 
   mapButtonsSliderValues(currentSensor) {
-    this.currentButton.querySelector('button .value').innerHTML = currentSensor.value
+
+
+      this.currentButton.querySelector('button .value').innerHTML = currentSensor.value
+    
+    
   }
 
   mapButtonsValues(timelineIndex) {
     DataInterpolator.sensors.forEach((sensor, index) => {
       if (DataCollector.collection[timelineIndex][sensor.id] > 0) {
-        this.buttonCollection[index].querySelector('button .value').innerHTML = DataCollector.collection[timelineIndex][sensor.id]
+        this.buttonCollection[index].querySelector('button .value').innerHTML = this.isXmas && (sensor.name == 'wind') ? Math.ceil(DataCollector.collection[timelineIndex][sensor.id] * 100) : DataCollector.collection[timelineIndex][sensor.id]
       } else {
         this.buttonCollection[index].querySelector('button .value').innerHTML = 0
       }
-      this.buttonCollection[index].querySelector('button .units').innerHTML = sensor.units
+      if (this.isXmas) {
+        this.buttonCollection[index].querySelector('button .units').innerHTML = sensor.xmasUnits
+      } else {
+        this.buttonCollection[index].querySelector('button .units').innerHTML = sensor.units
+      }
+      
     })
   }
 }

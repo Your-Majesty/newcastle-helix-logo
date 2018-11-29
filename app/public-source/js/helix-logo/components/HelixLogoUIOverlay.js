@@ -12,6 +12,7 @@ class HelixLogoUIOverlay {
 
     this.button.addEventListener('click', this.openModal)
     this.closeButton.addEventListener('click', this.closeModal)
+
     this.sensorExplanations = {
       humidity: {
         copy: 'This represents the relative humidity across Newcastle right now. It controls thickness of the lines in our logo.'
@@ -35,22 +36,22 @@ class HelixLogoUIOverlay {
 
     this.sensorExplanationsXmas = {
       humidity: {
-        copy: 'This represents the relative humidity across Newcastle right now. It controls thickness of the lines in our logo.'
+        copy: 'While we’re dreaming of a White Christmas, the North Pole faces huge volumes of snowfall on a daily basis. The deeper the snow on ground, the thicker our lines.'
       },
       temperature: {
-        copy: 'This represents the current air temperature across Newcastle. It changes the colour of our logo.'
+        copy: 'Think Newcastle’s nippy this time of year? The colour change here shows just how cold it gets in the North Pole.'
       },
       energy: {
-        copy: 'This tracks the energy consumption of key buildings at Newcastle Helix. It dictates the number and degree of the curves in our logo.'
+        copy: 'It takes a lot of energy to get those reindeer fed and those presents wrapped. The number and degree of curves in our logo reflect current energy consumption in Santa’s grotto.'
       },
       wind: {
-        copy: 'This shows wind speed across Newcastle this very second. It speeds up and slows down the flow of our logo.'
+        copy: 'This reflects the number of elves currently helping Santa prep for the big day. The more elves there are, the faster the flow.'
       },
       vehicleSpeed: {
-        copy: 'This shows the average speed on arterial roads through Newcastle city centre right now. The faster the average speed, the greater number of line breaks in our logo.'
+        copy: 'This tracks the average speed of Santa’s reindeer - everyone from Rudolph to Blitzen. The faster they go, the more line breaks appear in the logo.'
       },
       vehicleCount: {
-        copy: 'Vehicle Count Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, nemo dolores neque maxime, quibusdam optio natus explicabo quas incidunt, laudantium quisquam ipsam tempore amet. Dolorem fugit iste voluptates delectus sequi.'
+        copy: 'This tracks the average speed of Santa’s reindeer - everyone from Rudolph to Blitzen. The faster they go, the more line breaks appear in the logo.'
       }
     }
   }
@@ -94,7 +95,13 @@ class HelixLogoUIOverlay {
       document.querySelector('body').classList.remove('tablet-overlay')
     }
   }
-  
+
+  setInfoXmas(currentSensor) {
+    if (currentSensor) {
+      this.text.innerHTML = this.sensorExplanationsXmas[`${currentSensor}`].copy
+    }
+  }
+
   setInfo(currentSensor) {
     
     this.text.innerHTML = this.sensorExplanations[`${currentSensor}`].copy

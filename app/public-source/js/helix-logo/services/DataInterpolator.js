@@ -8,31 +8,43 @@ const DataInterpolator = (() => {
       name: 'humidity',
       id: 'humidity',
       units: '%',
-      unitsFull: 'percentage relative humidity'
+      unitsFull: 'percentage relative humidity',
+      xmasName: 'Snowfall',
+      xmasUnits: 'cm'
     },
     {
       name: 'temp',
       id: 'temperature',
       units: '°C',
-      unitsFull: 'degrees celsius'
+      unitsFull: 'degrees celsius',
+      xmasName: 'temperature',
+      xmasUnits: '°C'
     },
     {
       name: 'energy',
       id: 'energy',
       units: 'kW',
-      unitsFull: 'kilowatts'
+      unitsFull: 'kilowatts',
+      xmasName: 'energy',
+      xmasUnits: 'kW'
+
     },
     {
       name: 'wind',
       id: 'wind',
       units: 'm/s',
-      unitsFull: 'metres per second'
+      unitsFull: 'metres per second',
+      xmasName: 'elves working',
+      xmasUnits: 'elves'
+
     },
     {
       name: 'vehicle Speed',
       id: 'vehicleSpeed',
       units: 'mph',
-      unitsFull: 'miles per hour'
+      unitsFull: 'miles per hour',
+      xmasName: 'Reindeer speed',
+      xmasUnits: 'mph'
     }
   ]
 

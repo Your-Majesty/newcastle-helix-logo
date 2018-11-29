@@ -8,6 +8,8 @@ const HelixLogoApp = (() => {
   controller.currentSliderTime = null
   controller.newcurrentSliderTime = null
 
+  controller.isXmasTheme = false
+
   window.addEventListener('message', function (event) {
     if (event.data) {
       var result = JSON.parse(event.data)
@@ -48,7 +50,18 @@ const HelixLogoApp = (() => {
   }, false)
 
   document.querySelector('.helix-logo-activate-snow').addEventListener('click', function(e) {
-    helixRibbon.activateXmas()
+    console.log(controller.isXmasTheme)
+
+    if (controller.isXmasTheme) {
+      controller.isXmasTheme = false
+      helixRibbon.deactivateXmas()
+      helixUI.deactivateXmas()
+    } else {
+      controller.isXmasTheme = true
+      helixRibbon.activateXmas()
+      helixUI.activateXmas()
+    }
+
   }, false)
 
   window.addEventListener('uiTimeline', function (e) {
@@ -96,7 +109,6 @@ const HelixLogoApp = (() => {
 
       if (controller.currentTime !== controller.newCurrentTime) {
         controller.currentTime = controller.newCurrentTime
-        
         helixUI.updateTheme(controller.newCurrentTime)
       }
     }

@@ -10,6 +10,7 @@ class HelixLogoUIAnchor {
     this.dayString = 'Today' 
     this.resetAction = this.resetAction.bind(this)
     this.playButton = this.anchor.querySelector('.helix-logo-anchor__play')
+    this.isXmas = false
 
     this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octuber', 'November', 'December']
   }
@@ -19,7 +20,14 @@ class HelixLogoUIAnchor {
     TweenLite.to(this.anchor, 0.4, {y: '0%', ease: Circ.easeOut, force3D:true, onComplete: () => {
       TweenLite.to(this.infoWrapper, 0.4, {opacity: 1, y:0, ease: Circ.easeOut, delay: 0.1})
     }})
-    
+  }
+
+  activateXmas() {
+    this.isXmas = true
+  }
+
+  deactivateXmas() {
+    this.isXmas = false
   }
 
   animateOut() {
@@ -51,7 +59,6 @@ class HelixLogoUIAnchor {
   }
 
   resetAction() {
-
     TrackingService.track('dataViz-resetButton', 'click', 'resetAction')
     this.event = new CustomEvent('uiResetPressed', {bubbles: true})
     window.dispatchEvent(this.event)
@@ -61,11 +68,33 @@ class HelixLogoUIAnchor {
     this.day.innerHTML = sensorName
   }
 
+  mapSensorNameXmas(sensorName) {
+    DataInterpolator.sensors.forEach((sensor) => {
+      if (sensor.id == sensorName) {
+        this.day.innerHTML = sensor.xmasName
+      }
+    })
+  }
+
   mapSensorValue(currentSensor) {
     DataInterpolator.sensors.forEach((sensor) => {
       if (sensor.id == currentSensor.name) {
         if (currentSensor.value > 0) {
-          this.time.innerHTML = `${currentSensor.value} ${sensor.units}`
+          let sensorValue = currentSensor.name == 'wind' ? Math.ceil(currentSensor.value * 100) : currentSensor.value
+          this.time.innerHTML = `${this.isXmas ? sensorValue : currentSensor.value} ${this.isXmas ? sensor.xmasUnits :  sensor.units}`
+        } else {
+          this.time.innerHTML = ''
+        }
+      }
+    })
+  }
+
+  mapSensorValueXmas(currentSensor) {
+    DataInterpolator.sensors.forEach((sensor) => {
+      if (sensor.id == currentSensor.name) {
+        if (currentSensor.value > 0) {
+          let sensorValue = currentSensor.name == 'wind' ? Math.ceil(currentSensor.value * 100) : currentSensor.value
+          this.time.innerHTML = `${sensorValue} ${sensor.xmasUnits}`
         } else {
           this.time.innerHTML = ''
         }
@@ -74,8 +103,6 @@ class HelixLogoUIAnchor {
   }
 
   mapAnchorValue(value) {
-  
-
     let day = new Date(DataCollector.collection[value].timestamp.split('T')[0])
     let dayToday = new Date()
     let hours = DataCollector.collection[value].timestamp.split('T')[1].split(':')[0]

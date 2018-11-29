@@ -7,6 +7,8 @@ class HelixLogoUI {
     this.slider = new HelixLogoUISlider()
     this.download = new HelixLogoUIDownload()
 
+    this.xmasMode = false
+
     this.scienceCentralOverlay = new HelixLogoScienceOverlay()
 
     this.overlay = new HelixLogoUIOverlay()
@@ -14,8 +16,11 @@ class HelixLogoUI {
     this.timelineIsActive = false
     this.sliderIsActive = false
 
+    this.currentSensorName = null
+
     this.element.style.display = 'block'
     this.element.style.opacity = 1
+    this.xmasSensorNames = ['Snowfall', 'Temp', 'Energy', 'Elves working', 'Reindeer speed' ]
 
     this.currentIndex = 0
     this.theme = null
@@ -33,10 +38,21 @@ class HelixLogoUI {
       if (!this.sliderIsActive) {
         this.showSliders()
       }
-      this.overlay.setInfo(e.detail)
+
+      this.currentSensorName = e.detail
       SliderCollector.currentSensor = e.detail
-      this.anchor.mapSensorName(e.detail)
-      this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
+
+
+      if (this.xmasMode) {
+        this.overlay.setInfoXmas(e.detail)
+        this.anchor.mapSensorNameXmas(e.detail)
+        this.anchor.mapSensorValueXmas(SliderCollector.getCurrentSensor())
+      } else {
+        this.overlay.setInfo(e.detail)
+        this.anchor.mapSensorName(e.detail)
+        this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
+      }
+      
       this.slider.setPercentage(e.detail)
     })
 
@@ -65,6 +81,35 @@ class HelixLogoUI {
       this.isOnline()
     } else {
       this.download.show()
+    }
+  }
+
+  activateXmas() {
+    this.xmasMode = true
+    this.buttons.activateXmas()
+    this.anchor.activateXmas()
+    this.overlay.setInfoXmas(SliderCollector.currentSensor)
+
+    if (this.sliderIsActive) {
+      this.buttons.mapButtonsSliderValues(SliderCollector.getCurrentSensor())
+      this.anchor.mapSensorNameXmas(this.currentSensorName)
+      this.anchor.mapSensorValueXmas(SliderCollector.getCurrentSensor())
+    }
+
+
+  }
+
+  deactivateXmas() {
+
+    this.xmasMode = false
+    this.buttons.deactivateXmas()
+    this.anchor.deactivateXmas()
+    this.overlay.setInfo(SliderCollector.currentSensor)
+
+    if (this.sliderIsActive) {
+      this.buttons.mapButtonsSliderValues(SliderCollector.getCurrentSensor())
+      this.anchor.mapSensorName(this.currentSensorName)
+      this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())
     }
   }
 
