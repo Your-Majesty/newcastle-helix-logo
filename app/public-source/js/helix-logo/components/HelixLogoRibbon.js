@@ -84,7 +84,7 @@ class HelixLogoRibbon {
       },
       colorIsDark: {
         type: 'bool',
-        value: false,
+        value: true,
       },
       isMonochrome: {
         type: 'bool',

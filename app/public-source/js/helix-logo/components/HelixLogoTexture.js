@@ -40,10 +40,10 @@ class HelixLogoTexture {
 
     this.xmasActive = false
     this.normalbackgroundColor = [
-      '#58f9ea',
-      '#2e0862',
+      '#1da4ff',
+      '#0d2600',
       '#2d015b',
-      '#9a0d6f'
+      '#0d2600'
     ]
     this.backgroundColors = this.normalbackgroundColor
     
@@ -56,7 +56,7 @@ class HelixLogoTexture {
 
     this.normalColorsWeigth = [
       false,
-      true,
+      false,
       true,
       false
     ]
@@ -70,30 +70,31 @@ class HelixLogoTexture {
 
     this.colorsWeight = this.normalColorsWeight
 
-    this.xmasgradientColors = [
-      // Teal
-      new THREE.Color("rgb(133, 1, 1)"),
-      // Blue
-      new THREE.Color("rgb(0, 51, 255)"),
-      // Indigo
-      new THREE.Color("rgb(51, 0, 102)"),
-      // Magenta
-      new THREE.Color("rgb(166, 10, 122)"),
-      // Orange
-      new THREE.Color("rgb(255, 107, 0)")
-    ]
+    // this.xmasgradientColors = [
+    //   // Teal
+    //   new THREE.Color("rgb(79, 248, 231)"),
+    //   // Blue
+    //   new THREE.Color("rgb(0, 51, 255)"),
+    //   // Indigo
+    //   new THREE.Color("rgb(51, 0, 102)"),
+    //   // Magenta
+    //   new THREE.Color("rgb(166, 10, 122)"),
+    //   // Orange
+    //   new THREE.Color("rgb(255, 107, 0)")
+    // ]
 
     this.normalGradientColors = [
       // Teal
-      new THREE.Color("rgb(79, 248, 231)"),
+      new THREE.Color("rgb(30, 164, 255)"),
       // Blue
-      new THREE.Color("rgb(0, 51, 255)"),
+      new THREE.Color("rgb(141, 227, 240)"),
       // Indigo
-      new THREE.Color("rgb(51, 0, 102)"),
+      
       // Magenta
-      new THREE.Color("rgb(166, 10, 122)"),
+      new THREE.Color("rgb(13, 38, 0)"),
+      new THREE.Color("rgb(42, 198, 0)"),
       // Orange
-      new THREE.Color("rgb(255, 107, 0)")
+      new THREE.Color("rgb(254, 0, 24)")
     ]
 
     this.gradientColors = this.normalGradientColors
