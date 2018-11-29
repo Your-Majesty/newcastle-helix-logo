@@ -43,7 +43,8 @@ class HelixLogoTexture {
       '#58f9ea',
       '#2e0862',
       '#2d015b',
-      '#9a0d6f'
+      '#58f9ea'
+
     ]
     this.backgroundColors = this.normalbackgroundColor
     
