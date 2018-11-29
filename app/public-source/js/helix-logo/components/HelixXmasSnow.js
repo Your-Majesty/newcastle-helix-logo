@@ -13,6 +13,7 @@ class HelixLogoSnow {
     this.startY = -this.maxDiameter * 0.5
     this.endY = this.height + this.maxDiameter * 0.5
     this.showPaths = false
+    this.bright = false
     
     this.element.appendChild(canvas);
     window.addEventListener('resize', this.handleResize.bind(this));
@@ -23,8 +24,8 @@ class HelixLogoSnow {
     let x = this.rndIntBtwn(0, this.width);
     let y = this.startY;
     let diameter = this.rndIntBtwn(1, this.maxDiameter);
-    let color = `rgba(255, 255, 255, ${this.rndFloatBtwn(0.8, 1)})`;
-    let particle = new SnowParticle(this.ctx, x, y, diameter, color);
+    this.color = `rgba(232,244,243, ${this.rndFloatBtwn(0.8, 1)})`;
+    let particle = new SnowParticle(this.ctx, x, y, diameter, this.color);
     this.particles.push(particle);
   }
 
@@ -32,6 +33,15 @@ class HelixLogoSnow {
     this.ctx.canvas.width = this.width = window.innerWidth;
     this.ctx.canvas.height = this.height = window.innerHeight;
     this.endY = this.height + this.maxDiameter * 0.5;
+  }
+
+  changeColor(shouldBrigth) {
+    if (shouldBrigth) {
+      this.color = `rgba(255,255,255, ${this.rndFloatBtwn(0.8, 1)})`;
+    } else {
+      this.color = `rgba(232,244,243, ${this.rndFloatBtwn(0.8, 1)})`;
+
+    }
   }
 
   rndIntBtwn(min, max) {
@@ -62,6 +72,7 @@ class HelixLogoSnow {
         p.x += Math.sin(delta * p.freqFactor) * p.ampFactor;
         p.y += p.speed;
         p.alpha = 1
+        p.color = this.color
         p.draw();
       });
       this.particles = this.particles.filter(p => p.y <= this.height);

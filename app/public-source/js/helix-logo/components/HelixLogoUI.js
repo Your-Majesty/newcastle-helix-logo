@@ -88,9 +88,11 @@ class HelixLogoUI {
     this.xmasMode = true
     this.buttons.activateXmas()
     this.anchor.activateXmas()
-    this.overlay.setInfoXmas(SliderCollector.currentSensor)
+  
 
     if (this.sliderIsActive) {
+
+      this.overlay.setInfoXmas(SliderCollector.currentSensor)
       this.buttons.mapButtonsSliderValues(SliderCollector.getCurrentSensor())
       this.anchor.mapSensorNameXmas(this.currentSensorName)
       this.anchor.mapSensorValueXmas(SliderCollector.getCurrentSensor())
@@ -104,9 +106,10 @@ class HelixLogoUI {
     this.xmasMode = false
     this.buttons.deactivateXmas()
     this.anchor.deactivateXmas()
-    this.overlay.setInfo(SliderCollector.currentSensor)
+
 
     if (this.sliderIsActive) {
+      this.overlay.setInfo(SliderCollector.currentSensor)
       this.buttons.mapButtonsSliderValues(SliderCollector.getCurrentSensor())
       this.anchor.mapSensorName(this.currentSensorName)
       this.anchor.mapSensorValue(SliderCollector.getCurrentSensor())

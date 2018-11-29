@@ -56,7 +56,11 @@ const HelixLogoApp = (() => {
       controller.isXmasTheme = false
       helixRibbon.deactivateXmas()
       helixUI.deactivateXmas()
+      document.querySelector('.helix-logo-activate-snow').classList.remove('active')
+      document.querySelector('.helix-logo-activate-snow').classList.add('pulsing')
     } else {
+      document.querySelector('.helix-logo-activate-snow').classList.add('active')
+      document.querySelector('.helix-logo-activate-snow').classList.remove('pulsing')
       controller.isXmasTheme = true
       helixRibbon.activateXmas()
       helixUI.activateXmas()
