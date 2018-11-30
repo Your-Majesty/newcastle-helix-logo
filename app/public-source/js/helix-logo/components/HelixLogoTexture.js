@@ -281,10 +281,7 @@ class HelixLogoTexture {
       UiColorTracker.setUIColor(this.gradientGuide)
       
       // TODO refactor
-
       if (this.xmasActive) {
-
-        console.log('xmas colors')
         if (this.gradientGuide == 2) {
           this.allRibbons.forEach((ribbon) => {
             ribbon.uniform.colorA.value = new THREE.Color("rgb(1, 39, 49)")

@@ -106,19 +106,36 @@ p {
 
     .helix-ui-color-blue & {
       transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
-      background-color: $helix-blue;      
+      background-color: $helix-blue;  
+
+      .helix-theme-xmas & {
+        background-color: #2ac600; 
+      }
     }
+
     .helix-ui-color-teal & {
       transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
-      background-color: $helix-blue;      
+      background-color: $helix-blue; 
+
+      .helix-theme-xmas & {
+        background-color: #8de3f0; 
+      }     
     }
     .helix-ui-color-indigo & {
       transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
-      background-color: $helix-magenta;      
+      background-color: $helix-magenta; 
+
+      .helix-theme-xmas & {
+        background-color: #da9900; 
+      }     
     }
     .helix-ui-color-magenta & {
       transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
-      background-color: $helix-orange;      
+      background-color: $helix-orange;  
+
+      .helix-theme-xmas & {
+        background-color: #fe0018; 
+      }    
     }
   }
 
@@ -133,7 +150,11 @@ p {
   .helix-theme-dark & {
     background-color: rgba(255, 255, 255, 0.1);
   }
+
+
 }
+
+
 
 .button-color.active {
   button {
@@ -169,8 +190,6 @@ button, a {
     top: 169px;
     right: 23px;
   }
-
-
 }
 
 .helix-logo-snow-in {
@@ -180,9 +199,39 @@ button, a {
   position: absolute;
   border-radius: 100%;
 
-  .helix-theme-dark & {
-    background: #afe1f4;
-  }
+    .helix-ui-color-blue & {
+      transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
+      background-color: $helix-blue;  
+
+      .helix-theme-xmas & {
+        background-color: #2ac600; 
+      }
+    }
+
+    .helix-ui-color-teal & {
+      transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
+      background-color: $helix-blue; 
+
+      .helix-theme-xmas & {
+        background-color: #8de3f0; 
+      }     
+    }
+    .helix-ui-color-indigo & {
+      transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
+      background-color: $helix-magenta; 
+
+      .helix-theme-xmas & {
+        background-color: #da9900; 
+      }     
+    }
+    .helix-ui-color-magenta & {
+      transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
+      background-color: $helix-orange;  
+
+      .helix-theme-xmas & {
+        background-color: #fe0018; 
+      }    
+    }
 
   .pulsing & {
     animation: pulse 1.5s cubic-bezier(0.64, 0.57, 0.67, 1.53) infinite;
@@ -215,10 +264,39 @@ button, a {
     height: 38px;
   }
 
-  .helix-theme-dark & {
-    background: #afe1f4;
+    .helix-ui-color-blue & {
+      transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
+      background-color: $helix-blue;  
 
-  }
+      .helix-theme-xmas & {
+        background-color: #2ac600; 
+      }
+    }
+
+    .helix-ui-color-teal & {
+      transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
+      background-color: $helix-blue; 
+
+      .helix-theme-xmas & {
+        background-color: #8de3f0; 
+      }     
+    }
+    .helix-ui-color-indigo & {
+      transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
+      background-color: $helix-magenta; 
+
+      .helix-theme-xmas & {
+        background-color: #da9900; 
+      }     
+    }
+    .helix-ui-color-magenta & {
+      transition: all 500ms cubic-bezier(0.165, 0.840, 0.440, 1.000); 
+      background-color: $helix-orange;  
+
+      .helix-theme-xmas & {
+        background-color: #fe0018; 
+      }    
+    }
 
   svg {
     width:75%;
@@ -235,12 +313,39 @@ button, a {
 
 .helix-logo-activate-snow.active{
   .helix-logo-snow-out {
-    // opacity: 0.6;
+  
     transform:scale(1.2);
+    opacity: 0.6;
     transition: 0.6s cubic-bezier(0.175, 0.885, 0.320, 1);
+  }
+
+  .helix-logo-snow-in {
+    opacity: 0;
   }
 }
 
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid white;
+  position: absolute;
+  right: 65PX;
+  top: 18px;
+  font-family: 'HelixRegular';
+}
+
+.snow-tooltip {
+  position: absolute;
+  right: 70PX;
+  background-color: white;
+  padding: 10px;
+  font-size: 14px;
+  width: 104px;
+  top: 10px;
+  font-family: 'HelixRegular';
+}
 
 @keyframes pulse {
   0% {

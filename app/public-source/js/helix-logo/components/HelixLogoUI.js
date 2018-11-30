@@ -232,4 +232,14 @@ class HelixLogoUI {
       window.parent.postMessage(JSON.stringify({ color: 'black' }), '*')
     }
   }
+
+  updateXmasTheme(isXmas) {
+    this.theme = isXmas
+
+    if (isXmas) {
+      document.querySelector('body').classList.add('helix-theme-xmas')
+    } else {
+      document.querySelector('body').classList.remove('helix-theme-xmas')
+    }
+  }
 }

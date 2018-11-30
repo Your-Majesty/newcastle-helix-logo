@@ -10,6 +10,9 @@ const UiColorTracker = (() => {
     'magenta', 
     'orange'
   ]
+
+
+  
   
   controller.setUIColor = (currentIndex) => {
     controller.logoUiWrapper.classList.remove(`helix-ui-color-${controller.uiColors[controller.lastColor]}`)
