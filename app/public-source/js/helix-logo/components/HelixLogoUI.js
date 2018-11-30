@@ -142,6 +142,11 @@ class HelixLogoUI {
     this.anchor.animateIn()
     this.showTimeline()
     this.buttons.animateIn()
+
+    setTimeout(() => {
+      document.querySelector('.helix-logo-activate-snow').style.opacity = 1
+     }, 2000);
+     
   }
 
   animateOut() {

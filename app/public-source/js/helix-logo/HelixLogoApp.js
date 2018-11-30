@@ -11,10 +11,12 @@ const HelixLogoApp = (() => {
   controller.isXmasTheme = false
 
   window.addEventListener('message', function (event) {
+
     if (event.data) {
       var result = JSON.parse(event.data)
       if (result.action == 'show-ui') {
         helixUI.animateIn()
+       
       }
 
       if (result.action == 'hide-ui') {
@@ -50,8 +52,6 @@ const HelixLogoApp = (() => {
   }, false)
 
   document.querySelector('.helix-logo-activate-snow').addEventListener('click', function(e) {
-    console.log(controller.isXmasTheme)
-
     if (controller.isXmasTheme) {
       controller.isXmasTheme = false
       helixRibbon.deactivateXmas()
