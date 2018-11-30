@@ -54,6 +54,7 @@ class HelixLogoRibbon {
         value: Math.random()
 
       },
+
       coloredDivisions: {
         type: 'bool',
         value: false,
@@ -79,6 +80,10 @@ class HelixLogoRibbon {
         'value': 1.
       },
       colorCurrentIndex: {
+        type: 'bool',
+        'value': false
+      },
+      isXmas: {
         type: 'bool',
         'value': false
       },

@@ -25,6 +25,7 @@ uniform float lineCount;
 
 uniform float breakSize;
 uniform float breakFrequency;
+uniform bool isXmas;
 
 uniform bool coloredDivisions;
 uniform bool colorIsDark;
@@ -102,7 +103,14 @@ void main(void){
     } else {
       alpha = 1.0;
       if (coloredDivisions) {
-          color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
+          
+          if (isXmas) {
+            color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedLight, colorMixedLight, fract(d));
+          } else {
+            color += mix(colorMixedLight, colorMixedDark, fract(d)) * mix(colorMixedDark, colorMixedDark, fract(d));
+          }
+
+
         if (colorIsDark) {
           color *= mix(colorMixedDark, colorMixedLight, fract(d));
         }

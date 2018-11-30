@@ -43,7 +43,7 @@ class HelixLogoTexture {
 
     this.xmasActive = false
     this.normalbackgroundColor = [
-      '#58f9ea',
+      '#8de3f0',
       '#2e0862',
       '#2d015b',
       '#9a0d6f'
@@ -51,10 +51,10 @@ class HelixLogoTexture {
     this.backgroundColors = this.normalbackgroundColor
     
     this.xmasbackgroundColors = [
-      '#850101',
-      '#850101',
-      '#850101',
-      '#9a0d6f'
+      '#1da4ff',
+      '#360c0d',
+      '#012731',
+      '#0d2600'
     ]
 
     this.normalColorsWeigth = [
@@ -292,6 +292,7 @@ class HelixLogoTexture {
             ribbon.uniform.colorB.value = new THREE.Color("rgb(218, 153, 0)")
             ribbon.uniform.colorLastB.value = new THREE.Color("rgb(197, 120, 20)")
             ribbon.uniform.colorCurrentIndex.value = this.gradientGuide !== 1 ? false : true
+            ribbon.uniform.isXmas.value = true
           })
 
         } else if (this.gradientGuide == 1){
@@ -301,6 +302,7 @@ class HelixLogoTexture {
             ribbon.uniform.colorA.value = new THREE.Color("rgb(42, 198, 0)")
             ribbon.uniform.colorLastB.value = new THREE.Color("rgb(42, 198, 0)")
             ribbon.uniform.colorCurrentIndex.value = this.gradientGuide !== 1 ? false : true
+            ribbon.uniform.isXmas.value = true
           })
 
         } else if (this.gradientGuide == 3){
@@ -310,14 +312,16 @@ class HelixLogoTexture {
             ribbon.uniform.colorA.value = new THREE.Color("rgb(13, 38, 0)")
             ribbon.uniform.colorLastB.value = new THREE.Color("rgb(13, 38, 0)")
             ribbon.uniform.colorCurrentIndex.value = this.gradientGuide !== 1 ? false : true
+            ribbon.uniform.isXmas.value = true
           })
         } else { 
           this.allRibbons.forEach((ribbon) => {
-            ribbon.uniform.colorA.value = this.gradientColors[this.gradientGuide]
-            ribbon.uniform.colorLastA.value = this.gradientColors[this.lastGradientGuide]
-            ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
-            ribbon.uniform.colorLastB.value = this.gradientColors[this.lastGradientGuide + 1]
+            ribbon.uniform.colorB.value = new THREE.Color("rgb( 141, 227, 240)")
+            ribbon.uniform.colorLastA.value = new THREE.Color("rgb(30, 164, 255")
+            ribbon.uniform.colorA.value = new THREE.Color("rgb(30, 164, 255)")
+            ribbon.uniform.colorLastB.value = new THREE.Color("rgb(30, 164, 255)")
             ribbon.uniform.colorCurrentIndex.value = this.gradientGuide !== 1 ? false : true
+            ribbon.uniform.isXmas.value = true
           })
         }
       } else {
@@ -329,6 +333,7 @@ class HelixLogoTexture {
           ribbon.uniform.colorB.value = this.gradientColors[this.gradientGuide + 1]
           ribbon.uniform.colorLastB.value = this.gradientColors[this.lastGradientGuide + 1]
           ribbon.uniform.colorCurrentIndex.value = this.gradientGuide !== 1 ? false : true
+          ribbon.uniform.isXmas.value = false
         })
       }
     }
