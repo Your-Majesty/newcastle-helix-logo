@@ -335,6 +335,11 @@ button, a {
   right: 65PX;
   top: 18px;
   font-family: 'HelixRegular';
+
+  @include q-is-small {
+    top:10px;
+    right: 54PX;
+  }
 }
 
 .snow-tooltip {
@@ -346,6 +351,11 @@ button, a {
   width: 104px;
   top: 10px;
   font-family: 'HelixRegular';
+
+  @include q-is-small {
+    top:3px;
+    right: 60PX;
+  }
 }
 
 @keyframes pulse {
