@@ -184,6 +184,13 @@ button, a {
   height: 50px;
   opacity: 0;
 
+  @include q-is-medium {
+    width: 38px;
+    height: 38px;
+    top: 169px;
+    right: 29px;
+  }
+
 
   @include q-is-small {
     width: 38px;
