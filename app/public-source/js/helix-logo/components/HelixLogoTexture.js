@@ -24,7 +24,7 @@ class HelixLogoTexture {
     this.coloredDivisions = false
     this.colorTransparency = false
     this.isMonochrome = false
-    this.gradientGuide = 0
+    this.gradientGuide = 2
     this.colorTiming = 0
     this.amplitude = 0.5
 
@@ -267,6 +267,8 @@ class HelixLogoTexture {
 
     this.lastTemperatureAverage = temperatureAverage
     let colorSegments = 1.1 / (this.gradientColors.length - 1)
+
+
 
     if ((this.gradientGuide !== Math.floor(temperatureAverage / colorSegments)) || this.xmasChanged) {
       this.animateColor = true
