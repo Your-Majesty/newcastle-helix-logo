@@ -2,7 +2,7 @@ const HelixLogoApp = (() => {
 
   const controller = {}
   controller.currentTime = null
-  controller.newCurrentTime = null
+  controller.newCurrentTime = ''
   controller.currentHour = null
 
   controller.currentSliderTime = null
@@ -57,6 +57,7 @@ const HelixLogoApp = (() => {
       helixRibbon.deactivateXmas()
       helixUI.deactivateXmas()
       helixUI.updateXmasTheme(false)
+      helixUI.updateTheme(controller.newCurrentTime)
       document.querySelector('.helix-logo-activate-snow').classList.remove('active')
       document.querySelector('.helix-logo-activate-snow').classList.add('pulsing')
     } else {
@@ -66,6 +67,7 @@ const HelixLogoApp = (() => {
       helixUI.updateXmasTheme(true)
       helixRibbon.activateXmas()
       helixUI.activateXmas()
+      helixUI.updateTheme(controller.newCurrentTime)
     }
 
   }, false)
@@ -101,14 +103,17 @@ const HelixLogoApp = (() => {
 
   window.addEventListener('sunCalculator', function (e) {
     if (!helixRibbon.isMonochrome) {
+
       helixRibbon.colorBackground = e.detail
       helixRibbon.coloredDivisions = e.detail
-
       controller.currentHour = e.detail ? 'white' : 'black'
-      if (e.detail && (DataInterpolator.temperature > 0.278)) {
-        controller.newCurrentTime = true
-      } else if (e.detail && (DataInterpolator.temperature > 0) &&(DataInterpolator.temperature <= 0.27)) {
-        controller.newCurrentTime = false
+
+      if (e.detail) {
+        if ((DataInterpolator.temperature > 0) &&(DataInterpolator.temperature <= 0.27)) {
+          controller.newCurrentTime = false
+        } else {
+          controller.newCurrentTime = true
+        }
       } else {
         controller.newCurrentTime = false
       }
