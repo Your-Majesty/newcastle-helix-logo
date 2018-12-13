@@ -10,6 +10,7 @@ class HelixLogoUIButtons {
     this.sensorsUnits = []
     this.xmasSensorNames = []
     this.xmasSensorUnits = []
+    this.currentTimelineIndex = 0
     this.isXmas = false
   }
 
@@ -42,6 +43,9 @@ class HelixLogoUIButtons {
     this.buttonCollection.forEach((button, index) => {
       button.querySelector('p').innerHTML = this.xmasSensorNames[index]
       button.querySelector('.units').innerHTML = this.xmasSensorUnits[index]
+      if (button.classList.contains('wind')) {
+        button.querySelector('.value').innerHTML = Math.ceil(DataCollector.collection[this.currentTimelineIndex]['wind'] * 100)
+      }
     })
   }
 
@@ -50,6 +54,10 @@ class HelixLogoUIButtons {
     this.buttonCollection.forEach((button, index) => {
       button.querySelector('p').innerHTML = this.sensorsNames[index]
       button.querySelector('.units').innerHTML = this.sensorsUnits[index]
+
+      if (button.classList.contains('wind')) {
+        button.querySelector('.value').innerHTML = DataCollector.collection[this.currentTimelineIndex]['wind']
+      }
     })
   }
 
@@ -94,14 +102,11 @@ class HelixLogoUIButtons {
   }
 
   mapButtonsSliderValues(currentSensor) {
-
-
-      this.currentButton.querySelector('button .value').innerHTML = currentSensor.value
-    
-    
+    this.currentButton.querySelector('button .value').innerHTML = this.isXmas && (currentSensor.name == 'wind') ? Math.ceil(currentSensor.value * 100) : currentSensor.value
   }
 
   mapButtonsValues(timelineIndex) {
+    this.currentTimelineIndex = timelineIndex
     DataInterpolator.sensors.forEach((sensor, index) => {
       if (DataCollector.collection[timelineIndex][sensor.id] > 0) {
         this.buttonCollection[index].querySelector('button .value').innerHTML = this.isXmas && (sensor.name == 'wind') ? Math.ceil(DataCollector.collection[timelineIndex][sensor.id] * 100) : DataCollector.collection[timelineIndex][sensor.id]
